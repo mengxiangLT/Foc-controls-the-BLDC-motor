@@ -9,8 +9,8 @@
 //#define AS5600_ADDR 0x36
 
 /* AS5600 ????? */
-#define AS5600_RAW_ANGLE_H 0x0C
-#define AS5600_RAW_ANGLE_L 0x0D
+//#define AS5600_RAW_ANGLE_H 0x0C
+//#define AS5600_RAW_ANGLE_L 0x0D
 //#define AS5600_ANGLE_H      0x0E
 //#define AS5600_ANGLE_L      0x0F
 //#define AS5600_STATUS       0x0B

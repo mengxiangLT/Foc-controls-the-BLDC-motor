@@ -157,13 +157,13 @@ void as5600_i2c_init(void)
 
 uint16_t as5600_read_raw_angle(void)
 {
-    return as5600_read_reg16(AS5600_ANGLE_H);
+    return as5600_read_reg16(AS5600_RAW_ANGLE_H);
 }
 
-float as5600_read_angle_degree(void)
+uint16_t as5600_read_angle_degree(void)
 {
     uint16_t raw = as5600_read_raw_angle();
-	  return (float)raw;
+	  return raw;
 //    return (float)raw * 360.0f / 4096.0f;
 }
 

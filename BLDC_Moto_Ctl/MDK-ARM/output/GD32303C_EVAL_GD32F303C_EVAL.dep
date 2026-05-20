@@ -1,6 +1,6 @@
 Dependencies for Project 'GD32303C_EVAL', Target 'GD32F303C_EVAL': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
-F (..\main.c)(0x6A0C5FAD)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\main.o --omf_browse .\output\main.crf --depend .\output\main.d)
+F (..\main.c)(0x6A0D77E3)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\main.o --omf_browse .\output\main.crf --depend .\output\main.d)
 I (..\includes.h)(0x6A0C100D)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include\gd32f30x.h)(0x68A41A2F)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\core_cm4.h)(0x68A41A2F)
@@ -44,12 +44,12 @@ I (..\FOR\Sensor.h)(0x6A0AB4AB)
 I (..\FOR\foc_utils.h)(0x6A0C2BDE)
 I (F:\software\keil5\keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (F:\software\keil5\keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-I (..\foc_deng.h)(0x6A0C2FA6)
-I (..\as5600_deng.h)(0x6A0C2C56)
+I (..\foc_deng.h)(0x6A0D4ABC)
+I (..\as5600_deng.h)(0x6A0D6041)
 I (..\lowpass_filter.h)(0x6A0C5E88)
 I (..\pid.h)(0x6A0C1CDD)
-I (..\as5600_i2c.h)(0x6A0C07FD)
-F (..\gd32f30x_it.c)(0x6A0C0DD6)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\gd32f30x_it.o --omf_browse .\output\gd32f30x_it.crf --depend .\output\gd32f30x_it.d)
+I (..\as5600_i2c.h)(0x6A0D60D0)
+F (..\gd32f30x_it.c)(0x6A0D2370)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\gd32f30x_it.o --omf_browse .\output\gd32f30x_it.crf --depend .\output\gd32f30x_it.d)
 I (..\gd32f30x_it.h)(0x68A41A12)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include\gd32f30x.h)(0x68A41A2F)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\core_cm4.h)(0x68A41A2F)
@@ -83,7 +83,7 @@ I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x
 I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_misc.h)(0x68A41A2F)
 I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_exmc.h)(0x68A41A2F)
 I (..\systick.h)(0x6A06C563)
-F (..\systick.c)(0x6A0C32B1)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\systick.o --omf_browse .\output\systick.crf --depend .\output\systick.d)
+F (..\systick.c)(0x6A0D1ECA)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\systick.o --omf_browse .\output\systick.crf --depend .\output\systick.d)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include\gd32f30x.h)(0x68A41A2F)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\core_cm4.h)(0x68A41A2F)
 I (F:\software\keil5\keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
@@ -160,7 +160,7 @@ I (..\FOR\Sensor.h)(0x6A0AB4AB)
 I (..\FOR\foc_utils.h)(0x6A0C2BDE)
 I (F:\software\keil5\keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (F:\software\keil5\keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-F (..\timer.c)(0x6A0C1264)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\timer.o --omf_browse .\output\timer.crf --depend .\output\timer.d)
+F (..\timer.c)(0x6A0D5604)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\timer.o --omf_browse .\output\timer.crf --depend .\output\timer.d)
 I (..\includes.h)(0x6A0C100D)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include\gd32f30x.h)(0x68A41A2F)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\core_cm4.h)(0x68A41A2F)
@@ -248,7 +248,8 @@ I (..\FOR\Sensor.h)(0x6A0AB4AB)
 I (..\FOR\foc_utils.h)(0x6A0C2BDE)
 I (F:\software\keil5\keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (F:\software\keil5\keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-F (..\i2c.c)(0x6A0C4F0F)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\i2c.o --omf_browse .\output\i2c.crf --depend .\output\i2c.d)
+F (..\as5600_i2c.c)(0x6A0D60D3)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\as5600_i2c.o --omf_browse .\output\as5600_i2c.crf --depend .\output\as5600_i2c.d)
+I (..\as5600_i2c.h)(0x6A0D60D0)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include\gd32f30x.h)(0x68A41A2F)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\core_cm4.h)(0x68A41A2F)
 I (F:\software\keil5\keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
@@ -280,44 +281,9 @@ I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x
 I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_wwdgt.h)(0x68A41A2F)
 I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_misc.h)(0x68A41A2F)
 I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_exmc.h)(0x68A41A2F)
-I (..\i2c.h)(0x6A06FEB1)
-I (F:\software\keil5\keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-F (..\as5600_i2c.c)(0x6A0C5048)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\as5600_i2c.o --omf_browse .\output\as5600_i2c.crf --depend .\output\as5600_i2c.d)
-I (..\as5600_i2c.h)(0x6A0C07FD)
-I (..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include\gd32f30x.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\CMSIS\core_cm4.h)(0x68A41A2F)
-I (F:\software\keil5\keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
-I (..\..\GD32F30x_Firmware_Library\CMSIS\core_cmInstr.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\CMSIS\core_cmFunc.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\CMSIS\core_cm4_simd.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include\system_gd32f30x.h)(0x68A41A2F)
-I (..\gd32f30x_libopt.h)(0x68A41A12)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_rcu.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_adc.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_can.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_crc.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_ctc.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_dac.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_dbg.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_dma.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_exti.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_fmc.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_fwdgt.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_gpio.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_i2c.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_pmu.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_bkp.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_rtc.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_sdio.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_spi.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_timer.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_usart.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_wwdgt.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_misc.h)(0x68A41A2F)
-I (..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include\gd32f30x_exmc.h)(0x68A41A2F)
-F (..\foc_deng.c)(0x6A0C5E9F)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\foc_deng.o --omf_browse .\output\foc_deng.crf --depend .\output\foc_deng.d)
-I (..\foc_deng.h)(0x6A0C2FA6)
-I (..\as5600_deng.h)(0x6A0C2C56)
+F (..\foc_deng.c)(0x6A0D7432)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\foc_deng.o --omf_browse .\output\foc_deng.crf --depend .\output\foc_deng.d)
+I (..\foc_deng.h)(0x6A0D4ABC)
+I (..\as5600_deng.h)(0x6A0D6041)
 I (F:\software\keil5\keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
 I (..\lowpass_filter.h)(0x6A0C5E88)
 I (..\includes.h)(0x6A0C100D)
@@ -409,7 +375,7 @@ I (..\FOR\Sensor.h)(0x6A0AB4AB)
 I (..\FOR\foc_utils.h)(0x6A0C2BDE)
 I (F:\software\keil5\keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (F:\software\keil5\keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-F (..\pid.c)(0x6A0C27F9)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\pid.o --omf_browse .\output\pid.crf --depend .\output\pid.d)
+F (..\pid.c)(0x6A0D2BF7)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\pid.o --omf_browse .\output\pid.crf --depend .\output\pid.d)
 I (..\pid.h)(0x6A0C1CDD)
 I (..\includes.h)(0x6A0C100D)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include\gd32f30x.h)(0x68A41A2F)
@@ -454,10 +420,10 @@ I (..\FOR\Sensor.h)(0x6A0AB4AB)
 I (..\FOR\foc_utils.h)(0x6A0C2BDE)
 I (F:\software\keil5\keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (F:\software\keil5\keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-F (..\as5600_deng.c)(0x6A0C5066)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\as5600_deng.o --omf_browse .\output\as5600_deng.crf --depend .\output\as5600_deng.d)
-I (..\as5600_deng.h)(0x6A0C2C56)
+F (..\as5600_deng.c)(0x6A0D7059)(-c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\..\GD32F30x_Firmware_Library\CMSIS -I ..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include -I ..\..\GD32F30x_Firmware_Library\GD32F30x_standard_peripheral\Include -I ..\..\Utilities -I ..\ -I ..\FOR-I.\RTE\_GD32F303C_EVAL-IF:\software\keil5\package\ARM\CMSIS\6.3.0\CMSIS\Core\Include-IF:\software\keil5\package\GigaDevice\GD32F30x_DFP\2.6.0\Device\Include-D__UVISION_VERSION="543" -DGD32F30X_HD -D_RTE_ -DUSE_STDPERIPH_DRIVER -DGD32F30X_HD-o .\output\as5600_deng.o --omf_browse .\output\as5600_deng.crf --depend .\output\as5600_deng.d)
+I (..\as5600_deng.h)(0x6A0D6041)
 I (F:\software\keil5\keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
-I (..\as5600_i2c.h)(0x6A0C07FD)
+I (..\as5600_i2c.h)(0x6A0D60D0)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\GD\GD32F30x\Include\gd32f30x.h)(0x68A41A2F)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\core_cm4.h)(0x68A41A2F)
 I (..\..\GD32F30x_Firmware_Library\CMSIS\core_cmInstr.h)(0x68A41A2F)

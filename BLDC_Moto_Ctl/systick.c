@@ -36,7 +36,8 @@ OF SUCH DAMAGE.
 #include "systick.h"
 
 volatile static uint32_t delay;
-uint32_t sysTickUptime;
+/* sysTickUptime 在 SysTick_Handler 中累加 */
+volatile uint32_t sysTickUptime;
 
 /*!
     \brief      configure systick
@@ -47,7 +48,7 @@ uint32_t sysTickUptime;
 void systick_config(void)
 {
     /* setup systick timer for 1000Hz interrupts */
-    if (SysTick_Config(SystemCoreClock / 100000U)){
+    if (SysTick_Config(SystemCoreClock / 1000U)){
         /* capture error */
         while(1){
         }
@@ -64,7 +65,7 @@ void systick_config(void)
 */
 void delay_1ms(uint32_t count)
 {
-    delay = 100 * count;
+    delay = count;
 
     while(0U != delay){
     }
@@ -85,12 +86,15 @@ void delay_decrement(void)
 
 uint32_t _micros(void)
 {
-	uint32_t  ms,cycle_cnt;
+	uint32_t  ms,cycle_cnt,us;
 	
 	do{
 		ms = sysTickUptime;
 		cycle_cnt = SysTick->VAL;
 	} while (ms != sysTickUptime);
-	
-	return (ms * 1000) + (72000 - cycle_cnt) / 72;
+	/* 计算微秒：毫秒部分 + 当前计数转换的微秒部分 */
+  /* 72MHz 时：计数差值 / 72 = 微秒，但需要浮点或定点运算 */
+	us = ms * 1000;
+	us += (uint32_t)(((uint64_t)(72000 - cycle_cnt) * 1000) / 72000);  /* 先乘1000再除，避免精度丢失 */ 
+	return us;
 }

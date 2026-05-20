@@ -60,20 +60,20 @@ int main(void)
 //	  i2c_gpio_config();
 //    i2c_config();
 	  as5600_i2c_init();
-	  delay_1ms(500);
+	  delay_1ms(200);
     if(as5600_check_magnet()) {
         /* ??????,???? */
     }
-//	  Moto0_V_Enable();
-//	  Moto0_W_Enable();
     /* configure the TIMER peripheral */
     timer_config();
     while(RESET == usart_flag_get(EVAL_COM1, USART_FLAG_TC)){
     }
-		DFOC_M0_SET_VEL_PID(0.005,0.00,0,0);
+		DFOC_M0_SET_VEL_PID(0.01,0.1,0,0);
+//		DFOC_M0_SET_ANGLE_PID(0.5,0,0,0);
 		DFOC_Vbus(12);
     while (1){
-	    DFOC_M0_setVelocity(500);
+//			DFOC_M0_set_Force_Angle(2);
+	    DFOC_M0_setVelocity(1000);
 //			printf("\r\n as5600 test! \r\n");
 //        /* delay a time in milliseconds */
 //        delay_1ms(40);
@@ -97,46 +97,6 @@ int main(void)
 //        timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_2,i);
 //				timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_3,i);
 //        velocityOpenloop(5);
-    }
-}
-#endif
-
-#if 0
-int main(void)
-{
-    /* ??????? (????????) */
-    /* system_clock_config(); */
-    /* configure systick */
-    systick_config();
-    /* ??????? */
-    bldc_motor_init();
-    /* configure EVAL_COM1 */
-    gd_eval_com_init(EVAL_COM1);
-    /* ??:?? AS5600 ???? */
-    if(as5600_check_magnet()) {
-        /* ??????,???? */
-    }
-		/* output a message on hyperterminal using printf function */
-    printf("\r\n USART printf example: please press the Tamper key \r\n");
-    while(RESET == usart_flag_get(EVAL_COM1, USART_FLAG_TC)){
-    }
-    while(1) {
-        /* ??1: ???? (????,??? PWM ?????) */
-        bldc_run(500);  /* 50% ??? */
-        delay_ms(10);   /* ?????? */
-        printf("as5600 test");
-        /* ??2: ??????
-        bldc_run_speed(300.0f);  // ???? 300 RPM
-        delay_ms(10);
-        */
-        
-        /* ??3: ??????
-        static uint16_t target = 0;
-        bldc_run_position(target);
-        target += 10;
-        if(target >= 4096) target = 0;
-        delay_ms(10);
-        */
     }
 }
 #endif

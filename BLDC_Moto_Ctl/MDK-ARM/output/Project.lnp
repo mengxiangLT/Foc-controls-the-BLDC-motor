@@ -5,7 +5,6 @@
 ".\output\gpio.o"
 ".\output\timer.o"
 ".\output\foc.o"
-".\output\i2c.o"
 ".\output\as5600_i2c.o"
 ".\output\foc_deng.o"
 ".\output\lowpass_filter.o"

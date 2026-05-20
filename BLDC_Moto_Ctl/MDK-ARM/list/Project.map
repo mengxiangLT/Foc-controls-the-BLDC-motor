@@ -17,6 +17,8 @@ Section Cross References
     main.o(i.main) refers to foc_deng.o(i.DFOC_Vbus) for DFOC_Vbus
     main.o(i.main) refers to foc_deng.o(i.DFOC_M0_setVelocity) for DFOC_M0_setVelocity
     gd32f30x_it.o(i.SysTick_Handler) refers to systick.o(i.delay_decrement) for delay_decrement
+    gd32f30x_it.o(i.SysTick_Handler) refers to systick.o(.data) for sysTickUptime
+    systick.o(i._micros) refers to uldiv.o(.text) for __aeabi_uldivmod
     systick.o(i._micros) refers to systick.o(.data) for sysTickUptime
     systick.o(i.delay_1ms) refers to systick.o(.data) for delay
     systick.o(i.delay_decrement) refers to systick.o(.data) for delay
@@ -148,13 +150,6 @@ Section Cross References
     foc.o(i.velocityOpenloop) refers to foc.o(i._electricalAngle) for _electricalAngle
     foc.o(i.velocityOpenloop) refers to foc.o(i.setPhaseVoltage) for setPhaseVoltage
     foc.o(i.velocityOpenloop) refers to foc.o(.data) for open_loop_timestamp
-    i2c.o(i.i2c_config) refers to gd32f30x_rcu.o(i.rcu_periph_clock_enable) for rcu_periph_clock_enable
-    i2c.o(i.i2c_config) refers to gd32f30x_i2c.o(i.i2c_clock_config) for i2c_clock_config
-    i2c.o(i.i2c_config) refers to gd32f30x_i2c.o(i.i2c_mode_addr_config) for i2c_mode_addr_config
-    i2c.o(i.i2c_config) refers to gd32f30x_i2c.o(i.i2c_enable) for i2c_enable
-    i2c.o(i.i2c_config) refers to gd32f30x_i2c.o(i.i2c_ack_config) for i2c_ack_config
-    i2c.o(i.i2c_gpio_config) refers to gd32f30x_rcu.o(i.rcu_periph_clock_enable) for rcu_periph_clock_enable
-    i2c.o(i.i2c_gpio_config) refers to gd32f30x_gpio.o(i.gpio_init) for gpio_init
     as5600_i2c.o(i.as5600_check_magnet) refers to as5600_i2c.o(i.as5600_read_status) for as5600_read_status
     as5600_i2c.o(i.as5600_i2c_init) refers to gd32f30x_rcu.o(i.rcu_periph_clock_enable) for rcu_periph_clock_enable
     as5600_i2c.o(i.as5600_i2c_init) refers to gd32f30x_gpio.o(i.gpio_init) for gpio_init
@@ -187,7 +182,7 @@ Section Cross References
     foc_deng.o(i.DFOC_M0_ANGLE_PID) refers to foc_deng.o(.bss) for angle_loop_M0
     foc_deng.o(i.DFOC_M0_Angle) refers to as5600_deng.o(i.Sensor_AS5600_GetAngle) for Sensor_AS5600_GetAngle
     foc_deng.o(i.DFOC_M0_Angle) refers to foc_deng.o(.bss) for S0
-    foc_deng.o(i.DFOC_M0_Angle) refers to foc_deng.o(.data) for DIR
+    foc_deng.o(i.DFOC_M0_Angle) refers to foc_deng.o(.data) for Sensor_DIR
     foc_deng.o(i.DFOC_M0_SET_ANGLE_PID) refers to foc_deng.o(.bss) for angle_loop_M0
     foc_deng.o(i.DFOC_M0_SET_VEL_PID) refers to foc_deng.o(.bss) for vel_loop_M0
     foc_deng.o(i.DFOC_M0_VEL_PID) refers to pid.o(i.PIDController_Update) for PIDController_Update
@@ -195,7 +190,7 @@ Section Cross References
     foc_deng.o(i.DFOC_M0_Velocity) refers to as5600_deng.o(i.Sensor_AS5600_GetVelocity) for Sensor_AS5600_GetVelocity
     foc_deng.o(i.DFOC_M0_Velocity) refers to lowpass_filter.o(i.LowPassFilter_Update) for LowPassFilter_Update
     foc_deng.o(i.DFOC_M0_Velocity) refers to foc_deng.o(.bss) for S0
-    foc_deng.o(i.DFOC_M0_Velocity) refers to foc_deng.o(.data) for DIR
+    foc_deng.o(i.DFOC_M0_Velocity) refers to foc_deng.o(.data) for Sensor_DIR
     foc_deng.o(i.DFOC_M0_setTorque) refers to foc_deng.o(i._electricalAngle_speed) for _electricalAngle_speed
     foc_deng.o(i.DFOC_M0_setTorque) refers to foc_deng.o(i.setTorque) for setTorque
     foc_deng.o(i.DFOC_M0_setVelocity) refers to foc_deng.o(i.DFOC_M0_Velocity) for DFOC_M0_Velocity
@@ -212,20 +207,22 @@ Section Cross References
     foc_deng.o(i.DFOC_M0_set_Velocity_Angle) refers to foc_deng.o(i.DFOC_M0_VEL_PID) for DFOC_M0_VEL_PID
     foc_deng.o(i.DFOC_M0_set_Velocity_Angle) refers to foc_deng.o(i._electricalAngle_speed) for _electricalAngle_speed
     foc_deng.o(i.DFOC_M0_set_Velocity_Angle) refers to foc_deng.o(i.setTorque) for setTorque
+    foc_deng.o(i.DFOC_Vbus) refers to as5600_deng.o(i.Sensor_AS5600_Init) for Sensor_AS5600_Init
+    foc_deng.o(i.DFOC_Vbus) refers to as5600_deng.o(i.Sensor_AS5600_SensorInit) for Sensor_AS5600_SensorInit
     foc_deng.o(i.DFOC_Vbus) refers to pid.o(i.PIDController_Init) for PIDController_Init
     foc_deng.o(i.DFOC_Vbus) refers to lowpass_filter.o(i.LowPassFilter_Init) for LowPassFilter_Init
     foc_deng.o(i.DFOC_Vbus) refers to foc_deng.o(.data) for voltage_power_supply_speed
-    foc_deng.o(i.DFOC_Vbus) refers to foc_deng.o(.bss) for vel_loop_M0
+    foc_deng.o(i.DFOC_Vbus) refers to foc_deng.o(.bss) for S0
     foc_deng.o(i.DFOC_alignSensor) refers to foc_deng.o(i.setTorque) for setTorque
     foc_deng.o(i.DFOC_alignSensor) refers to systick.o(i.delay_1ms) for delay_1ms
     foc_deng.o(i.DFOC_alignSensor) refers to as5600_deng.o(i.Sensor_AS5600_Update) for Sensor_AS5600_Update
     foc_deng.o(i.DFOC_alignSensor) refers to foc_deng.o(i._electricalAngle_speed) for _electricalAngle_speed
-    foc_deng.o(i.DFOC_alignSensor) refers to foc_deng.o(.data) for PP
+    foc_deng.o(i.DFOC_alignSensor) refers to foc_deng.o(.data) for Motor_PP
     foc_deng.o(i.DFOC_alignSensor) refers to foc_deng.o(.bss) for S0
     foc_deng.o(i._electricalAngle_speed) refers to as5600_deng.o(i.Sensor_AS5600_GetMechanicalAngle) for Sensor_AS5600_GetMechanicalAngle
     foc_deng.o(i._electricalAngle_speed) refers to foc_deng.o(i._normalizeAngle_speed) for _normalizeAngle_speed
     foc_deng.o(i._electricalAngle_speed) refers to foc_deng.o(.bss) for S0
-    foc_deng.o(i._electricalAngle_speed) refers to foc_deng.o(.data) for DIR
+    foc_deng.o(i._electricalAngle_speed) refers to foc_deng.o(.data) for Sensor_DIR
     foc_deng.o(i._normalizeAngle_speed) refers to fmodf.o(i.__hardfp_fmodf) for __hardfp_fmodf
     foc_deng.o(i.setPwm_speed) refers to timer.o(i.Moto1_U_Set_Val) for Moto1_U_Set_Val
     foc_deng.o(i.setPwm_speed) refers to timer.o(i.Moto1_V_Set_Val) for Moto1_V_Set_Val
@@ -241,7 +238,7 @@ Section Cross References
     foc_deng.o(i.setTorque) refers to foc_deng.o(.data) for voltage_power_supply_speed
     pid.o(i.PIDController_Init) refers to systick.o(i._micros) for _micros
     pid.o(i.PIDController_Update) refers to systick.o(i._micros) for _micros
-    as5600_deng.o(i.Sensor_AS5600_GetSensorAngle) refers to as5600_deng.o(i.read_raw_angle) for read_raw_angle
+    as5600_deng.o(i.Sensor_AS5600_GetSensorAngle) refers to as5600_i2c.o(i.as5600_read_angle_degree) for as5600_read_angle_degree
     as5600_deng.o(i.Sensor_AS5600_GetSensorAngle) refers to f2d.o(.text) for __aeabi_f2d
     as5600_deng.o(i.Sensor_AS5600_SensorInit) refers to as5600_deng.o(i.Sensor_AS5600_GetSensorAngle) for Sensor_AS5600_GetSensorAngle
     as5600_deng.o(i.Sensor_AS5600_SensorInit) refers to d2f.o(.text) for __aeabi_d2f
@@ -249,8 +246,6 @@ Section Cross References
     as5600_deng.o(i.Sensor_AS5600_Update) refers to as5600_deng.o(i.Sensor_AS5600_GetSensorAngle) for Sensor_AS5600_GetSensorAngle
     as5600_deng.o(i.Sensor_AS5600_Update) refers to d2f.o(.text) for __aeabi_d2f
     as5600_deng.o(i.Sensor_AS5600_Update) refers to systick.o(i._micros) for _micros
-    as5600_deng.o(i.read_raw_angle) refers to as5600_i2c.o(i.as5600_read_angle_degree) for as5600_read_angle_degree
-    as5600_deng.o(i.read_raw_angle) refers to powf.o(i.__hardfp_powf) for __hardfp_powf
     system_gd32f30x.o(i.SystemCoreClockUpdate) refers to system_gd32f30x.o(.data) for SystemCoreClock
     system_gd32f30x.o(i.SystemInit) refers to system_gd32f30x.o(i._soft_delay_) for _soft_delay_
     system_gd32f30x.o(i.SystemInit) refers to system_gd32f30x.o(i.system_clock_config) for system_clock_config
@@ -459,31 +454,6 @@ Section Cross References
     fmodf_x.o(i.____softfp_fmodf$lsc) refers to fmodf_x.o(i.____hardfp_fmodf$lsc) for ____hardfp_fmodf$lsc
     fmodf_x.o(i.__fmodf$lsc) refers (Special) to iusefp.o(.text) for __I$use$fp
     fmodf_x.o(i.__fmodf$lsc) refers to fmodf_x.o(i.____hardfp_fmodf$lsc) for ____hardfp_fmodf$lsc
-    powf.o(i.__hardfp_powf) refers (Special) to iusefp.o(.text) for __I$use$fp
-    powf.o(i.__hardfp_powf) refers to fpstat.o(.text) for __ieee_status
-    powf.o(i.__hardfp_powf) refers to errno.o(i.__set_errno) for __set_errno
-    powf.o(i.__hardfp_powf) refers to funder.o(i.__mathlib_flt_overflow) for __mathlib_flt_overflow
-    powf.o(i.__hardfp_powf) refers to fpclassifyf.o(i.__ARM_fpclassifyf) for __ARM_fpclassifyf
-    powf.o(i.__hardfp_powf) refers to funder.o(i.__mathlib_flt_underflow) for __mathlib_flt_underflow
-    powf.o(i.__hardfp_powf) refers to funder.o(i.__mathlib_flt_invalid) for __mathlib_flt_invalid
-    powf.o(i.__hardfp_powf) refers to powf.o(.constdata) for .constdata
-    powf.o(i.__hardfp_powf) refers to funder.o(i.__mathlib_flt_infnan2) for __mathlib_flt_infnan2
-    powf.o(i.__hardfp_powf) refers to funder.o(i.__mathlib_flt_divzero) for __mathlib_flt_divzero
-    powf.o(i.__softfp_powf) refers (Special) to iusefp.o(.text) for __I$use$fp
-    powf.o(i.__softfp_powf) refers to powf.o(i.__hardfp_powf) for __hardfp_powf
-    powf.o(i.powf) refers (Special) to iusefp.o(.text) for __I$use$fp
-    powf.o(i.powf) refers to powf.o(i.__hardfp_powf) for __hardfp_powf
-    powf.o(.constdata) refers (Special) to iusefp.o(.text) for __I$use$fp
-    powf_x.o(i.____hardfp_powf$lsc) refers (Special) to iusefp.o(.text) for __I$use$fp
-    powf_x.o(i.____hardfp_powf$lsc) refers to fpstat.o(.text) for __ieee_status
-    powf_x.o(i.____hardfp_powf$lsc) refers to errno.o(i.__set_errno) for __set_errno
-    powf_x.o(i.____hardfp_powf$lsc) refers to powf_x.o(.constdata) for .constdata
-    powf_x.o(i.____hardfp_powf$lsc) refers to funder.o(i.__mathlib_flt_infnan2) for __mathlib_flt_infnan2
-    powf_x.o(i.____softfp_powf$lsc) refers (Special) to iusefp.o(.text) for __I$use$fp
-    powf_x.o(i.____softfp_powf$lsc) refers to powf_x.o(i.____hardfp_powf$lsc) for ____hardfp_powf$lsc
-    powf_x.o(i.__powf$lsc) refers (Special) to iusefp.o(.text) for __I$use$fp
-    powf_x.o(i.__powf$lsc) refers to powf_x.o(i.____hardfp_powf$lsc) for ____hardfp_powf$lsc
-    powf_x.o(.constdata) refers (Special) to iusefp.o(.text) for __I$use$fp
     sin.o(i.__hardfp_sin) refers (Special) to iusefp.o(.text) for __I$use$fp
     sin.o(i.__hardfp_sin) refers to errno.o(i.__set_errno) for __set_errno
     sin.o(i.__hardfp_sin) refers to dunder.o(i.__mathlib_dbl_invalid) for __mathlib_dbl_invalid
@@ -565,6 +535,8 @@ Section Cross References
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry9a.o(.ARM.Collect$$$$0000000B) for _main_init
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry5.o(.ARM.Collect$$$$00000004) for _main_scatterload
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
+    uldiv.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    uldiv.o(.text) refers to llshl.o(.text) for __aeabi_llsl
     dadd.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
     dadd.o(.text) refers to llshl.o(.text) for __aeabi_llsl
     dadd.o(.text) refers to llsshr.o(.text) for __aeabi_lasr
@@ -695,10 +667,6 @@ Removing Unused input sections from the image.
     Removing foc.o(i.setPwm), (348 bytes).
     Removing foc.o(i.velocityOpenloop), (192 bytes).
     Removing foc.o(.data), (48 bytes).
-    Removing i2c.o(.rev16_text), (4 bytes).
-    Removing i2c.o(.revsh_text), (4 bytes).
-    Removing i2c.o(i.i2c_config), (60 bytes).
-    Removing i2c.o(i.i2c_gpio_config), (36 bytes).
     Removing as5600_i2c.o(.rev16_text), (4 bytes).
     Removing as5600_i2c.o(.revsh_text), (4 bytes).
     Removing foc_deng.o(.rev16_text), (4 bytes).
@@ -717,8 +685,6 @@ Removing Unused input sections from the image.
     Removing as5600_deng.o(.rev16_text), (4 bytes).
     Removing as5600_deng.o(.revsh_text), (4 bytes).
     Removing as5600_deng.o(i.Sensor_AS5600_GetAngle), (28 bytes).
-    Removing as5600_deng.o(i.Sensor_AS5600_Init), (36 bytes).
-    Removing as5600_deng.o(i.Sensor_AS5600_SensorInit), (86 bytes).
     Removing system_gd32f30x.o(.rev16_text), (4 bytes).
     Removing system_gd32f30x.o(.revsh_text), (4 bytes).
     Removing system_gd32f30x.o(i.SystemCoreClockUpdate), (316 bytes).
@@ -1353,7 +1319,7 @@ Removing Unused input sections from the image.
     Removing dfltui.o(.text), (26 bytes).
     Removing dfixi.o(.text), (62 bytes).
 
-701 unused section(s) (total 27474 bytes) removed from the image.
+695 unused section(s) (total 27248 bytes) removed from the image.
 
 ==============================================================================
 
@@ -1363,25 +1329,26 @@ Image Symbol Table
 
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
+    ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
     ../clib/microlib/errno.c                 0x00000000   Number         0  errno.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry12b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry12a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../fplib/microlib/d2f.c                  0x00000000   Number         0  d2f.o ABSOLUTE
     ../fplib/microlib/f2d.c                  0x00000000   Number         0  f2d.o ABSOLUTE
@@ -1394,10 +1361,9 @@ Image Symbol Table
     ../fplib/microlib/fpflt.c                0x00000000   Number         0  dfltui.o ABSOLUTE
     ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
     ../fplib/microlib/fpneg.c                0x00000000   Number         0  dneg.o ABSOLUTE
-    ../fplib/microlib/fprem.c                0x00000000   Number         0  drem.o ABSOLUTE
     ../fplib/microlib/fprem.c                0x00000000   Number         0  frem.o ABSOLUTE
+    ../fplib/microlib/fprem.c                0x00000000   Number         0  drem.o ABSOLUTE
     ../fplib/microlib/fpsqrt.c               0x00000000   Number         0  dsqrt.o ABSOLUTE
-    ../fplib/microlib/fpstat.c               0x00000000   Number         0  fpstat.o ABSOLUTE
     ../mathlib/cos.c                         0x00000000   Number         0  cos_x.o ABSOLUTE
     ../mathlib/cos.c                         0x00000000   Number         0  cos.o ABSOLUTE
     ../mathlib/cos_i.c                       0x00000000   Number         0  cos_i.o ABSOLUTE
@@ -1405,24 +1371,22 @@ Image Symbol Table
     ../mathlib/cosf.c                        0x00000000   Number         0  cosf.o ABSOLUTE
     ../mathlib/dunder.c                      0x00000000   Number         0  dunder.o ABSOLUTE
     ../mathlib/fabs.c                        0x00000000   Number         0  fabs.o ABSOLUTE
-    ../mathlib/fmod.c                        0x00000000   Number         0  fmod.o ABSOLUTE
     ../mathlib/fmod.c                        0x00000000   Number         0  fmod_x.o ABSOLUTE
-    ../mathlib/fmodf.c                       0x00000000   Number         0  fmodf.o ABSOLUTE
+    ../mathlib/fmod.c                        0x00000000   Number         0  fmod.o ABSOLUTE
     ../mathlib/fmodf.c                       0x00000000   Number         0  fmodf_x.o ABSOLUTE
+    ../mathlib/fmodf.c                       0x00000000   Number         0  fmodf.o ABSOLUTE
     ../mathlib/fpclassify.c                  0x00000000   Number         0  fpclassify.o ABSOLUTE
     ../mathlib/fpclassifyf.c                 0x00000000   Number         0  fpclassifyf.o ABSOLUTE
     ../mathlib/funder.c                      0x00000000   Number         0  funder.o ABSOLUTE
     ../mathlib/poly.c                        0x00000000   Number         0  poly.o ABSOLUTE
-    ../mathlib/powf.c                        0x00000000   Number         0  powf.o ABSOLUTE
-    ../mathlib/powf.c                        0x00000000   Number         0  powf_x.o ABSOLUTE
     ../mathlib/rred.c                        0x00000000   Number         0  rred.o ABSOLUTE
     ../mathlib/rredf.c                       0x00000000   Number         0  rredf.o ABSOLUTE
     ../mathlib/sin.c                         0x00000000   Number         0  sin_x.o ABSOLUTE
     ../mathlib/sin.c                         0x00000000   Number         0  sin.o ABSOLUTE
-    ../mathlib/sin_i.c                       0x00000000   Number         0  sin_i_x.o ABSOLUTE
     ../mathlib/sin_i.c                       0x00000000   Number         0  sin_i.o ABSOLUTE
-    ../mathlib/sinf.c                        0x00000000   Number         0  sinf.o ABSOLUTE
+    ../mathlib/sin_i.c                       0x00000000   Number         0  sin_i_x.o ABSOLUTE
     ../mathlib/sinf.c                        0x00000000   Number         0  sinf_x.o ABSOLUTE
+    ../mathlib/sinf.c                        0x00000000   Number         0  sinf.o ABSOLUTE
     ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt_x.o ABSOLUTE
     ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt.o ABSOLUTE
     ../mathlib/sqrtf.c                       0x00000000   Number         0  sqrtf_x.o ABSOLUTE
@@ -1486,7 +1450,6 @@ Image Symbol Table
     ..\\foc_deng.c                           0x00000000   Number         0  foc_deng.o ABSOLUTE
     ..\\gd32f30x_it.c                        0x00000000   Number         0  gd32f30x_it.o ABSOLUTE
     ..\\gpio.c                               0x00000000   Number         0  gpio.o ABSOLUTE
-    ..\\i2c.c                                0x00000000   Number         0  i2c.o ABSOLUTE
     ..\\lowpass_filter.c                     0x00000000   Number         0  lowpass_filter.o ABSOLUTE
     ..\\main.c                               0x00000000   Number         0  main.o ABSOLUTE
     ..\\pid.c                                0x00000000   Number         0  pid.o ABSOLUTE
@@ -1498,7 +1461,6 @@ Image Symbol Table
     ..\foc_deng.c                            0x00000000   Number         0  foc_deng.o ABSOLUTE
     ..\gd32f30x_it.c                         0x00000000   Number         0  gd32f30x_it.o ABSOLUTE
     ..\gpio.c                                0x00000000   Number         0  gpio.o ABSOLUTE
-    ..\i2c.c                                 0x00000000   Number         0  i2c.o ABSOLUTE
     ..\lowpass_filter.c                      0x00000000   Number         0  lowpass_filter.o ABSOLUTE
     ..\main.c                                0x00000000   Number         0  main.o ABSOLUTE
     ..\pid.c                                 0x00000000   Number         0  pid.o ABSOLUTE
@@ -1522,156 +1484,149 @@ Image Symbol Table
     __lit__00000000                          0x08000144   Data           4  entry2.o(.ARM.Collect$$$$00002712)
     .text                                    0x08000148   Section       36  startup_gd32f30x_hd.o(.text)
     $v0                                      0x08000148   Number         0  startup_gd32f30x_hd.o(.text)
-    .text                                    0x0800016c   Section        0  f2d.o(.text)
-    .text                                    0x08000192   Section        0  d2f.o(.text)
-    .text                                    0x080001ca   Section        0  iusefp.o(.text)
-    .text                                    0x080001ca   Section        0  fepilogue.o(.text)
-    .text                                    0x08000238   Section        0  frem.o(.text)
-    .text                                    0x0800028a   Section        0  fpstat.o(.text)
-    .text                                    0x08000290   Section       36  init.o(.text)
-    i.BusFault_Handler                       0x080002b4   Section        0  gd32f30x_it.o(i.BusFault_Handler)
-    i.DFOC_M0_SET_VEL_PID                    0x080002b8   Section        0  foc_deng.o(i.DFOC_M0_SET_VEL_PID)
-    i.DFOC_M0_VEL_PID                        0x080002d0   Section        0  foc_deng.o(i.DFOC_M0_VEL_PID)
-    i.DFOC_M0_Velocity                       0x080002f0   Section        0  foc_deng.o(i.DFOC_M0_Velocity)
-    i.DFOC_M0_setVelocity                    0x08000334   Section        0  foc_deng.o(i.DFOC_M0_setVelocity)
-    i.DFOC_Vbus                              0x08000388   Section        0  foc_deng.o(i.DFOC_Vbus)
-    i.DebugMon_Handler                       0x0800042c   Section        0  gd32f30x_it.o(i.DebugMon_Handler)
-    i.HardFault_Handler                      0x0800042e   Section        0  gd32f30x_it.o(i.HardFault_Handler)
-    i.LowPassFilter_Init                     0x08000434   Section        0  lowpass_filter.o(i.LowPassFilter_Init)
-    i.LowPassFilter_Update                   0x08000448   Section        0  lowpass_filter.o(i.LowPassFilter_Update)
-    i.MemManage_Handler                      0x08000472   Section        0  gd32f30x_it.o(i.MemManage_Handler)
-    i.Moto0_U_Enable                         0x08000478   Section        0  timer.o(i.Moto0_U_Enable)
-    i.Moto1_U_Set_Val                        0x08000484   Section        0  timer.o(i.Moto1_U_Set_Val)
-    i.Moto1_V_Set_Val                        0x08000494   Section        0  timer.o(i.Moto1_V_Set_Val)
-    i.Moto1_W_Set_Val                        0x080004a4   Section        0  timer.o(i.Moto1_W_Set_Val)
-    i.NMI_Handler                            0x080004b6   Section        0  gd32f30x_it.o(i.NMI_Handler)
-    i.NVIC_SetPriority                       0x080004b8   Section        0  systick.o(i.NVIC_SetPriority)
-    NVIC_SetPriority                         0x080004b9   Thumb Code    32  systick.o(i.NVIC_SetPriority)
-    i.PIDController_Init                     0x080004e0   Section        0  pid.o(i.PIDController_Init)
-    i.PIDController_Update                   0x08000538   Section        0  pid.o(i.PIDController_Update)
-    i.PendSV_Handler                         0x080006bc   Section        0  gd32f30x_it.o(i.PendSV_Handler)
-    i.SVC_Handler                            0x080006be   Section        0  gd32f30x_it.o(i.SVC_Handler)
-    i.Sensor_AS5600_GetMechanicalAngle       0x080006c0   Section        0  as5600_deng.o(i.Sensor_AS5600_GetMechanicalAngle)
-    i.Sensor_AS5600_GetSensorAngle           0x080006c8   Section        0  as5600_deng.o(i.Sensor_AS5600_GetSensorAngle)
-    i.Sensor_AS5600_GetVelocity              0x08000710   Section        0  as5600_deng.o(i.Sensor_AS5600_GetVelocity)
-    i.Sensor_AS5600_Update                   0x08000780   Section        0  as5600_deng.o(i.Sensor_AS5600_Update)
-    i.SysTick_Handler                        0x080007ec   Section        0  gd32f30x_it.o(i.SysTick_Handler)
-    i.SystemInit                             0x080007f4   Section        0  system_gd32f30x.o(i.SystemInit)
-    i.UsageFault_Handler                     0x0800093c   Section        0  gd32f30x_it.o(i.UsageFault_Handler)
-    i.__ARM_fpclassifyf                      0x08000940   Section        0  fpclassifyf.o(i.__ARM_fpclassifyf)
-    i.__hardfp_cosf                          0x08000968   Section        0  cosf.o(i.__hardfp_cosf)
-    i.__hardfp_fmodf                         0x08000ab8   Section        0  fmodf.o(i.__hardfp_fmodf)
-    i.__hardfp_powf                          0x08000b68   Section        0  powf.o(i.__hardfp_powf)
-    i.__hardfp_sinf                          0x080011cc   Section        0  sinf.o(i.__hardfp_sinf)
-    i.__hardfp_sqrtf                         0x0800135c   Section        0  sqrtf.o(i.__hardfp_sqrtf)
-    i.__mathlib_flt_divzero                  0x08001398   Section        0  funder.o(i.__mathlib_flt_divzero)
-    i.__mathlib_flt_infnan                   0x080013ac   Section        0  funder.o(i.__mathlib_flt_infnan)
-    i.__mathlib_flt_infnan2                  0x080013b2   Section        0  funder.o(i.__mathlib_flt_infnan2)
-    i.__mathlib_flt_invalid                  0x080013b8   Section        0  funder.o(i.__mathlib_flt_invalid)
-    i.__mathlib_flt_overflow                 0x080013c8   Section        0  funder.o(i.__mathlib_flt_overflow)
-    i.__mathlib_flt_underflow                0x080013d8   Section        0  funder.o(i.__mathlib_flt_underflow)
-    i.__mathlib_rredf2                       0x080013e8   Section        0  rredf.o(i.__mathlib_rredf2)
-    i.__scatterload_copy                     0x0800153c   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x0800154a   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x0800154c   Section       14  handlers.o(i.__scatterload_zeroinit)
-    i.__set_errno                            0x0800155c   Section        0  errno.o(i.__set_errno)
-    i._electricalAngle_speed                 0x08001568   Section        0  foc_deng.o(i._electricalAngle_speed)
-    i._micros                                0x080015b4   Section        0  systick.o(i._micros)
-    i._normalizeAngle_speed                  0x080015e8   Section        0  foc_deng.o(i._normalizeAngle_speed)
-    i._soft_delay_                           0x08001624   Section        0  system_gd32f30x.o(i._soft_delay_)
-    _soft_delay_                             0x08001625   Thumb Code    28  system_gd32f30x.o(i._soft_delay_)
-    i.as5600_check_magnet                    0x08001640   Section        0  as5600_i2c.o(i.as5600_check_magnet)
-    i.as5600_i2c_init                        0x08001650   Section        0  as5600_i2c.o(i.as5600_i2c_init)
-    i.as5600_read_angle_degree               0x080016b0   Section        0  as5600_i2c.o(i.as5600_read_angle_degree)
-    i.as5600_read_raw_angle                  0x080016c8   Section        0  as5600_i2c.o(i.as5600_read_raw_angle)
-    i.as5600_read_reg                        0x080016d4   Section        0  as5600_i2c.o(i.as5600_read_reg)
-    as5600_read_reg                          0x080016d5   Thumb Code   246  as5600_i2c.o(i.as5600_read_reg)
-    i.as5600_read_reg16                      0x080017d0   Section        0  as5600_i2c.o(i.as5600_read_reg16)
-    as5600_read_reg16                        0x080017d1   Thumb Code   318  as5600_i2c.o(i.as5600_read_reg16)
-    i.as5600_read_status                     0x08001914   Section        0  as5600_i2c.o(i.as5600_read_status)
-    i.delay_1ms                              0x08001920   Section        0  systick.o(i.delay_1ms)
-    i.delay_decrement                        0x08001938   Section        0  systick.o(i.delay_decrement)
-    i.gd_eval_com_init                       0x08001950   Section        0  gd32f303c_eval.o(i.gd_eval_com_init)
-    i.gpio_config                            0x080019e8   Section        0  gpio.o(i.gpio_config)
-    i.gpio_init                              0x08001a34   Section        0  gd32f30x_gpio.o(i.gpio_init)
-    i.i2c_ack_config                         0x08001af0   Section        0  gd32f30x_i2c.o(i.i2c_ack_config)
-    i.i2c_ackpos_config                      0x08001b00   Section        0  gd32f30x_i2c.o(i.i2c_ackpos_config)
-    i.i2c_clock_config                       0x08001b10   Section        0  gd32f30x_i2c.o(i.i2c_clock_config)
-    i.i2c_data_receive                       0x08001c50   Section        0  gd32f30x_i2c.o(i.i2c_data_receive)
-    i.i2c_data_transmit                      0x08001c58   Section        0  gd32f30x_i2c.o(i.i2c_data_transmit)
-    i.i2c_enable                             0x08001c5e   Section        0  gd32f30x_i2c.o(i.i2c_enable)
-    i.i2c_flag_clear                         0x08001c68   Section        0  gd32f30x_i2c.o(i.i2c_flag_clear)
-    i.i2c_flag_get                           0x08001c90   Section        0  gd32f30x_i2c.o(i.i2c_flag_get)
-    i.i2c_master_addressing                  0x08001cae   Section        0  gd32f30x_i2c.o(i.i2c_master_addressing)
-    i.i2c_mode_addr_config                   0x08001cc2   Section        0  gd32f30x_i2c.o(i.i2c_mode_addr_config)
-    i.i2c_start_on_bus                       0x08001cde   Section        0  gd32f30x_i2c.o(i.i2c_start_on_bus)
-    i.i2c_stop_on_bus                        0x08001ce8   Section        0  gd32f30x_i2c.o(i.i2c_stop_on_bus)
-    i.main                                   0x08001cf4   Section        0  main.o(i.main)
-    i.rcu_clock_freq_get                     0x08001d60   Section        0  gd32f30x_rcu.o(i.rcu_clock_freq_get)
-    i.rcu_periph_clock_enable                0x08001eb8   Section        0  gd32f30x_rcu.o(i.rcu_periph_clock_enable)
-    i.rcu_periph_reset_disable               0x08001ed8   Section        0  gd32f30x_rcu.o(i.rcu_periph_reset_disable)
-    i.rcu_periph_reset_enable                0x08001ef8   Section        0  gd32f30x_rcu.o(i.rcu_periph_reset_enable)
-    i.read_raw_angle                         0x08001f18   Section        0  as5600_deng.o(i.read_raw_angle)
-    read_raw_angle                           0x08001f19   Thumb Code   100  as5600_deng.o(i.read_raw_angle)
-    i.setPwm_speed                           0x08001f7c   Section        0  foc_deng.o(i.setPwm_speed)
-    i.setTorque                              0x08002150   Section        0  foc_deng.o(i.setTorque)
-    i.system_clock_120m_hxtal                0x080022b8   Section        0  system_gd32f30x.o(i.system_clock_120m_hxtal)
-    system_clock_120m_hxtal                  0x080022b9   Thumb Code   266  system_gd32f30x.o(i.system_clock_120m_hxtal)
-    i.system_clock_config                    0x080023d4   Section        0  system_gd32f30x.o(i.system_clock_config)
-    system_clock_config                      0x080023d5   Thumb Code     8  system_gd32f30x.o(i.system_clock_config)
-    i.systick_config                         0x080023dc   Section        0  systick.o(i.systick_config)
-    i.timer0_config                          0x0800242c   Section        0  timer.o(i.timer0_config)
-    i.timer1_config                          0x08002518   Section        0  timer.o(i.timer1_config)
-    i.timer_auto_reload_shadow_enable        0x0800260c   Section        0  gd32f30x_timer.o(i.timer_auto_reload_shadow_enable)
-    i.timer_channel_output_config            0x08002618   Section        0  gd32f30x_timer.o(i.timer_channel_output_config)
-    i.timer_channel_output_mode_config       0x08002804   Section        0  gd32f30x_timer.o(i.timer_channel_output_mode_config)
-    i.timer_channel_output_pulse_value_config 0x0800285e   Section        0  gd32f30x_timer.o(i.timer_channel_output_pulse_value_config)
-    i.timer_channel_output_shadow_config     0x08002884   Section        0  gd32f30x_timer.o(i.timer_channel_output_shadow_config)
-    i.timer_config                           0x080028de   Section        0  timer.o(i.timer_config)
-    i.timer_deinit                           0x080028ec   Section        0  gd32f30x_timer.o(i.timer_deinit)
-    i.timer_enable                           0x080029c8   Section        0  gd32f30x_timer.o(i.timer_enable)
-    i.timer_init                             0x080029d4   Section        0  gd32f30x_timer.o(i.timer_init)
-    i.timer_primary_output_config            0x08002a6c   Section        0  gd32f30x_timer.o(i.timer_primary_output_config)
-    i.usart_baudrate_set                     0x08002a84   Section        0  gd32f30x_usart.o(i.usart_baudrate_set)
-    i.usart_deinit                           0x08002b14   Section        0  gd32f30x_usart.o(i.usart_deinit)
-    i.usart_enable                           0x08002ba4   Section        0  gd32f30x_usart.o(i.usart_enable)
-    i.usart_flag_get                         0x08002bae   Section        0  gd32f30x_usart.o(i.usart_flag_get)
-    i.usart_receive_config                   0x08002bcc   Section        0  gd32f30x_usart.o(i.usart_receive_config)
-    i.usart_transmit_config                  0x08002be0   Section        0  gd32f30x_usart.o(i.usart_transmit_config)
-    .constdata                               0x08002bf4   Section      320  powf.o(.constdata)
-    table                                    0x08002bf4   Data         128  powf.o(.constdata)
-    powersof2to1over16top                    0x08002c74   Data          64  powf.o(.constdata)
-    powersof2to1over16bot                    0x08002cb4   Data          64  powf.o(.constdata)
-    powersof2to1over16all                    0x08002cf4   Data          64  powf.o(.constdata)
-    .constdata                               0x08002d34   Section       32  rredf.o(.constdata)
-    twooverpi                                0x08002d34   Data          32  rredf.o(.constdata)
+    .text                                    0x0800016c   Section        0  uldiv.o(.text)
+    .text                                    0x080001ce   Section        0  f2d.o(.text)
+    .text                                    0x080001f4   Section        0  d2f.o(.text)
+    .text                                    0x0800022c   Section        0  llshl.o(.text)
+    .text                                    0x0800024a   Section        0  llushr.o(.text)
+    .text                                    0x0800026a   Section        0  iusefp.o(.text)
+    .text                                    0x0800026a   Section        0  fepilogue.o(.text)
+    .text                                    0x080002d8   Section        0  frem.o(.text)
+    .text                                    0x0800032c   Section       36  init.o(.text)
+    i.BusFault_Handler                       0x08000350   Section        0  gd32f30x_it.o(i.BusFault_Handler)
+    i.DFOC_M0_SET_VEL_PID                    0x08000354   Section        0  foc_deng.o(i.DFOC_M0_SET_VEL_PID)
+    i.DFOC_M0_VEL_PID                        0x0800036c   Section        0  foc_deng.o(i.DFOC_M0_VEL_PID)
+    i.DFOC_M0_Velocity                       0x0800038c   Section        0  foc_deng.o(i.DFOC_M0_Velocity)
+    i.DFOC_M0_setVelocity                    0x080003d0   Section        0  foc_deng.o(i.DFOC_M0_setVelocity)
+    i.DFOC_Vbus                              0x08000424   Section        0  foc_deng.o(i.DFOC_Vbus)
+    i.DebugMon_Handler                       0x080004dc   Section        0  gd32f30x_it.o(i.DebugMon_Handler)
+    i.HardFault_Handler                      0x080004de   Section        0  gd32f30x_it.o(i.HardFault_Handler)
+    i.LowPassFilter_Init                     0x080004e4   Section        0  lowpass_filter.o(i.LowPassFilter_Init)
+    i.LowPassFilter_Update                   0x080004f8   Section        0  lowpass_filter.o(i.LowPassFilter_Update)
+    i.MemManage_Handler                      0x08000522   Section        0  gd32f30x_it.o(i.MemManage_Handler)
+    i.Moto0_U_Enable                         0x08000528   Section        0  timer.o(i.Moto0_U_Enable)
+    i.Moto1_U_Set_Val                        0x08000534   Section        0  timer.o(i.Moto1_U_Set_Val)
+    i.Moto1_V_Set_Val                        0x08000544   Section        0  timer.o(i.Moto1_V_Set_Val)
+    i.Moto1_W_Set_Val                        0x08000554   Section        0  timer.o(i.Moto1_W_Set_Val)
+    i.NMI_Handler                            0x08000566   Section        0  gd32f30x_it.o(i.NMI_Handler)
+    i.NVIC_SetPriority                       0x08000568   Section        0  systick.o(i.NVIC_SetPriority)
+    NVIC_SetPriority                         0x08000569   Thumb Code    32  systick.o(i.NVIC_SetPriority)
+    i.PIDController_Init                     0x08000590   Section        0  pid.o(i.PIDController_Init)
+    i.PIDController_Update                   0x080005e8   Section        0  pid.o(i.PIDController_Update)
+    i.PendSV_Handler                         0x0800076c   Section        0  gd32f30x_it.o(i.PendSV_Handler)
+    i.SVC_Handler                            0x0800076e   Section        0  gd32f30x_it.o(i.SVC_Handler)
+    i.Sensor_AS5600_GetMechanicalAngle       0x08000770   Section        0  as5600_deng.o(i.Sensor_AS5600_GetMechanicalAngle)
+    i.Sensor_AS5600_GetSensorAngle           0x08000778   Section        0  as5600_deng.o(i.Sensor_AS5600_GetSensorAngle)
+    i.Sensor_AS5600_GetVelocity              0x080007bc   Section        0  as5600_deng.o(i.Sensor_AS5600_GetVelocity)
+    i.Sensor_AS5600_Init                     0x0800082c   Section        0  as5600_deng.o(i.Sensor_AS5600_Init)
+    i.Sensor_AS5600_SensorInit               0x08000850   Section        0  as5600_deng.o(i.Sensor_AS5600_SensorInit)
+    i.Sensor_AS5600_Update                   0x080008a8   Section        0  as5600_deng.o(i.Sensor_AS5600_Update)
+    i.SysTick_Handler                        0x08000914   Section        0  gd32f30x_it.o(i.SysTick_Handler)
+    i.SystemInit                             0x0800092c   Section        0  system_gd32f30x.o(i.SystemInit)
+    i.UsageFault_Handler                     0x08000a74   Section        0  gd32f30x_it.o(i.UsageFault_Handler)
+    i.__ARM_fpclassifyf                      0x08000a78   Section        0  fpclassifyf.o(i.__ARM_fpclassifyf)
+    i.__hardfp_cosf                          0x08000aa0   Section        0  cosf.o(i.__hardfp_cosf)
+    i.__hardfp_fmodf                         0x08000bf0   Section        0  fmodf.o(i.__hardfp_fmodf)
+    i.__hardfp_sinf                          0x08000ca0   Section        0  sinf.o(i.__hardfp_sinf)
+    i.__hardfp_sqrtf                         0x08000e30   Section        0  sqrtf.o(i.__hardfp_sqrtf)
+    i.__mathlib_flt_infnan                   0x08000e6a   Section        0  funder.o(i.__mathlib_flt_infnan)
+    i.__mathlib_flt_invalid                  0x08000e70   Section        0  funder.o(i.__mathlib_flt_invalid)
+    i.__mathlib_flt_underflow                0x08000e80   Section        0  funder.o(i.__mathlib_flt_underflow)
+    i.__mathlib_rredf2                       0x08000e90   Section        0  rredf.o(i.__mathlib_rredf2)
+    i.__scatterload_copy                     0x08000fe4   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x08000ff2   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x08000ff4   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i.__set_errno                            0x08001004   Section        0  errno.o(i.__set_errno)
+    i._electricalAngle_speed                 0x08001010   Section        0  foc_deng.o(i._electricalAngle_speed)
+    i._micros                                0x0800105c   Section        0  systick.o(i._micros)
+    i._normalizeAngle_speed                  0x080010a4   Section        0  foc_deng.o(i._normalizeAngle_speed)
+    i._soft_delay_                           0x080010e0   Section        0  system_gd32f30x.o(i._soft_delay_)
+    _soft_delay_                             0x080010e1   Thumb Code    28  system_gd32f30x.o(i._soft_delay_)
+    i.as5600_check_magnet                    0x080010fc   Section        0  as5600_i2c.o(i.as5600_check_magnet)
+    i.as5600_i2c_init                        0x0800110c   Section        0  as5600_i2c.o(i.as5600_i2c_init)
+    i.as5600_read_angle_degree               0x0800116c   Section        0  as5600_i2c.o(i.as5600_read_angle_degree)
+    i.as5600_read_raw_angle                  0x08001178   Section        0  as5600_i2c.o(i.as5600_read_raw_angle)
+    i.as5600_read_reg                        0x08001184   Section        0  as5600_i2c.o(i.as5600_read_reg)
+    as5600_read_reg                          0x08001185   Thumb Code   246  as5600_i2c.o(i.as5600_read_reg)
+    i.as5600_read_reg16                      0x08001280   Section        0  as5600_i2c.o(i.as5600_read_reg16)
+    as5600_read_reg16                        0x08001281   Thumb Code   318  as5600_i2c.o(i.as5600_read_reg16)
+    i.as5600_read_status                     0x080013c4   Section        0  as5600_i2c.o(i.as5600_read_status)
+    i.delay_1ms                              0x080013d0   Section        0  systick.o(i.delay_1ms)
+    i.delay_decrement                        0x080013e4   Section        0  systick.o(i.delay_decrement)
+    i.gd_eval_com_init                       0x080013fc   Section        0  gd32f303c_eval.o(i.gd_eval_com_init)
+    i.gpio_config                            0x08001494   Section        0  gpio.o(i.gpio_config)
+    i.gpio_init                              0x080014e0   Section        0  gd32f30x_gpio.o(i.gpio_init)
+    i.i2c_ack_config                         0x0800159c   Section        0  gd32f30x_i2c.o(i.i2c_ack_config)
+    i.i2c_ackpos_config                      0x080015ac   Section        0  gd32f30x_i2c.o(i.i2c_ackpos_config)
+    i.i2c_clock_config                       0x080015bc   Section        0  gd32f30x_i2c.o(i.i2c_clock_config)
+    i.i2c_data_receive                       0x080016fc   Section        0  gd32f30x_i2c.o(i.i2c_data_receive)
+    i.i2c_data_transmit                      0x08001704   Section        0  gd32f30x_i2c.o(i.i2c_data_transmit)
+    i.i2c_enable                             0x0800170a   Section        0  gd32f30x_i2c.o(i.i2c_enable)
+    i.i2c_flag_clear                         0x08001714   Section        0  gd32f30x_i2c.o(i.i2c_flag_clear)
+    i.i2c_flag_get                           0x0800173c   Section        0  gd32f30x_i2c.o(i.i2c_flag_get)
+    i.i2c_master_addressing                  0x0800175a   Section        0  gd32f30x_i2c.o(i.i2c_master_addressing)
+    i.i2c_mode_addr_config                   0x0800176e   Section        0  gd32f30x_i2c.o(i.i2c_mode_addr_config)
+    i.i2c_start_on_bus                       0x0800178a   Section        0  gd32f30x_i2c.o(i.i2c_start_on_bus)
+    i.i2c_stop_on_bus                        0x08001794   Section        0  gd32f30x_i2c.o(i.i2c_stop_on_bus)
+    i.main                                   0x080017a0   Section        0  main.o(i.main)
+    i.rcu_clock_freq_get                     0x08001810   Section        0  gd32f30x_rcu.o(i.rcu_clock_freq_get)
+    i.rcu_periph_clock_enable                0x08001968   Section        0  gd32f30x_rcu.o(i.rcu_periph_clock_enable)
+    i.rcu_periph_reset_disable               0x08001988   Section        0  gd32f30x_rcu.o(i.rcu_periph_reset_disable)
+    i.rcu_periph_reset_enable                0x080019a8   Section        0  gd32f30x_rcu.o(i.rcu_periph_reset_enable)
+    i.setPwm_speed                           0x080019c8   Section        0  foc_deng.o(i.setPwm_speed)
+    i.setTorque                              0x08001b8c   Section        0  foc_deng.o(i.setTorque)
+    i.system_clock_120m_hxtal                0x08001cf4   Section        0  system_gd32f30x.o(i.system_clock_120m_hxtal)
+    system_clock_120m_hxtal                  0x08001cf5   Thumb Code   266  system_gd32f30x.o(i.system_clock_120m_hxtal)
+    i.system_clock_config                    0x08001e10   Section        0  system_gd32f30x.o(i.system_clock_config)
+    system_clock_config                      0x08001e11   Thumb Code     8  system_gd32f30x.o(i.system_clock_config)
+    i.systick_config                         0x08001e18   Section        0  systick.o(i.systick_config)
+    i.timer0_config                          0x08001e68   Section        0  timer.o(i.timer0_config)
+    i.timer1_config                          0x08001f54   Section        0  timer.o(i.timer1_config)
+    i.timer_auto_reload_shadow_enable        0x08002048   Section        0  gd32f30x_timer.o(i.timer_auto_reload_shadow_enable)
+    i.timer_channel_output_config            0x08002054   Section        0  gd32f30x_timer.o(i.timer_channel_output_config)
+    i.timer_channel_output_mode_config       0x08002240   Section        0  gd32f30x_timer.o(i.timer_channel_output_mode_config)
+    i.timer_channel_output_pulse_value_config 0x0800229a   Section        0  gd32f30x_timer.o(i.timer_channel_output_pulse_value_config)
+    i.timer_channel_output_shadow_config     0x080022c0   Section        0  gd32f30x_timer.o(i.timer_channel_output_shadow_config)
+    i.timer_config                           0x0800231a   Section        0  timer.o(i.timer_config)
+    i.timer_deinit                           0x08002328   Section        0  gd32f30x_timer.o(i.timer_deinit)
+    i.timer_enable                           0x08002404   Section        0  gd32f30x_timer.o(i.timer_enable)
+    i.timer_init                             0x08002410   Section        0  gd32f30x_timer.o(i.timer_init)
+    i.timer_primary_output_config            0x080024a8   Section        0  gd32f30x_timer.o(i.timer_primary_output_config)
+    i.usart_baudrate_set                     0x080024c0   Section        0  gd32f30x_usart.o(i.usart_baudrate_set)
+    i.usart_deinit                           0x08002550   Section        0  gd32f30x_usart.o(i.usart_deinit)
+    i.usart_enable                           0x080025e0   Section        0  gd32f30x_usart.o(i.usart_enable)
+    i.usart_flag_get                         0x080025ea   Section        0  gd32f30x_usart.o(i.usart_flag_get)
+    i.usart_receive_config                   0x08002608   Section        0  gd32f30x_usart.o(i.usart_receive_config)
+    i.usart_transmit_config                  0x0800261c   Section        0  gd32f30x_usart.o(i.usart_transmit_config)
+    .constdata                               0x08002630   Section       32  rredf.o(.constdata)
+    twooverpi                                0x08002630   Data          32  rredf.o(.constdata)
     .data                                    0x20000000   Section        8  systick.o(.data)
     delay                                    0x20000000   Data           4  systick.o(.data)
-    .data                                    0x20000008   Section       64  foc_deng.o(.data)
-    motor_target                             0x20000040   Data           4  foc_deng.o(.data)
-    received_index                           0x20000044   Data           4  foc_deng.o(.data)
-    .data                                    0x20000048   Section        4  system_gd32f30x.o(.data)
-    .data                                    0x2000004c   Section      125  gd32f303c_eval.o(.data)
-    GPIO_PORT                                0x2000004c   Data          16  gd32f303c_eval.o(.data)
-    GPIO_PIN                                 0x2000005c   Data          16  gd32f303c_eval.o(.data)
-    COM_CLK                                  0x2000006c   Data           4  gd32f303c_eval.o(.data)
-    COM_TX_PIN                               0x20000070   Data           8  gd32f303c_eval.o(.data)
-    COM_RX_PIN                               0x20000078   Data           8  gd32f303c_eval.o(.data)
-    COM_GPIO_PORT                            0x20000080   Data           8  gd32f303c_eval.o(.data)
-    COM_GPIO_CLK                             0x20000088   Data           4  gd32f303c_eval.o(.data)
-    GPIO_CLK                                 0x2000008c   Data           8  gd32f303c_eval.o(.data)
-    KEY_PORT                                 0x20000094   Data          12  gd32f303c_eval.o(.data)
-    KEY_PIN                                  0x200000a0   Data          12  gd32f303c_eval.o(.data)
-    KEY_CLK                                  0x200000ac   Data           6  gd32f303c_eval.o(.data)
-    KEY_EXTI_LINE                            0x200000b4   Data          12  gd32f303c_eval.o(.data)
-    KEY_PORT_SOURCE                          0x200000c0   Data           3  gd32f303c_eval.o(.data)
-    KEY_PIN_SOURCE                           0x200000c3   Data           3  gd32f303c_eval.o(.data)
-    KEY_IRQn                                 0x200000c6   Data           3  gd32f303c_eval.o(.data)
-    .data                                    0x200000cc   Section        4  errno.o(.data)
-    _errno                                   0x200000cc   Data           4  errno.o(.data)
-    .bss                                     0x200000d0   Section      356  foc_deng.o(.bss)
-    received_chars                           0x20000134   Data         256  foc_deng.o(.bss)
-    STACK                                    0x20000238   Section     1024  startup_gd32f30x_hd.o(STACK)
+    .data                                    0x20000008   Section       52  foc_deng.o(.data)
+    motor_target                             0x20000034   Data           4  foc_deng.o(.data)
+    received_index                           0x20000038   Data           4  foc_deng.o(.data)
+    .data                                    0x2000003c   Section        4  system_gd32f30x.o(.data)
+    .data                                    0x20000040   Section      125  gd32f303c_eval.o(.data)
+    GPIO_PORT                                0x20000040   Data          16  gd32f303c_eval.o(.data)
+    GPIO_PIN                                 0x20000050   Data          16  gd32f303c_eval.o(.data)
+    COM_CLK                                  0x20000060   Data           4  gd32f303c_eval.o(.data)
+    COM_TX_PIN                               0x20000064   Data           8  gd32f303c_eval.o(.data)
+    COM_RX_PIN                               0x2000006c   Data           8  gd32f303c_eval.o(.data)
+    COM_GPIO_PORT                            0x20000074   Data           8  gd32f303c_eval.o(.data)
+    COM_GPIO_CLK                             0x2000007c   Data           4  gd32f303c_eval.o(.data)
+    GPIO_CLK                                 0x20000080   Data           8  gd32f303c_eval.o(.data)
+    KEY_PORT                                 0x20000088   Data          12  gd32f303c_eval.o(.data)
+    KEY_PIN                                  0x20000094   Data          12  gd32f303c_eval.o(.data)
+    KEY_CLK                                  0x200000a0   Data           6  gd32f303c_eval.o(.data)
+    KEY_EXTI_LINE                            0x200000a8   Data          12  gd32f303c_eval.o(.data)
+    KEY_PORT_SOURCE                          0x200000b4   Data           3  gd32f303c_eval.o(.data)
+    KEY_PIN_SOURCE                           0x200000b7   Data           3  gd32f303c_eval.o(.data)
+    KEY_IRQn                                 0x200000ba   Data           3  gd32f303c_eval.o(.data)
+    .data                                    0x200000c0   Section        4  errno.o(.data)
+    _errno                                   0x200000c0   Data           4  errno.o(.data)
+    .bss                                     0x200000c4   Section      356  foc_deng.o(.bss)
+    received_chars                           0x20000128   Data         256  foc_deng.o(.bss)
+    STACK                                    0x20000228   Section     1024  startup_gd32f30x_hd.o(STACK)
 
     Global Symbols
 
@@ -1759,114 +1714,114 @@ Image Symbol Table
     USBD_LP_CAN0_RX0_IRQHandler              0x08000163   Thumb Code     0  startup_gd32f30x_hd.o(.text)
     USBD_WKUP_IRQHandler                     0x08000163   Thumb Code     0  startup_gd32f30x_hd.o(.text)
     WWDGT_IRQHandler                         0x08000163   Thumb Code     0  startup_gd32f30x_hd.o(.text)
-    __aeabi_f2d                              0x0800016d   Thumb Code    38  f2d.o(.text)
-    __aeabi_d2f                              0x08000193   Thumb Code    56  d2f.o(.text)
-    __I$use$fp                               0x080001cb   Thumb Code     0  iusefp.o(.text)
-    _float_round                             0x080001cb   Thumb Code    18  fepilogue.o(.text)
-    _float_epilogue                          0x080001dd   Thumb Code    92  fepilogue.o(.text)
-    _frem                                    0x08000239   Thumb Code    82  frem.o(.text)
-    __fp_status                              0x0800028b   Thumb Code     4  fpstat.o(.text)
-    __ieee_status                            0x0800028b   Thumb Code     0  fpstat.o(.text)
-    __scatterload                            0x08000291   Thumb Code    28  init.o(.text)
-    __scatterload_rt2                        0x08000291   Thumb Code     0  init.o(.text)
-    BusFault_Handler                         0x080002b5   Thumb Code     4  gd32f30x_it.o(i.BusFault_Handler)
-    DFOC_M0_SET_VEL_PID                      0x080002b9   Thumb Code    20  foc_deng.o(i.DFOC_M0_SET_VEL_PID)
-    DFOC_M0_VEL_PID                          0x080002d1   Thumb Code    26  foc_deng.o(i.DFOC_M0_VEL_PID)
-    DFOC_M0_Velocity                         0x080002f1   Thumb Code    54  foc_deng.o(i.DFOC_M0_Velocity)
-    DFOC_M0_setVelocity                      0x08000335   Thumb Code    76  foc_deng.o(i.DFOC_M0_setVelocity)
-    DFOC_Vbus                                0x08000389   Thumb Code   128  foc_deng.o(i.DFOC_Vbus)
-    DebugMon_Handler                         0x0800042d   Thumb Code     2  gd32f30x_it.o(i.DebugMon_Handler)
-    HardFault_Handler                        0x0800042f   Thumb Code     4  gd32f30x_it.o(i.HardFault_Handler)
-    LowPassFilter_Init                       0x08000435   Thumb Code    14  lowpass_filter.o(i.LowPassFilter_Init)
-    LowPassFilter_Update                     0x08000449   Thumb Code    42  lowpass_filter.o(i.LowPassFilter_Update)
-    MemManage_Handler                        0x08000473   Thumb Code     4  gd32f30x_it.o(i.MemManage_Handler)
-    Moto0_U_Enable                           0x08000479   Thumb Code     8  timer.o(i.Moto0_U_Enable)
-    Moto1_U_Set_Val                          0x08000485   Thumb Code    16  timer.o(i.Moto1_U_Set_Val)
-    Moto1_V_Set_Val                          0x08000495   Thumb Code    16  timer.o(i.Moto1_V_Set_Val)
-    Moto1_W_Set_Val                          0x080004a5   Thumb Code    18  timer.o(i.Moto1_W_Set_Val)
-    NMI_Handler                              0x080004b7   Thumb Code     2  gd32f30x_it.o(i.NMI_Handler)
-    PIDController_Init                       0x080004e1   Thumb Code    84  pid.o(i.PIDController_Init)
-    PIDController_Update                     0x08000539   Thumb Code   380  pid.o(i.PIDController_Update)
-    PendSV_Handler                           0x080006bd   Thumb Code     2  gd32f30x_it.o(i.PendSV_Handler)
-    SVC_Handler                              0x080006bf   Thumb Code     2  gd32f30x_it.o(i.SVC_Handler)
-    Sensor_AS5600_GetMechanicalAngle         0x080006c1   Thumb Code     6  as5600_deng.o(i.Sensor_AS5600_GetMechanicalAngle)
-    Sensor_AS5600_GetSensorAngle             0x080006c9   Thumb Code    62  as5600_deng.o(i.Sensor_AS5600_GetSensorAngle)
-    Sensor_AS5600_GetVelocity                0x08000711   Thumb Code   100  as5600_deng.o(i.Sensor_AS5600_GetVelocity)
-    Sensor_AS5600_Update                     0x08000781   Thumb Code   104  as5600_deng.o(i.Sensor_AS5600_Update)
-    SysTick_Handler                          0x080007ed   Thumb Code     8  gd32f30x_it.o(i.SysTick_Handler)
-    SystemInit                               0x080007f5   Thumb Code   316  system_gd32f30x.o(i.SystemInit)
-    UsageFault_Handler                       0x0800093d   Thumb Code     4  gd32f30x_it.o(i.UsageFault_Handler)
-    __ARM_fpclassifyf                        0x08000941   Thumb Code    38  fpclassifyf.o(i.__ARM_fpclassifyf)
-    __hardfp_cosf                            0x08000969   Thumb Code   280  cosf.o(i.__hardfp_cosf)
-    __hardfp_fmodf                           0x08000ab9   Thumb Code   176  fmodf.o(i.__hardfp_fmodf)
-    __hardfp_powf                            0x08000b69   Thumb Code  1606  powf.o(i.__hardfp_powf)
-    __mathlib_powf                           0x08000b69   Thumb Code     0  powf.o(i.__hardfp_powf)
-    __hardfp_sinf                            0x080011cd   Thumb Code   344  sinf.o(i.__hardfp_sinf)
-    __hardfp_sqrtf                           0x0800135d   Thumb Code    58  sqrtf.o(i.__hardfp_sqrtf)
-    __mathlib_flt_divzero                    0x08001399   Thumb Code    14  funder.o(i.__mathlib_flt_divzero)
-    __mathlib_flt_infnan                     0x080013ad   Thumb Code     6  funder.o(i.__mathlib_flt_infnan)
-    __mathlib_flt_infnan2                    0x080013b3   Thumb Code     6  funder.o(i.__mathlib_flt_infnan2)
-    __mathlib_flt_invalid                    0x080013b9   Thumb Code    10  funder.o(i.__mathlib_flt_invalid)
-    __mathlib_flt_overflow                   0x080013c9   Thumb Code    10  funder.o(i.__mathlib_flt_overflow)
-    __mathlib_flt_underflow                  0x080013d9   Thumb Code    10  funder.o(i.__mathlib_flt_underflow)
-    __mathlib_rredf2                         0x080013e9   Thumb Code   316  rredf.o(i.__mathlib_rredf2)
-    __scatterload_copy                       0x0800153d   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x0800154b   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x0800154d   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    __set_errno                              0x0800155d   Thumb Code     6  errno.o(i.__set_errno)
-    _electricalAngle_speed                   0x08001569   Thumb Code    58  foc_deng.o(i._electricalAngle_speed)
-    _micros                                  0x080015b5   Thumb Code    44  systick.o(i._micros)
-    _normalizeAngle_speed                    0x080015e9   Thumb Code    56  foc_deng.o(i._normalizeAngle_speed)
-    as5600_check_magnet                      0x08001641   Thumb Code    14  as5600_i2c.o(i.as5600_check_magnet)
-    as5600_i2c_init                          0x08001651   Thumb Code    82  as5600_i2c.o(i.as5600_i2c_init)
-    as5600_read_angle_degree                 0x080016b1   Thumb Code    24  as5600_i2c.o(i.as5600_read_angle_degree)
-    as5600_read_raw_angle                    0x080016c9   Thumb Code    10  as5600_i2c.o(i.as5600_read_raw_angle)
-    as5600_read_status                       0x08001915   Thumb Code    10  as5600_i2c.o(i.as5600_read_status)
-    delay_1ms                                0x08001921   Thumb Code    20  systick.o(i.delay_1ms)
-    delay_decrement                          0x08001939   Thumb Code    18  systick.o(i.delay_decrement)
-    gd_eval_com_init                         0x08001951   Thumb Code   122  gd32f303c_eval.o(i.gd_eval_com_init)
-    gpio_config                              0x080019e9   Thumb Code    66  gpio.o(i.gpio_config)
-    gpio_init                                0x08001a35   Thumb Code   188  gd32f30x_gpio.o(i.gpio_init)
-    i2c_ack_config                           0x08001af1   Thumb Code    16  gd32f30x_i2c.o(i.i2c_ack_config)
-    i2c_ackpos_config                        0x08001b01   Thumb Code    16  gd32f30x_i2c.o(i.i2c_ackpos_config)
-    i2c_clock_config                         0x08001b11   Thumb Code   306  gd32f30x_i2c.o(i.i2c_clock_config)
-    i2c_data_receive                         0x08001c51   Thumb Code     8  gd32f30x_i2c.o(i.i2c_data_receive)
-    i2c_data_transmit                        0x08001c59   Thumb Code     6  gd32f30x_i2c.o(i.i2c_data_transmit)
-    i2c_enable                               0x08001c5f   Thumb Code    10  gd32f30x_i2c.o(i.i2c_enable)
-    i2c_flag_clear                           0x08001c69   Thumb Code    40  gd32f30x_i2c.o(i.i2c_flag_clear)
-    i2c_flag_get                             0x08001c91   Thumb Code    30  gd32f30x_i2c.o(i.i2c_flag_get)
-    i2c_master_addressing                    0x08001caf   Thumb Code    20  gd32f30x_i2c.o(i.i2c_master_addressing)
-    i2c_mode_addr_config                     0x08001cc3   Thumb Code    28  gd32f30x_i2c.o(i.i2c_mode_addr_config)
-    i2c_start_on_bus                         0x08001cdf   Thumb Code    10  gd32f30x_i2c.o(i.i2c_start_on_bus)
-    i2c_stop_on_bus                          0x08001ce9   Thumb Code    10  gd32f30x_i2c.o(i.i2c_stop_on_bus)
-    main                                     0x08001cf5   Thumb Code    92  main.o(i.main)
-    rcu_clock_freq_get                       0x08001d61   Thumb Code   310  gd32f30x_rcu.o(i.rcu_clock_freq_get)
-    rcu_periph_clock_enable                  0x08001eb9   Thumb Code    28  gd32f30x_rcu.o(i.rcu_periph_clock_enable)
-    rcu_periph_reset_disable                 0x08001ed9   Thumb Code    28  gd32f30x_rcu.o(i.rcu_periph_reset_disable)
-    rcu_periph_reset_enable                  0x08001ef9   Thumb Code    28  gd32f30x_rcu.o(i.rcu_periph_reset_enable)
-    setPwm_speed                             0x08001f7d   Thumb Code   444  foc_deng.o(i.setPwm_speed)
-    setTorque                                0x08002151   Thumb Code   332  foc_deng.o(i.setTorque)
-    systick_config                           0x080023dd   Thumb Code    72  systick.o(i.systick_config)
-    timer0_config                            0x0800242d   Thumb Code   230  timer.o(i.timer0_config)
-    timer1_config                            0x08002519   Thumb Code   244  timer.o(i.timer1_config)
-    timer_auto_reload_shadow_enable          0x0800260d   Thumb Code    10  gd32f30x_timer.o(i.timer_auto_reload_shadow_enable)
-    timer_channel_output_config              0x08002619   Thumb Code   484  gd32f30x_timer.o(i.timer_channel_output_config)
-    timer_channel_output_mode_config         0x08002805   Thumb Code    90  gd32f30x_timer.o(i.timer_channel_output_mode_config)
-    timer_channel_output_pulse_value_config  0x0800285f   Thumb Code    38  gd32f30x_timer.o(i.timer_channel_output_pulse_value_config)
-    timer_channel_output_shadow_config       0x08002885   Thumb Code    90  gd32f30x_timer.o(i.timer_channel_output_shadow_config)
-    timer_config                             0x080028df   Thumb Code    12  timer.o(i.timer_config)
-    timer_deinit                             0x080028ed   Thumb Code   210  gd32f30x_timer.o(i.timer_deinit)
-    timer_enable                             0x080029c9   Thumb Code    10  gd32f30x_timer.o(i.timer_enable)
-    timer_init                               0x080029d5   Thumb Code   122  gd32f30x_timer.o(i.timer_init)
-    timer_primary_output_config              0x08002a6d   Thumb Code    24  gd32f30x_timer.o(i.timer_primary_output_config)
-    usart_baudrate_set                       0x08002a85   Thumb Code   136  gd32f30x_usart.o(i.usart_baudrate_set)
-    usart_deinit                             0x08002b15   Thumb Code   136  gd32f30x_usart.o(i.usart_deinit)
-    usart_enable                             0x08002ba5   Thumb Code    10  gd32f30x_usart.o(i.usart_enable)
-    usart_flag_get                           0x08002baf   Thumb Code    30  gd32f30x_usart.o(i.usart_flag_get)
-    usart_receive_config                     0x08002bcd   Thumb Code    20  gd32f30x_usart.o(i.usart_receive_config)
-    usart_transmit_config                    0x08002be1   Thumb Code    20  gd32f30x_usart.o(i.usart_transmit_config)
-    Region$$Table$$Base                      0x08002d54   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08002d74   Number         0  anon$$obj.o(Region$$Table)
+    __aeabi_uldivmod                         0x0800016d   Thumb Code    98  uldiv.o(.text)
+    __aeabi_f2d                              0x080001cf   Thumb Code    38  f2d.o(.text)
+    __aeabi_d2f                              0x080001f5   Thumb Code    56  d2f.o(.text)
+    __aeabi_llsl                             0x0800022d   Thumb Code    30  llshl.o(.text)
+    _ll_shift_l                              0x0800022d   Thumb Code     0  llshl.o(.text)
+    __aeabi_llsr                             0x0800024b   Thumb Code    32  llushr.o(.text)
+    _ll_ushift_r                             0x0800024b   Thumb Code     0  llushr.o(.text)
+    __I$use$fp                               0x0800026b   Thumb Code     0  iusefp.o(.text)
+    _float_round                             0x0800026b   Thumb Code    18  fepilogue.o(.text)
+    _float_epilogue                          0x0800027d   Thumb Code    92  fepilogue.o(.text)
+    _frem                                    0x080002d9   Thumb Code    82  frem.o(.text)
+    __scatterload                            0x0800032d   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x0800032d   Thumb Code     0  init.o(.text)
+    BusFault_Handler                         0x08000351   Thumb Code     4  gd32f30x_it.o(i.BusFault_Handler)
+    DFOC_M0_SET_VEL_PID                      0x08000355   Thumb Code    20  foc_deng.o(i.DFOC_M0_SET_VEL_PID)
+    DFOC_M0_VEL_PID                          0x0800036d   Thumb Code    26  foc_deng.o(i.DFOC_M0_VEL_PID)
+    DFOC_M0_Velocity                         0x0800038d   Thumb Code    54  foc_deng.o(i.DFOC_M0_Velocity)
+    DFOC_M0_setVelocity                      0x080003d1   Thumb Code    76  foc_deng.o(i.DFOC_M0_setVelocity)
+    DFOC_Vbus                                0x08000425   Thumb Code   144  foc_deng.o(i.DFOC_Vbus)
+    DebugMon_Handler                         0x080004dd   Thumb Code     2  gd32f30x_it.o(i.DebugMon_Handler)
+    HardFault_Handler                        0x080004df   Thumb Code     4  gd32f30x_it.o(i.HardFault_Handler)
+    LowPassFilter_Init                       0x080004e5   Thumb Code    14  lowpass_filter.o(i.LowPassFilter_Init)
+    LowPassFilter_Update                     0x080004f9   Thumb Code    42  lowpass_filter.o(i.LowPassFilter_Update)
+    MemManage_Handler                        0x08000523   Thumb Code     4  gd32f30x_it.o(i.MemManage_Handler)
+    Moto0_U_Enable                           0x08000529   Thumb Code     8  timer.o(i.Moto0_U_Enable)
+    Moto1_U_Set_Val                          0x08000535   Thumb Code    16  timer.o(i.Moto1_U_Set_Val)
+    Moto1_V_Set_Val                          0x08000545   Thumb Code    16  timer.o(i.Moto1_V_Set_Val)
+    Moto1_W_Set_Val                          0x08000555   Thumb Code    18  timer.o(i.Moto1_W_Set_Val)
+    NMI_Handler                              0x08000567   Thumb Code     2  gd32f30x_it.o(i.NMI_Handler)
+    PIDController_Init                       0x08000591   Thumb Code    84  pid.o(i.PIDController_Init)
+    PIDController_Update                     0x080005e9   Thumb Code   380  pid.o(i.PIDController_Update)
+    PendSV_Handler                           0x0800076d   Thumb Code     2  gd32f30x_it.o(i.PendSV_Handler)
+    SVC_Handler                              0x0800076f   Thumb Code     2  gd32f30x_it.o(i.SVC_Handler)
+    Sensor_AS5600_GetMechanicalAngle         0x08000771   Thumb Code     6  as5600_deng.o(i.Sensor_AS5600_GetMechanicalAngle)
+    Sensor_AS5600_GetSensorAngle             0x08000779   Thumb Code    60  as5600_deng.o(i.Sensor_AS5600_GetSensorAngle)
+    Sensor_AS5600_GetVelocity                0x080007bd   Thumb Code   100  as5600_deng.o(i.Sensor_AS5600_GetVelocity)
+    Sensor_AS5600_Init                       0x0800082d   Thumb Code    30  as5600_deng.o(i.Sensor_AS5600_Init)
+    Sensor_AS5600_SensorInit                 0x08000851   Thumb Code    86  as5600_deng.o(i.Sensor_AS5600_SensorInit)
+    Sensor_AS5600_Update                     0x080008a9   Thumb Code   104  as5600_deng.o(i.Sensor_AS5600_Update)
+    SysTick_Handler                          0x08000915   Thumb Code    18  gd32f30x_it.o(i.SysTick_Handler)
+    SystemInit                               0x0800092d   Thumb Code   316  system_gd32f30x.o(i.SystemInit)
+    UsageFault_Handler                       0x08000a75   Thumb Code     4  gd32f30x_it.o(i.UsageFault_Handler)
+    __ARM_fpclassifyf                        0x08000a79   Thumb Code    38  fpclassifyf.o(i.__ARM_fpclassifyf)
+    __hardfp_cosf                            0x08000aa1   Thumb Code   280  cosf.o(i.__hardfp_cosf)
+    __hardfp_fmodf                           0x08000bf1   Thumb Code   176  fmodf.o(i.__hardfp_fmodf)
+    __hardfp_sinf                            0x08000ca1   Thumb Code   344  sinf.o(i.__hardfp_sinf)
+    __hardfp_sqrtf                           0x08000e31   Thumb Code    58  sqrtf.o(i.__hardfp_sqrtf)
+    __mathlib_flt_infnan                     0x08000e6b   Thumb Code     6  funder.o(i.__mathlib_flt_infnan)
+    __mathlib_flt_invalid                    0x08000e71   Thumb Code    10  funder.o(i.__mathlib_flt_invalid)
+    __mathlib_flt_underflow                  0x08000e81   Thumb Code    10  funder.o(i.__mathlib_flt_underflow)
+    __mathlib_rredf2                         0x08000e91   Thumb Code   316  rredf.o(i.__mathlib_rredf2)
+    __scatterload_copy                       0x08000fe5   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x08000ff3   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x08000ff5   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    __set_errno                              0x08001005   Thumb Code     6  errno.o(i.__set_errno)
+    _electricalAngle_speed                   0x08001011   Thumb Code    58  foc_deng.o(i._electricalAngle_speed)
+    _micros                                  0x0800105d   Thumb Code    64  systick.o(i._micros)
+    _normalizeAngle_speed                    0x080010a5   Thumb Code    56  foc_deng.o(i._normalizeAngle_speed)
+    as5600_check_magnet                      0x080010fd   Thumb Code    14  as5600_i2c.o(i.as5600_check_magnet)
+    as5600_i2c_init                          0x0800110d   Thumb Code    82  as5600_i2c.o(i.as5600_i2c_init)
+    as5600_read_angle_degree                 0x0800116d   Thumb Code    12  as5600_i2c.o(i.as5600_read_angle_degree)
+    as5600_read_raw_angle                    0x08001179   Thumb Code    10  as5600_i2c.o(i.as5600_read_raw_angle)
+    as5600_read_status                       0x080013c5   Thumb Code    10  as5600_i2c.o(i.as5600_read_status)
+    delay_1ms                                0x080013d1   Thumb Code    16  systick.o(i.delay_1ms)
+    delay_decrement                          0x080013e5   Thumb Code    18  systick.o(i.delay_decrement)
+    gd_eval_com_init                         0x080013fd   Thumb Code   122  gd32f303c_eval.o(i.gd_eval_com_init)
+    gpio_config                              0x08001495   Thumb Code    66  gpio.o(i.gpio_config)
+    gpio_init                                0x080014e1   Thumb Code   188  gd32f30x_gpio.o(i.gpio_init)
+    i2c_ack_config                           0x0800159d   Thumb Code    16  gd32f30x_i2c.o(i.i2c_ack_config)
+    i2c_ackpos_config                        0x080015ad   Thumb Code    16  gd32f30x_i2c.o(i.i2c_ackpos_config)
+    i2c_clock_config                         0x080015bd   Thumb Code   306  gd32f30x_i2c.o(i.i2c_clock_config)
+    i2c_data_receive                         0x080016fd   Thumb Code     8  gd32f30x_i2c.o(i.i2c_data_receive)
+    i2c_data_transmit                        0x08001705   Thumb Code     6  gd32f30x_i2c.o(i.i2c_data_transmit)
+    i2c_enable                               0x0800170b   Thumb Code    10  gd32f30x_i2c.o(i.i2c_enable)
+    i2c_flag_clear                           0x08001715   Thumb Code    40  gd32f30x_i2c.o(i.i2c_flag_clear)
+    i2c_flag_get                             0x0800173d   Thumb Code    30  gd32f30x_i2c.o(i.i2c_flag_get)
+    i2c_master_addressing                    0x0800175b   Thumb Code    20  gd32f30x_i2c.o(i.i2c_master_addressing)
+    i2c_mode_addr_config                     0x0800176f   Thumb Code    28  gd32f30x_i2c.o(i.i2c_mode_addr_config)
+    i2c_start_on_bus                         0x0800178b   Thumb Code    10  gd32f30x_i2c.o(i.i2c_start_on_bus)
+    i2c_stop_on_bus                          0x08001795   Thumb Code    10  gd32f30x_i2c.o(i.i2c_stop_on_bus)
+    main                                     0x080017a1   Thumb Code    90  main.o(i.main)
+    rcu_clock_freq_get                       0x08001811   Thumb Code   310  gd32f30x_rcu.o(i.rcu_clock_freq_get)
+    rcu_periph_clock_enable                  0x08001969   Thumb Code    28  gd32f30x_rcu.o(i.rcu_periph_clock_enable)
+    rcu_periph_reset_disable                 0x08001989   Thumb Code    28  gd32f30x_rcu.o(i.rcu_periph_reset_disable)
+    rcu_periph_reset_enable                  0x080019a9   Thumb Code    28  gd32f30x_rcu.o(i.rcu_periph_reset_enable)
+    setPwm_speed                             0x080019c9   Thumb Code   438  foc_deng.o(i.setPwm_speed)
+    setTorque                                0x08001b8d   Thumb Code   332  foc_deng.o(i.setTorque)
+    systick_config                           0x08001e19   Thumb Code    74  systick.o(i.systick_config)
+    timer0_config                            0x08001e69   Thumb Code   230  timer.o(i.timer0_config)
+    timer1_config                            0x08001f55   Thumb Code   244  timer.o(i.timer1_config)
+    timer_auto_reload_shadow_enable          0x08002049   Thumb Code    10  gd32f30x_timer.o(i.timer_auto_reload_shadow_enable)
+    timer_channel_output_config              0x08002055   Thumb Code   484  gd32f30x_timer.o(i.timer_channel_output_config)
+    timer_channel_output_mode_config         0x08002241   Thumb Code    90  gd32f30x_timer.o(i.timer_channel_output_mode_config)
+    timer_channel_output_pulse_value_config  0x0800229b   Thumb Code    38  gd32f30x_timer.o(i.timer_channel_output_pulse_value_config)
+    timer_channel_output_shadow_config       0x080022c1   Thumb Code    90  gd32f30x_timer.o(i.timer_channel_output_shadow_config)
+    timer_config                             0x0800231b   Thumb Code    12  timer.o(i.timer_config)
+    timer_deinit                             0x08002329   Thumb Code   210  gd32f30x_timer.o(i.timer_deinit)
+    timer_enable                             0x08002405   Thumb Code    10  gd32f30x_timer.o(i.timer_enable)
+    timer_init                               0x08002411   Thumb Code   122  gd32f30x_timer.o(i.timer_init)
+    timer_primary_output_config              0x080024a9   Thumb Code    24  gd32f30x_timer.o(i.timer_primary_output_config)
+    usart_baudrate_set                       0x080024c1   Thumb Code   136  gd32f30x_usart.o(i.usart_baudrate_set)
+    usart_deinit                             0x08002551   Thumb Code   136  gd32f30x_usart.o(i.usart_deinit)
+    usart_enable                             0x080025e1   Thumb Code    10  gd32f30x_usart.o(i.usart_enable)
+    usart_flag_get                           0x080025eb   Thumb Code    30  gd32f30x_usart.o(i.usart_flag_get)
+    usart_receive_config                     0x08002609   Thumb Code    20  gd32f30x_usart.o(i.usart_receive_config)
+    usart_transmit_config                    0x0800261d   Thumb Code    20  gd32f30x_usart.o(i.usart_transmit_config)
+    Region$$Table$$Base                      0x08002650   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08002670   Number         0  anon$$obj.o(Region$$Table)
     sysTickUptime                            0x20000004   Data           4  systick.o(.data)
     voltage_power_supply_speed               0x20000008   Data           4  foc_deng.o(.data)
     Ualpha_speed                             0x2000000c   Data           4  foc_deng.o(.data)
@@ -1875,17 +1830,14 @@ Image Symbol Table
     Ub_speed                                 0x20000018   Data           4  foc_deng.o(.data)
     Uc_speed                                 0x2000001c   Data           4  foc_deng.o(.data)
     zero_electric_angle_speed                0x20000020   Data           4  foc_deng.o(.data)
-    PP                                       0x20000024   Data           4  foc_deng.o(.data)
-    DIR                                      0x20000028   Data           4  foc_deng.o(.data)
-    pwmA                                     0x2000002c   Data           4  foc_deng.o(.data)
-    pwmB                                     0x20000030   Data           4  foc_deng.o(.data)
-    pwmC                                     0x20000034   Data           4  foc_deng.o(.data)
-    M0_Vel_Flt                               0x20000038   Data           8  foc_deng.o(.data)
-    SystemCoreClock                          0x20000048   Data           4  system_gd32f30x.o(.data)
-    vel_loop_M0                              0x200000d0   Data          36  foc_deng.o(.bss)
-    angle_loop_M0                            0x200000f4   Data          36  foc_deng.o(.bss)
-    S0                                       0x20000118   Data          28  foc_deng.o(.bss)
-    __initial_sp                             0x20000638   Data           0  startup_gd32f30x_hd.o(STACK)
+    Motor_PP                                 0x20000024   Data           4  foc_deng.o(.data)
+    Sensor_DIR                               0x20000028   Data           4  foc_deng.o(.data)
+    M0_Vel_Flt                               0x2000002c   Data           8  foc_deng.o(.data)
+    SystemCoreClock                          0x2000003c   Data           4  system_gd32f30x.o(.data)
+    vel_loop_M0                              0x200000c4   Data          36  foc_deng.o(.bss)
+    angle_loop_M0                            0x200000e8   Data          36  foc_deng.o(.bss)
+    S0                                       0x2000010c   Data          28  foc_deng.o(.bss)
+    __initial_sp                             0x20000628   Data           0  startup_gd32f30x_hd.o(STACK)
 
 
 
@@ -1895,165 +1847,162 @@ Memory Map of the image
 
   Image Entry point : 0x08000131
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00002e44, Max: 0x00040000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00002734, Max: 0x00040000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00002d74, Max: 0x00040000, ABSOLUTE)
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x08000000   0x08000000   0x00000130   Data   RO         5031    RESET               startup_gd32f30x_hd.o
-    0x08000130   0x08000130   0x00000000   Code   RO         5146  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x08000130   0x08000130   0x00000004   Code   RO         5206    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x08000134   0x08000134   0x00000004   Code   RO         5209    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x08000138   0x08000138   0x00000000   Code   RO         5211    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x08000138   0x08000138   0x00000000   Code   RO         5213    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x08000138   0x08000138   0x00000008   Code   RO         5214    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x08000140   0x08000140   0x00000004   Code   RO         5221    .ARM.Collect$$$$0000000E  mc_w.l(entry12b.o)
-    0x08000144   0x08000144   0x00000000   Code   RO         5216    .ARM.Collect$$$$0000000F  mc_w.l(entry10a.o)
-    0x08000144   0x08000144   0x00000000   Code   RO         5218    .ARM.Collect$$$$00000011  mc_w.l(entry11a.o)
-    0x08000144   0x08000144   0x00000004   Code   RO         5207    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
-    0x08000148   0x08000148   0x00000024   Code   RO         5032    .text               startup_gd32f30x_hd.o
-    0x0800016c   0x0800016c   0x00000026   Code   RO         5155    .text               mf_w.l(f2d.o)
-    0x08000192   0x08000192   0x00000038   Code   RO         5157    .text               mf_w.l(d2f.o)
-    0x080001ca   0x080001ca   0x00000000   Code   RO         5233    .text               mc_w.l(iusefp.o)
-    0x080001ca   0x080001ca   0x0000006e   Code   RO         5234    .text               mf_w.l(fepilogue.o)
-    0x08000238   0x08000238   0x00000052   Code   RO         5236    .text               mf_w.l(frem.o)
-    0x0800028a   0x0800028a   0x00000004   Code   RO         5248    .text               mf_w.l(fpstat.o)
-    0x0800028e   0x0800028e   0x00000002   PAD
-    0x08000290   0x08000290   0x00000024   Code   RO         5260    .text               mc_w.l(init.o)
-    0x080002b4   0x080002b4   0x00000004   Code   RO          176    i.BusFault_Handler  gd32f30x_it.o
-    0x080002b8   0x080002b8   0x00000018   Code   RO          678    i.DFOC_M0_SET_VEL_PID  foc_deng.o
-    0x080002d0   0x080002d0   0x00000020   Code   RO          679    i.DFOC_M0_VEL_PID   foc_deng.o
-    0x080002f0   0x080002f0   0x00000044   Code   RO          680    i.DFOC_M0_Velocity  foc_deng.o
-    0x08000334   0x08000334   0x00000054   Code   RO          682    i.DFOC_M0_setVelocity  foc_deng.o
-    0x08000388   0x08000388   0x000000a4   Code   RO          685    i.DFOC_Vbus         foc_deng.o
-    0x0800042c   0x0800042c   0x00000002   Code   RO          177    i.DebugMon_Handler  gd32f30x_it.o
-    0x0800042e   0x0800042e   0x00000004   Code   RO          178    i.HardFault_Handler  gd32f30x_it.o
-    0x08000432   0x08000432   0x00000002   PAD
-    0x08000434   0x08000434   0x00000014   Code   RO          795    i.LowPassFilter_Init  lowpass_filter.o
-    0x08000448   0x08000448   0x0000002a   Code   RO          796    i.LowPassFilter_Update  lowpass_filter.o
-    0x08000472   0x08000472   0x00000004   Code   RO          179    i.MemManage_Handler  gd32f30x_it.o
-    0x08000476   0x08000476   0x00000002   PAD
-    0x08000478   0x08000478   0x0000000c   Code   RO          335    i.Moto0_U_Enable    timer.o
-    0x08000484   0x08000484   0x00000010   Code   RO          351    i.Moto1_U_Set_Val   timer.o
-    0x08000494   0x08000494   0x00000010   Code   RO          356    i.Moto1_V_Set_Val   timer.o
-    0x080004a4   0x080004a4   0x00000012   Code   RO          361    i.Moto1_W_Set_Val   timer.o
-    0x080004b6   0x080004b6   0x00000002   Code   RO          180    i.NMI_Handler       gd32f30x_it.o
-    0x080004b8   0x080004b8   0x00000028   Code   RO          247    i.NVIC_SetPriority  systick.o
-    0x080004e0   0x080004e0   0x00000058   Code   RO          824    i.PIDController_Init  pid.o
-    0x08000538   0x08000538   0x00000184   Code   RO          825    i.PIDController_Update  pid.o
-    0x080006bc   0x080006bc   0x00000002   Code   RO          181    i.PendSV_Handler    gd32f30x_it.o
-    0x080006be   0x080006be   0x00000002   Code   RO          182    i.SVC_Handler       gd32f30x_it.o
-    0x080006c0   0x080006c0   0x00000006   Code   RO          851    i.Sensor_AS5600_GetMechanicalAngle  as5600_deng.o
-    0x080006c6   0x080006c6   0x00000002   PAD
-    0x080006c8   0x080006c8   0x00000048   Code   RO          852    i.Sensor_AS5600_GetSensorAngle  as5600_deng.o
-    0x08000710   0x08000710   0x00000070   Code   RO          853    i.Sensor_AS5600_GetVelocity  as5600_deng.o
-    0x08000780   0x08000780   0x0000006c   Code   RO          856    i.Sensor_AS5600_Update  as5600_deng.o
-    0x080007ec   0x080007ec   0x00000008   Code   RO          183    i.SysTick_Handler   gd32f30x_it.o
-    0x080007f4   0x080007f4   0x00000148   Code   RO          922    i.SystemInit        system_gd32f30x.o
-    0x0800093c   0x0800093c   0x00000004   Code   RO          184    i.UsageFault_Handler  gd32f30x_it.o
-    0x08000940   0x08000940   0x00000026   Code   RO         5176    i.__ARM_fpclassifyf  m_wm.l(fpclassifyf.o)
-    0x08000966   0x08000966   0x00000002   PAD
-    0x08000968   0x08000968   0x00000150   Code   RO         5048    i.__hardfp_cosf     m_wm.l(cosf.o)
-    0x08000ab8   0x08000ab8   0x000000b0   Code   RO         5072    i.__hardfp_fmodf    m_wm.l(fmodf.o)
-    0x08000b68   0x08000b68   0x00000664   Code   RO         5084    i.__hardfp_powf     m_wm.l(powf.o)
-    0x080011cc   0x080011cc   0x00000190   Code   RO         5110    i.__hardfp_sinf     m_wm.l(sinf.o)
-    0x0800135c   0x0800135c   0x0000003a   Code   RO         5134    i.__hardfp_sqrtf    m_wm.l(sqrtf.o)
-    0x08001396   0x08001396   0x00000002   PAD
-    0x08001398   0x08001398   0x00000014   Code   RO         5178    i.__mathlib_flt_divzero  m_wm.l(funder.o)
-    0x080013ac   0x080013ac   0x00000006   Code   RO         5179    i.__mathlib_flt_infnan  m_wm.l(funder.o)
-    0x080013b2   0x080013b2   0x00000006   Code   RO         5180    i.__mathlib_flt_infnan2  m_wm.l(funder.o)
-    0x080013b8   0x080013b8   0x00000010   Code   RO         5181    i.__mathlib_flt_invalid  m_wm.l(funder.o)
-    0x080013c8   0x080013c8   0x00000010   Code   RO         5182    i.__mathlib_flt_overflow  m_wm.l(funder.o)
-    0x080013d8   0x080013d8   0x00000010   Code   RO         5184    i.__mathlib_flt_underflow  m_wm.l(funder.o)
-    0x080013e8   0x080013e8   0x00000154   Code   RO         5197    i.__mathlib_rredf2  m_wm.l(rredf.o)
-    0x0800153c   0x0800153c   0x0000000e   Code   RO         5272    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x0800154a   0x0800154a   0x00000002   Code   RO         5273    i.__scatterload_null  mc_w.l(handlers.o)
-    0x0800154c   0x0800154c   0x0000000e   Code   RO         5274    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x0800155a   0x0800155a   0x00000002   PAD
-    0x0800155c   0x0800155c   0x0000000c   Code   RO         5228    i.__set_errno       mc_w.l(errno.o)
-    0x08001568   0x08001568   0x0000004c   Code   RO          687    i._electricalAngle_speed  foc_deng.o
-    0x080015b4   0x080015b4   0x00000034   Code   RO          248    i._micros           systick.o
-    0x080015e8   0x080015e8   0x0000003c   Code   RO          688    i._normalizeAngle_speed  foc_deng.o
-    0x08001624   0x08001624   0x0000001c   Code   RO          923    i._soft_delay_      system_gd32f30x.o
-    0x08001640   0x08001640   0x0000000e   Code   RO          621    i.as5600_check_magnet  as5600_i2c.o
-    0x0800164e   0x0800164e   0x00000002   PAD
-    0x08001650   0x08001650   0x00000060   Code   RO          622    i.as5600_i2c_init   as5600_i2c.o
-    0x080016b0   0x080016b0   0x00000018   Code   RO          623    i.as5600_read_angle_degree  as5600_i2c.o
-    0x080016c8   0x080016c8   0x0000000a   Code   RO          624    i.as5600_read_raw_angle  as5600_i2c.o
-    0x080016d2   0x080016d2   0x00000002   PAD
-    0x080016d4   0x080016d4   0x000000fc   Code   RO          625    i.as5600_read_reg   as5600_i2c.o
-    0x080017d0   0x080017d0   0x00000144   Code   RO          626    i.as5600_read_reg16  as5600_i2c.o
-    0x08001914   0x08001914   0x0000000a   Code   RO          627    i.as5600_read_status  as5600_i2c.o
-    0x0800191e   0x0800191e   0x00000002   PAD
-    0x08001920   0x08001920   0x00000018   Code   RO          249    i.delay_1ms         systick.o
-    0x08001938   0x08001938   0x00000018   Code   RO          250    i.delay_decrement   systick.o
-    0x08001950   0x08001950   0x00000098   Code   RO         4973    i.gd_eval_com_init  gd32f303c_eval.o
-    0x080019e8   0x080019e8   0x0000004c   Code   RO          309    i.gpio_config       gpio.o
-    0x08001a34   0x08001a34   0x000000bc   Code   RO         2741    i.gpio_init         gd32f30x_gpio.o
-    0x08001af0   0x08001af0   0x00000010   Code   RO         2861    i.i2c_ack_config    gd32f30x_i2c.o
-    0x08001b00   0x08001b00   0x00000010   Code   RO         2862    i.i2c_ackpos_config  gd32f30x_i2c.o
-    0x08001b10   0x08001b10   0x00000140   Code   RO         2863    i.i2c_clock_config  gd32f30x_i2c.o
-    0x08001c50   0x08001c50   0x00000008   Code   RO         2864    i.i2c_data_receive  gd32f30x_i2c.o
-    0x08001c58   0x08001c58   0x00000006   Code   RO         2865    i.i2c_data_transmit  gd32f30x_i2c.o
-    0x08001c5e   0x08001c5e   0x0000000a   Code   RO         2872    i.i2c_enable        gd32f30x_i2c.o
-    0x08001c68   0x08001c68   0x00000028   Code   RO         2873    i.i2c_flag_clear    gd32f30x_i2c.o
-    0x08001c90   0x08001c90   0x0000001e   Code   RO         2874    i.i2c_flag_get      gd32f30x_i2c.o
-    0x08001cae   0x08001cae   0x00000014   Code   RO         2879    i.i2c_master_addressing  gd32f30x_i2c.o
-    0x08001cc2   0x08001cc2   0x0000001c   Code   RO         2880    i.i2c_mode_addr_config  gd32f30x_i2c.o
-    0x08001cde   0x08001cde   0x0000000a   Code   RO         2889    i.i2c_start_on_bus  gd32f30x_i2c.o
-    0x08001ce8   0x08001ce8   0x0000000a   Code   RO         2890    i.i2c_stop_on_bus   gd32f30x_i2c.o
-    0x08001cf2   0x08001cf2   0x00000002   PAD
-    0x08001cf4   0x08001cf4   0x0000006c   Code   RO            3    i.main              main.o
-    0x08001d60   0x08001d60   0x00000158   Code   RO         3270    i.rcu_clock_freq_get  gd32f30x_rcu.o
-    0x08001eb8   0x08001eb8   0x00000020   Code   RO         3288    i.rcu_periph_clock_enable  gd32f30x_rcu.o
-    0x08001ed8   0x08001ed8   0x00000020   Code   RO         3291    i.rcu_periph_reset_disable  gd32f30x_rcu.o
-    0x08001ef8   0x08001ef8   0x00000020   Code   RO         3292    i.rcu_periph_reset_enable  gd32f30x_rcu.o
-    0x08001f18   0x08001f18   0x00000064   Code   RO          857    i.read_raw_angle    as5600_deng.o
-    0x08001f7c   0x08001f7c   0x000001d4   Code   RO          689    i.setPwm_speed      foc_deng.o
-    0x08002150   0x08002150   0x00000168   Code   RO          690    i.setTorque         foc_deng.o
-    0x080022b8   0x080022b8   0x0000011c   Code   RO          925    i.system_clock_120m_hxtal  system_gd32f30x.o
-    0x080023d4   0x080023d4   0x00000008   Code   RO          926    i.system_clock_config  system_gd32f30x.o
-    0x080023dc   0x080023dc   0x00000050   Code   RO          251    i.systick_config    systick.o
-    0x0800242c   0x0800242c   0x000000ec   Code   RO          362    i.timer0_config     timer.o
-    0x08002518   0x08002518   0x000000f4   Code   RO          363    i.timer1_config     timer.o
-    0x0800260c   0x0800260c   0x0000000a   Code   RO         4158    i.timer_auto_reload_shadow_enable  gd32f30x_timer.o
-    0x08002616   0x08002616   0x00000002   PAD
-    0x08002618   0x08002618   0x000001ec   Code   RO         4175    i.timer_channel_output_config  gd32f30x_timer.o
-    0x08002804   0x08002804   0x0000005a   Code   RO         4177    i.timer_channel_output_mode_config  gd32f30x_timer.o
-    0x0800285e   0x0800285e   0x00000026   Code   RO         4179    i.timer_channel_output_pulse_value_config  gd32f30x_timer.o
-    0x08002884   0x08002884   0x0000005a   Code   RO         4180    i.timer_channel_output_shadow_config  gd32f30x_timer.o
-    0x080028de   0x080028de   0x0000000c   Code   RO          364    i.timer_config      timer.o
-    0x080028ea   0x080028ea   0x00000002   PAD
-    0x080028ec   0x080028ec   0x000000dc   Code   RO         4188    i.timer_deinit      gd32f30x_timer.o
-    0x080029c8   0x080029c8   0x0000000a   Code   RO         4193    i.timer_enable      gd32f30x_timer.o
-    0x080029d2   0x080029d2   0x00000002   PAD
-    0x080029d4   0x080029d4   0x00000098   Code   RO         4203    i.timer_init        gd32f30x_timer.o
-    0x08002a6c   0x08002a6c   0x00000018   Code   RO         4218    i.timer_primary_output_config  gd32f30x_timer.o
-    0x08002a84   0x08002a84   0x00000090   Code   RO         4601    i.usart_baudrate_set  gd32f30x_usart.o
-    0x08002b14   0x08002b14   0x00000090   Code   RO         4606    i.usart_deinit      gd32f30x_usart.o
-    0x08002ba4   0x08002ba4   0x0000000a   Code   RO         4610    i.usart_enable      gd32f30x_usart.o
-    0x08002bae   0x08002bae   0x0000001e   Code   RO         4612    i.usart_flag_get    gd32f30x_usart.o
-    0x08002bcc   0x08002bcc   0x00000014   Code   RO         4634    i.usart_receive_config  gd32f30x_usart.o
-    0x08002be0   0x08002be0   0x00000014   Code   RO         4648    i.usart_transmit_config  gd32f30x_usart.o
-    0x08002bf4   0x08002bf4   0x00000140   Data   RO         5087    .constdata          m_wm.l(powf.o)
-    0x08002d34   0x08002d34   0x00000020   Data   RO         5198    .constdata          m_wm.l(rredf.o)
-    0x08002d54   0x08002d54   0x00000020   Data   RO         5270    Region$$Table       anon$$obj.o
-
-
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08002d74, Size: 0x00000638, Max: 0x0000c000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00002670, Max: 0x00040000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x08002d74   0x00000008   Data   RW          252    .data               systick.o
-    0x20000008   0x08002d7c   0x00000040   Data   RW          692    .data               foc_deng.o
-    0x20000048   0x08002dbc   0x00000004   Data   RW          927    .data               system_gd32f30x.o
-    0x2000004c   0x08002dc0   0x0000007d   Data   RW         4980    .data               gd32f303c_eval.o
-    0x200000c9   0x08002e3d   0x00000003   PAD
-    0x200000cc   0x08002e40   0x00000004   Data   RW         5229    .data               mc_w.l(errno.o)
-    0x200000d0        -       0x00000164   Zero   RW          691    .bss                foc_deng.o
-    0x20000234   0x08002e44   0x00000004   PAD
-    0x20000238        -       0x00000400   Zero   RW         5029    STACK               startup_gd32f30x_hd.o
+    0x08000000   0x08000000   0x00000130   Data   RO         5002    RESET               startup_gd32f30x_hd.o
+    0x08000130   0x08000130   0x00000000   Code   RO         5103  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x08000130   0x08000130   0x00000004   Code   RO         5165    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x08000134   0x08000134   0x00000004   Code   RO         5168    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x08000138   0x08000138   0x00000000   Code   RO         5170    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x08000138   0x08000138   0x00000000   Code   RO         5172    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x08000138   0x08000138   0x00000008   Code   RO         5173    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x08000140   0x08000140   0x00000004   Code   RO         5180    .ARM.Collect$$$$0000000E  mc_w.l(entry12b.o)
+    0x08000144   0x08000144   0x00000000   Code   RO         5175    .ARM.Collect$$$$0000000F  mc_w.l(entry10a.o)
+    0x08000144   0x08000144   0x00000000   Code   RO         5177    .ARM.Collect$$$$00000011  mc_w.l(entry11a.o)
+    0x08000144   0x08000144   0x00000004   Code   RO         5166    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x08000148   0x08000148   0x00000024   Code   RO         5003    .text               startup_gd32f30x_hd.o
+    0x0800016c   0x0800016c   0x00000062   Code   RO         5106    .text               mc_w.l(uldiv.o)
+    0x080001ce   0x080001ce   0x00000026   Code   RO         5114    .text               mf_w.l(f2d.o)
+    0x080001f4   0x080001f4   0x00000038   Code   RO         5116    .text               mf_w.l(d2f.o)
+    0x0800022c   0x0800022c   0x0000001e   Code   RO         5181    .text               mc_w.l(llshl.o)
+    0x0800024a   0x0800024a   0x00000020   Code   RO         5183    .text               mc_w.l(llushr.o)
+    0x0800026a   0x0800026a   0x00000000   Code   RO         5194    .text               mc_w.l(iusefp.o)
+    0x0800026a   0x0800026a   0x0000006e   Code   RO         5195    .text               mf_w.l(fepilogue.o)
+    0x080002d8   0x080002d8   0x00000052   Code   RO         5197    .text               mf_w.l(frem.o)
+    0x0800032a   0x0800032a   0x00000002   PAD
+    0x0800032c   0x0800032c   0x00000024   Code   RO         5219    .text               mc_w.l(init.o)
+    0x08000350   0x08000350   0x00000004   Code   RO          176    i.BusFault_Handler  gd32f30x_it.o
+    0x08000354   0x08000354   0x00000018   Code   RO          649    i.DFOC_M0_SET_VEL_PID  foc_deng.o
+    0x0800036c   0x0800036c   0x00000020   Code   RO          650    i.DFOC_M0_VEL_PID   foc_deng.o
+    0x0800038c   0x0800038c   0x00000044   Code   RO          651    i.DFOC_M0_Velocity  foc_deng.o
+    0x080003d0   0x080003d0   0x00000054   Code   RO          653    i.DFOC_M0_setVelocity  foc_deng.o
+    0x08000424   0x08000424   0x000000b8   Code   RO          656    i.DFOC_Vbus         foc_deng.o
+    0x080004dc   0x080004dc   0x00000002   Code   RO          177    i.DebugMon_Handler  gd32f30x_it.o
+    0x080004de   0x080004de   0x00000004   Code   RO          178    i.HardFault_Handler  gd32f30x_it.o
+    0x080004e2   0x080004e2   0x00000002   PAD
+    0x080004e4   0x080004e4   0x00000014   Code   RO          767    i.LowPassFilter_Init  lowpass_filter.o
+    0x080004f8   0x080004f8   0x0000002a   Code   RO          768    i.LowPassFilter_Update  lowpass_filter.o
+    0x08000522   0x08000522   0x00000004   Code   RO          179    i.MemManage_Handler  gd32f30x_it.o
+    0x08000526   0x08000526   0x00000002   PAD
+    0x08000528   0x08000528   0x0000000c   Code   RO          336    i.Moto0_U_Enable    timer.o
+    0x08000534   0x08000534   0x00000010   Code   RO          352    i.Moto1_U_Set_Val   timer.o
+    0x08000544   0x08000544   0x00000010   Code   RO          357    i.Moto1_V_Set_Val   timer.o
+    0x08000554   0x08000554   0x00000012   Code   RO          362    i.Moto1_W_Set_Val   timer.o
+    0x08000566   0x08000566   0x00000002   Code   RO          180    i.NMI_Handler       gd32f30x_it.o
+    0x08000568   0x08000568   0x00000028   Code   RO          248    i.NVIC_SetPriority  systick.o
+    0x08000590   0x08000590   0x00000058   Code   RO          796    i.PIDController_Init  pid.o
+    0x080005e8   0x080005e8   0x00000184   Code   RO          797    i.PIDController_Update  pid.o
+    0x0800076c   0x0800076c   0x00000002   Code   RO          181    i.PendSV_Handler    gd32f30x_it.o
+    0x0800076e   0x0800076e   0x00000002   Code   RO          182    i.SVC_Handler       gd32f30x_it.o
+    0x08000770   0x08000770   0x00000006   Code   RO          823    i.Sensor_AS5600_GetMechanicalAngle  as5600_deng.o
+    0x08000776   0x08000776   0x00000002   PAD
+    0x08000778   0x08000778   0x00000044   Code   RO          824    i.Sensor_AS5600_GetSensorAngle  as5600_deng.o
+    0x080007bc   0x080007bc   0x00000070   Code   RO          825    i.Sensor_AS5600_GetVelocity  as5600_deng.o
+    0x0800082c   0x0800082c   0x00000024   Code   RO          826    i.Sensor_AS5600_Init  as5600_deng.o
+    0x08000850   0x08000850   0x00000056   Code   RO          827    i.Sensor_AS5600_SensorInit  as5600_deng.o
+    0x080008a6   0x080008a6   0x00000002   PAD
+    0x080008a8   0x080008a8   0x0000006c   Code   RO          828    i.Sensor_AS5600_Update  as5600_deng.o
+    0x08000914   0x08000914   0x00000018   Code   RO          183    i.SysTick_Handler   gd32f30x_it.o
+    0x0800092c   0x0800092c   0x00000148   Code   RO          889    i.SystemInit        system_gd32f30x.o
+    0x08000a74   0x08000a74   0x00000004   Code   RO          184    i.UsageFault_Handler  gd32f30x_it.o
+    0x08000a78   0x08000a78   0x00000026   Code   RO         5135    i.__ARM_fpclassifyf  m_wm.l(fpclassifyf.o)
+    0x08000a9e   0x08000a9e   0x00000002   PAD
+    0x08000aa0   0x08000aa0   0x00000150   Code   RO         5019    i.__hardfp_cosf     m_wm.l(cosf.o)
+    0x08000bf0   0x08000bf0   0x000000b0   Code   RO         5043    i.__hardfp_fmodf    m_wm.l(fmodf.o)
+    0x08000ca0   0x08000ca0   0x00000190   Code   RO         5067    i.__hardfp_sinf     m_wm.l(sinf.o)
+    0x08000e30   0x08000e30   0x0000003a   Code   RO         5091    i.__hardfp_sqrtf    m_wm.l(sqrtf.o)
+    0x08000e6a   0x08000e6a   0x00000006   Code   RO         5138    i.__mathlib_flt_infnan  m_wm.l(funder.o)
+    0x08000e70   0x08000e70   0x00000010   Code   RO         5140    i.__mathlib_flt_invalid  m_wm.l(funder.o)
+    0x08000e80   0x08000e80   0x00000010   Code   RO         5143    i.__mathlib_flt_underflow  m_wm.l(funder.o)
+    0x08000e90   0x08000e90   0x00000154   Code   RO         5156    i.__mathlib_rredf2  m_wm.l(rredf.o)
+    0x08000fe4   0x08000fe4   0x0000000e   Code   RO         5229    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x08000ff2   0x08000ff2   0x00000002   Code   RO         5230    i.__scatterload_null  mc_w.l(handlers.o)
+    0x08000ff4   0x08000ff4   0x0000000e   Code   RO         5231    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x08001002   0x08001002   0x00000002   PAD
+    0x08001004   0x08001004   0x0000000c   Code   RO         5189    i.__set_errno       mc_w.l(errno.o)
+    0x08001010   0x08001010   0x0000004c   Code   RO          658    i._electricalAngle_speed  foc_deng.o
+    0x0800105c   0x0800105c   0x00000048   Code   RO          249    i._micros           systick.o
+    0x080010a4   0x080010a4   0x0000003c   Code   RO          659    i._normalizeAngle_speed  foc_deng.o
+    0x080010e0   0x080010e0   0x0000001c   Code   RO          890    i._soft_delay_      system_gd32f30x.o
+    0x080010fc   0x080010fc   0x0000000e   Code   RO          592    i.as5600_check_magnet  as5600_i2c.o
+    0x0800110a   0x0800110a   0x00000002   PAD
+    0x0800110c   0x0800110c   0x00000060   Code   RO          593    i.as5600_i2c_init   as5600_i2c.o
+    0x0800116c   0x0800116c   0x0000000c   Code   RO          594    i.as5600_read_angle_degree  as5600_i2c.o
+    0x08001178   0x08001178   0x0000000a   Code   RO          595    i.as5600_read_raw_angle  as5600_i2c.o
+    0x08001182   0x08001182   0x00000002   PAD
+    0x08001184   0x08001184   0x000000fc   Code   RO          596    i.as5600_read_reg   as5600_i2c.o
+    0x08001280   0x08001280   0x00000144   Code   RO          597    i.as5600_read_reg16  as5600_i2c.o
+    0x080013c4   0x080013c4   0x0000000a   Code   RO          598    i.as5600_read_status  as5600_i2c.o
+    0x080013ce   0x080013ce   0x00000002   PAD
+    0x080013d0   0x080013d0   0x00000014   Code   RO          250    i.delay_1ms         systick.o
+    0x080013e4   0x080013e4   0x00000018   Code   RO          251    i.delay_decrement   systick.o
+    0x080013fc   0x080013fc   0x00000098   Code   RO         4944    i.gd_eval_com_init  gd32f303c_eval.o
+    0x08001494   0x08001494   0x0000004c   Code   RO          310    i.gpio_config       gpio.o
+    0x080014e0   0x080014e0   0x000000bc   Code   RO         2712    i.gpio_init         gd32f30x_gpio.o
+    0x0800159c   0x0800159c   0x00000010   Code   RO         2832    i.i2c_ack_config    gd32f30x_i2c.o
+    0x080015ac   0x080015ac   0x00000010   Code   RO         2833    i.i2c_ackpos_config  gd32f30x_i2c.o
+    0x080015bc   0x080015bc   0x00000140   Code   RO         2834    i.i2c_clock_config  gd32f30x_i2c.o
+    0x080016fc   0x080016fc   0x00000008   Code   RO         2835    i.i2c_data_receive  gd32f30x_i2c.o
+    0x08001704   0x08001704   0x00000006   Code   RO         2836    i.i2c_data_transmit  gd32f30x_i2c.o
+    0x0800170a   0x0800170a   0x0000000a   Code   RO         2843    i.i2c_enable        gd32f30x_i2c.o
+    0x08001714   0x08001714   0x00000028   Code   RO         2844    i.i2c_flag_clear    gd32f30x_i2c.o
+    0x0800173c   0x0800173c   0x0000001e   Code   RO         2845    i.i2c_flag_get      gd32f30x_i2c.o
+    0x0800175a   0x0800175a   0x00000014   Code   RO         2850    i.i2c_master_addressing  gd32f30x_i2c.o
+    0x0800176e   0x0800176e   0x0000001c   Code   RO         2851    i.i2c_mode_addr_config  gd32f30x_i2c.o
+    0x0800178a   0x0800178a   0x0000000a   Code   RO         2860    i.i2c_start_on_bus  gd32f30x_i2c.o
+    0x08001794   0x08001794   0x0000000a   Code   RO         2861    i.i2c_stop_on_bus   gd32f30x_i2c.o
+    0x0800179e   0x0800179e   0x00000002   PAD
+    0x080017a0   0x080017a0   0x00000070   Code   RO            3    i.main              main.o
+    0x08001810   0x08001810   0x00000158   Code   RO         3241    i.rcu_clock_freq_get  gd32f30x_rcu.o
+    0x08001968   0x08001968   0x00000020   Code   RO         3259    i.rcu_periph_clock_enable  gd32f30x_rcu.o
+    0x08001988   0x08001988   0x00000020   Code   RO         3262    i.rcu_periph_reset_disable  gd32f30x_rcu.o
+    0x080019a8   0x080019a8   0x00000020   Code   RO         3263    i.rcu_periph_reset_enable  gd32f30x_rcu.o
+    0x080019c8   0x080019c8   0x000001c4   Code   RO          660    i.setPwm_speed      foc_deng.o
+    0x08001b8c   0x08001b8c   0x00000168   Code   RO          661    i.setTorque         foc_deng.o
+    0x08001cf4   0x08001cf4   0x0000011c   Code   RO          892    i.system_clock_120m_hxtal  system_gd32f30x.o
+    0x08001e10   0x08001e10   0x00000008   Code   RO          893    i.system_clock_config  system_gd32f30x.o
+    0x08001e18   0x08001e18   0x00000050   Code   RO          252    i.systick_config    systick.o
+    0x08001e68   0x08001e68   0x000000ec   Code   RO          363    i.timer0_config     timer.o
+    0x08001f54   0x08001f54   0x000000f4   Code   RO          364    i.timer1_config     timer.o
+    0x08002048   0x08002048   0x0000000a   Code   RO         4129    i.timer_auto_reload_shadow_enable  gd32f30x_timer.o
+    0x08002052   0x08002052   0x00000002   PAD
+    0x08002054   0x08002054   0x000001ec   Code   RO         4146    i.timer_channel_output_config  gd32f30x_timer.o
+    0x08002240   0x08002240   0x0000005a   Code   RO         4148    i.timer_channel_output_mode_config  gd32f30x_timer.o
+    0x0800229a   0x0800229a   0x00000026   Code   RO         4150    i.timer_channel_output_pulse_value_config  gd32f30x_timer.o
+    0x080022c0   0x080022c0   0x0000005a   Code   RO         4151    i.timer_channel_output_shadow_config  gd32f30x_timer.o
+    0x0800231a   0x0800231a   0x0000000c   Code   RO          365    i.timer_config      timer.o
+    0x08002326   0x08002326   0x00000002   PAD
+    0x08002328   0x08002328   0x000000dc   Code   RO         4159    i.timer_deinit      gd32f30x_timer.o
+    0x08002404   0x08002404   0x0000000a   Code   RO         4164    i.timer_enable      gd32f30x_timer.o
+    0x0800240e   0x0800240e   0x00000002   PAD
+    0x08002410   0x08002410   0x00000098   Code   RO         4174    i.timer_init        gd32f30x_timer.o
+    0x080024a8   0x080024a8   0x00000018   Code   RO         4189    i.timer_primary_output_config  gd32f30x_timer.o
+    0x080024c0   0x080024c0   0x00000090   Code   RO         4572    i.usart_baudrate_set  gd32f30x_usart.o
+    0x08002550   0x08002550   0x00000090   Code   RO         4577    i.usart_deinit      gd32f30x_usart.o
+    0x080025e0   0x080025e0   0x0000000a   Code   RO         4581    i.usart_enable      gd32f30x_usart.o
+    0x080025ea   0x080025ea   0x0000001e   Code   RO         4583    i.usart_flag_get    gd32f30x_usart.o
+    0x08002608   0x08002608   0x00000014   Code   RO         4605    i.usart_receive_config  gd32f30x_usart.o
+    0x0800261c   0x0800261c   0x00000014   Code   RO         4619    i.usart_transmit_config  gd32f30x_usart.o
+    0x08002630   0x08002630   0x00000020   Data   RO         5157    .constdata          m_wm.l(rredf.o)
+    0x08002650   0x08002650   0x00000020   Data   RO         5227    Region$$Table       anon$$obj.o
+
+
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08002670, Size: 0x00000628, Max: 0x0000c000, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x08002670   0x00000008   Data   RW          253    .data               systick.o
+    0x20000008   0x08002678   0x00000034   Data   RW          663    .data               foc_deng.o
+    0x2000003c   0x080026ac   0x00000004   Data   RW          894    .data               system_gd32f30x.o
+    0x20000040   0x080026b0   0x0000007d   Data   RW         4951    .data               gd32f303c_eval.o
+    0x200000bd   0x0800272d   0x00000003   PAD
+    0x200000c0   0x08002730   0x00000004   Data   RW         5190    .data               mc_w.l(errno.o)
+    0x200000c4        -       0x00000164   Zero   RW          662    .bss                foc_deng.o
+    0x20000228        -       0x00000400   Zero   RW         5000    STACK               startup_gd32f30x_hd.o
 
 
 ==============================================================================
@@ -2063,29 +2012,29 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       398         26          0          0          0       3721   as5600_deng.o
-       730         26          0          0          0       4112   as5600_i2c.o
-      1336        142          0         64        356       7482   foc_deng.o
+       416         30          0          0          0       4129   as5600_deng.o
+       718         26          0          0          0       4052   as5600_i2c.o
+      1340        136          0         52        356       7440   foc_deng.o
        152         30          0        125          0       1727   gd32f303c_eval.o
        188          0          0          0          0        984   gd32f30x_gpio.o
        514         14          0          0          0      14464   gd32f30x_i2c.o
-        32          0          0          0          0       4178   gd32f30x_it.o
+        48          6          0          0          0       4182   gd32f30x_it.o
        440         46          0          0          0      20532   gd32f30x_rcu.o
       1126         48          0          0          0      22883   gd32f30x_timer.o
        368         16          0          0          0      11183   gd32f30x_usart.o
         76         10          0          0          0        490   gpio.o
         62          6          0          0          0       1568   lowpass_filter.o
-       108         16          0          0          0      43259   main.o
+       112         22          0          0          0      43203   main.o
        476         12          0          0          0       2284   pid.o
         36          8        304          0       1024        944   startup_gd32f30x_hd.o
        648         30          0          4          0       4259   system_gd32f30x.o
-       220         34          0          8          0      34148   systick.o
+       236         32          0          8          0      34200   systick.o
        554         10          0          0          0       3862   timer.o
 
     ----------------------------------------------------------------------
-      7484        474        336        204       1384     182080   Object Totals
+      7532        482        336        192       1380     182386   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        20          0          0          3          4          0   (incl. Padding)
+        22          0          0          3          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -2094,8 +2043,7 @@ Image component sizes
        336         56          0          0          0        136   cosf.o
        176          0          0          0          0        168   fmodf.o
         38          0          0          0          0        116   fpclassifyf.o
-        80         24          0          0          0        696   funder.o
-      1636        110        320          0          0        372   powf.o
+        38         12          0          0          0        348   funder.o
        340         24         32          0          0        160   rredf.o
        400         56          0          0          0        212   sinf.o
         58          0          0          0          0        136   sqrtf.o
@@ -2112,26 +2060,28 @@ Image component sizes
         30          0          0          0          0          0   handlers.o
         36          8          0          0          0         68   init.o
          0          0          0          0          0          0   iusefp.o
+        30          0          0          0          0         68   llshl.o
+        32          0          0          0          0         68   llushr.o
+        98          0          0          0          0         92   uldiv.o
         56          0          0          0          0         88   d2f.o
         38          0          0          0          0         68   f2d.o
        110          0          0          0          0        168   fepilogue.o
-         4          0          0          0          0         68   fpstat.o
         82          0          0          0          0         96   frem.o
 
     ----------------------------------------------------------------------
-      3464        292        352          4          0       2620   Library Totals
-         8          0          0          0          0          0   (incl. Padding)
+      1940        170         32          4          0       2060   Library Totals
+         6          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
 
-      3064        270        352          0          0       1996   m_wm.l
-       102         22          0          4          0        136   mc_w.l
-       290          0          0          0          0        488   mf_w.l
+      1386        148         32          0          0       1276   m_wm.l
+       262         22          0          4          0        364   mc_w.l
+       286          0          0          0          0        420   mf_w.l
 
     ----------------------------------------------------------------------
-      3464        292        352          4          0       2620   Library Totals
+      1940        170         32          4          0       2060   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -2140,15 +2090,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     10948        766        688        208       1384     175696   Grand Totals
-     10948        766        688        208       1384     175696   ELF Image Totals
-     10948        766        688        208          0          0   ROM Totals
+      9472        652        368        196       1380     175790   Grand Totals
+      9472        652        368        196       1380     175790   ELF Image Totals
+      9472        652        368        196          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                11636 (  11.36kB)
-    Total RW  Size (RW Data + ZI Data)              1592 (   1.55kB)
-    Total ROM Size (Code + RO Data + RW Data)      11844 (  11.57kB)
+    Total RO  Size (Code + RO Data)                 9840 (   9.61kB)
+    Total RW  Size (RW Data + ZI Data)              1576 (   1.54kB)
+    Total ROM Size (Code + RO Data + RW Data)      10036 (   9.80kB)
 
 ==============================================================================
 

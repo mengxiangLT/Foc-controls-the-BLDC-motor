@@ -13,6 +13,8 @@
 #define AS5600_ADDR         0x6C
 
 /* AS5600 ????? */
+#define AS5600_RAW_ANGLE_H  0x0C
+#define AS5600_RAW_ANGLE_L  0x0D
 #define AS5600_ANGLE_H      0x0E
 #define AS5600_ANGLE_L      0x0F
 #define AS5600_STATUS       0x0B
@@ -24,7 +26,7 @@
 /* AS5600 ???? */
 void as5600_i2c_init(void);
 uint16_t as5600_read_raw_angle(void);    /* ?????? 0-4095 */
-float as5600_read_angle_degree(void);    /* ???? 0-360? */
+uint16_t as5600_read_angle_degree(void);    /* ???? 0-360? */
 uint8_t as5600_read_status(void);        /* ???? */
 uint8_t as5600_check_magnet(void);       /* ??????? */
 

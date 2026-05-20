@@ -27,26 +27,26 @@ float PIDController_Update(PIDController *pid, float error)
     float derivative;
     float output;
     
-    /* ??????? */
+	/* 修复micros函数跳变 */
     if(Ts <= 0 || Ts > 0.5f) {
         Ts = 1e-3f;
     }
     
-    /* ??? */
+    /* 比例值*误差 */
     proportional = pid->P * error;
     
-    /* ???(????)*/
-    integral = pid->integral_prev + pid->I * Ts * 0.5f * (error + pid->error_prev);
+    /* Tustin变换的离散积分公式 */
+    integral = pid->integral_prev + pid->I * Ts * 0.5f * (error + pid->error_prev); //散点积分叠加
     integral = _CONSTRAIN(integral, -pid->limit, pid->limit);
     
-    /* ??? */
+    /* D环(微分环节) */
     derivative = pid->D * (error - pid->error_prev) / Ts;
     
-    /* ?? */
+    /* 将P, I, D三环的计算值加起来 */
     output = proportional + integral + derivative;
     output = _CONSTRAIN(output, -pid->limit, pid->limit);
     
-    /* ??????? */
+    /* 对PID的变化速度进行限制 */
     if(pid->output_ramp > 0) {
         float output_rate = (output - pid->output_prev) / Ts;
         if(output_rate > pid->output_ramp) {
@@ -56,7 +56,7 @@ float PIDController_Update(PIDController *pid, float error)
         }
     }
     
-    /* ???????? */
+    /* 保存值，用于下一周期计算 */
     pid->integral_prev = integral;
     pid->output_prev = output;
     pid->error_prev = error;

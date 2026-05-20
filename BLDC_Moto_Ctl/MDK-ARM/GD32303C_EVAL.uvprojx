@@ -415,11 +415,6 @@
               <FilePath>..\foc.c</FilePath>
             </File>
             <File>
-              <FileName>i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>as5600_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\as5600_i2c.c</FilePath>

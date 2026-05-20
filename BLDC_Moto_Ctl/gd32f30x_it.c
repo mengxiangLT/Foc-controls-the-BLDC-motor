@@ -133,8 +133,9 @@ void PendSV_Handler(void)
     \param[out] none
     \retval     none
 */
-
+extern volatile uint32_t sysTickUptime;
 void SysTick_Handler(void)
 {
     delay_decrement();
+	  sysTickUptime++;
 }

@@ -9,7 +9,7 @@
 extern float voltage_power_supply_speed;
 extern float Ualpha_speed, Ubeta_speed, Ua_speed, Ub_speed, Uc_speed;
 extern float zero_electric_angle_speed;
-extern int PP, DIR;
+extern int Motor_PP, Sensor_DIR;
 extern int pwmA, pwmB, pwmC;
 
 /* ????? */

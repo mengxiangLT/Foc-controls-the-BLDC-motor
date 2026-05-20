@@ -12,11 +12,8 @@ float voltage_power_supply_speed = 0.0f;
 float Ualpha_speed = 0.0f, Ubeta_speed = 0.0f;
 float Ua_speed = 0.0f, Ub_speed = 0.0f, Uc_speed = 0.0f;
 float zero_electric_angle_speed = 0.0f;
-int PP = 1;
-int DIR = 1;
-int pwmA = 32;
-int pwmB = 33;
-int pwmC = 25;
+int Motor_PP = 7;
+int Sensor_DIR = 1;
 
 /* ??????? */
 LowPassFilter M0_Vel_Flt;
@@ -49,11 +46,12 @@ float _normalizeAngle_speed(float angle)
 /* ????? */
 float _electricalAngle_speed(void)
 {
-    return _normalizeAngle_speed((float)(DIR * PP) * Sensor_AS5600_GetMechanicalAngle(&S0) - zero_electric_angle_speed);
+    return _normalizeAngle_speed((float)(Sensor_DIR * Motor_PP) * Sensor_AS5600_GetMechanicalAngle(&S0) - zero_electric_angle_speed);
 }
 
 
-/*==================== PID ???? ====================*/
+/*==================== PID 控制 ====================*/
+//速度闭环PID
 void DFOC_M0_SET_VEL_PID(float P, float I, float D, float ramp)
 {
     vel_loop_M0.P = P;
@@ -61,7 +59,7 @@ void DFOC_M0_SET_VEL_PID(float P, float I, float D, float ramp)
     vel_loop_M0.D = D;
     vel_loop_M0.output_ramp = ramp;
 }
-
+//力位角度闭环PID
 void DFOC_M0_SET_ANGLE_PID(float P, float I, float D, float ramp)
 {
     angle_loop_M0.P = P;
@@ -80,43 +78,16 @@ float DFOC_M0_ANGLE_PID(float error)
     return PIDController_Update(&angle_loop_M0, error);
 }
 
-#if 0
-/*==================== PWM ???? ====================*/
-/* ??:?? PWM ????????????(GD32 ????? PWM)*/
-static void ledcWrite(int channel, uint32_t duty)
-{
-    /* TODO: ???? GD32 ???? PWM ?? */
-    /* ???????,???????? PWM ???? */
-    (void)channel;
-    (void)duty;
-}
-
-static void ledcSetup(int channel, int freq, int resolution)
-{
-    /* TODO: ???? GD32 ???? PWM ??? */
-    (void)channel;
-    (void)freq;
-    (void)resolution;
-}
-
-static void ledcAttachPin(int pin, int channel)
-{
-    /* TODO: ???? GD32 ?????? PWM ?? */
-    (void)pin;
-    (void)channel;
-}
-#endif
-
 void setPwm_speed(float Ua, float Ub, float Uc)
 {
     float dc_a, dc_b, dc_c;
     
-    /* ?? */
-    Ua_speed = _CONSTRAIN(Ua, 0.0f, voltage_power_supply_speed);
-    Ub_speed = _CONSTRAIN(Ub, 0.0f, voltage_power_supply_speed);
-    Uc_speed = _CONSTRAIN(Uc, 0.0f, voltage_power_supply_speed);
+    /* 限制速度值在有效范围内 */
+    Ua = _CONSTRAIN(Ua, 0.0f, voltage_power_supply_speed);
+    Ub = _CONSTRAIN(Ub, 0.0f, voltage_power_supply_speed);
+    Uc = _CONSTRAIN(Uc, 0.0f, voltage_power_supply_speed);
     
-    /* ????? */
+    /* 限制电压值在有效范围内 */
     dc_a = _CONSTRAIN(Ua / voltage_power_supply_speed, 0.0f, 1.0f);
     dc_b = _CONSTRAIN(Ub / voltage_power_supply_speed, 0.0f, 1.0f);
     dc_c = _CONSTRAIN(Uc / voltage_power_supply_speed, 0.0f, 1.0f);
@@ -167,9 +138,9 @@ void DFOC_Vbus(float power_supply)
 //    ledcAttachPin(pwmB, 1);
 //    ledcAttachPin(pwmC, 2);
     
-//    /* ??? AS5600 ??? */
-//    Sensor_AS5600_Init(&S0, 0);
-//    Sensor_AS5600_SensorInit(&S0);
+    /* ??? AS5600 ??? */
+    Sensor_AS5600_Init(&S0, 0);
+    Sensor_AS5600_SensorInit(&S0);
     
     /* ??? PID */
     PIDController_Init(&vel_loop_M0, 2.0f, 0.0f, 0.0f, 100000.0f, voltage_power_supply_speed / 2.0f);
@@ -183,8 +154,8 @@ void DFOC_Vbus(float power_supply)
 /* ??????? */
 void DFOC_alignSensor(int _PP, int _DIR)
 {
-    PP = _PP;
-    DIR = _DIR;
+    Motor_PP = _PP;
+    Sensor_DIR = _DIR;
     
     setTorque(3.0f, _3PI_2);  /* ?????? */
     delay_1ms(1000);
@@ -198,14 +169,14 @@ void DFOC_alignSensor(int _PP, int _DIR)
 /*==================== ????? ====================*/
 float DFOC_M0_Angle(void)
 {
-    return (float)DIR * Sensor_AS5600_GetAngle(&S0);
+    return (float)Sensor_DIR * Sensor_AS5600_GetAngle(&S0);
 }
 
 float DFOC_M0_Velocity(void)
 {
     float vel_ori, vel_flit;
     vel_ori = Sensor_AS5600_GetVelocity(&S0);
-    vel_flit = LowPassFilter_Update(&M0_Vel_Flt, (float)DIR * vel_ori);
+    vel_flit = LowPassFilter_Update(&M0_Vel_Flt, (float)Sensor_DIR * vel_ori);
     return vel_flit;
 }
 
@@ -219,7 +190,7 @@ void DFOC_M0_set_Velocity_Angle(float Target)
     
     setTorque(torque, _electricalAngle_speed());
 }
-
+//速度闭环
 void DFOC_M0_setVelocity(float Target)
 {
     float vel_error = (Target - DFOC_M0_Velocity()) * 180.0f / PI;
@@ -227,7 +198,7 @@ void DFOC_M0_setVelocity(float Target)
     
     setTorque(torque, _electricalAngle_speed());
 }
-
+//角度闭环
 void DFOC_M0_set_Force_Angle(float Target)
 {
     float angle_error = (Target - DFOC_M0_Angle()) * 180.0f / PI;
