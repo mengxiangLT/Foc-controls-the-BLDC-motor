@@ -1,0 +1,12 @@
+#include "gd32f30x.h"
+#include "gd32f303c_eval.h"
+#include "systick.h"
+#include "gpio.h"
+#include "timer.h"
+#include "foc.h"
+#include "i2c.h"
+#include "as5600.h"
+//#include "soft_i2c.h"
+#include "foc_utils.h"
+#include <stdio.h>
+#include <math.h>

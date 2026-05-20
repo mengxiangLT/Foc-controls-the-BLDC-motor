@@ -1,0 +1,242 @@
+#include "foc_deng.h"
+#include "pid.h"
+#include "as5600_deng.h"
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include "includes.h"
+#include "lowpass_filter.h"
+
+/*==================== ?????? ====================*/
+float voltage_power_supply_speed = 0.0f;
+float Ualpha_speed = 0.0f, Ubeta_speed = 0.0f;
+float Ua_speed = 0.0f, Ub_speed = 0.0f, Uc_speed = 0.0f;
+float zero_electric_angle_speed = 0.0f;
+int PP = 1;
+int DIR = 1;
+int pwmA = 32;
+int pwmB = 33;
+int pwmC = 25;
+
+/* ??????? */
+LowPassFilter M0_Vel_Flt;
+
+/* PID ?? */
+PIDController vel_loop_M0;
+PIDController angle_loop_M0;
+
+/* AS5600 ????? */
+Sensor_AS5600 S0;
+
+/* ??????? */
+static float motor_target = 0.0f;
+static char received_chars[256];
+static int received_index = 0;
+
+/*==================== ???? ====================*/
+#define _CONSTRAIN(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
+#define _3PI_2 4.71238898038f
+#define PI 3.14159265359f
+
+
+/* ?????? [0, 2PI] */
+float _normalizeAngle_speed(float angle)
+{
+    float a = fmodf(angle, 2.0f * PI);
+    return (a >= 0) ? a : (a + 2.0f * PI);
+}
+
+/* ????? */
+float _electricalAngle_speed(void)
+{
+    return _normalizeAngle_speed((float)(DIR * PP) * Sensor_AS5600_GetMechanicalAngle(&S0) - zero_electric_angle_speed);
+}
+
+
+/*==================== PID ???? ====================*/
+void DFOC_M0_SET_VEL_PID(float P, float I, float D, float ramp)
+{
+    vel_loop_M0.P = P;
+    vel_loop_M0.I = I;
+    vel_loop_M0.D = D;
+    vel_loop_M0.output_ramp = ramp;
+}
+
+void DFOC_M0_SET_ANGLE_PID(float P, float I, float D, float ramp)
+{
+    angle_loop_M0.P = P;
+    angle_loop_M0.I = I;
+    angle_loop_M0.D = D;
+    angle_loop_M0.output_ramp = ramp;
+}
+
+float DFOC_M0_VEL_PID(float error)
+{
+    return PIDController_Update(&vel_loop_M0, error);
+}
+
+float DFOC_M0_ANGLE_PID(float error)
+{
+    return PIDController_Update(&angle_loop_M0, error);
+}
+
+#if 0
+/*==================== PWM ???? ====================*/
+/* ??:?? PWM ????????????(GD32 ????? PWM)*/
+static void ledcWrite(int channel, uint32_t duty)
+{
+    /* TODO: ???? GD32 ???? PWM ?? */
+    /* ???????,???????? PWM ???? */
+    (void)channel;
+    (void)duty;
+}
+
+static void ledcSetup(int channel, int freq, int resolution)
+{
+    /* TODO: ???? GD32 ???? PWM ??? */
+    (void)channel;
+    (void)freq;
+    (void)resolution;
+}
+
+static void ledcAttachPin(int pin, int channel)
+{
+    /* TODO: ???? GD32 ?????? PWM ?? */
+    (void)pin;
+    (void)channel;
+}
+#endif
+
+void setPwm_speed(float Ua, float Ub, float Uc)
+{
+    float dc_a, dc_b, dc_c;
+    
+    /* ?? */
+    Ua_speed = _CONSTRAIN(Ua, 0.0f, voltage_power_supply_speed);
+    Ub_speed = _CONSTRAIN(Ub, 0.0f, voltage_power_supply_speed);
+    Uc_speed = _CONSTRAIN(Uc, 0.0f, voltage_power_supply_speed);
+    
+    /* ????? */
+    dc_a = _CONSTRAIN(Ua / voltage_power_supply_speed, 0.0f, 1.0f);
+    dc_b = _CONSTRAIN(Ub / voltage_power_supply_speed, 0.0f, 1.0f);
+    dc_c = _CONSTRAIN(Uc / voltage_power_supply_speed, 0.0f, 1.0f);
+    
+    /* ?? PWM (8??? 0-255) */
+    Moto1_U_Set_Val((uint32_t)(dc_a * 255.0f));
+    Moto1_V_Set_Val((uint32_t)(dc_b * 255.0f));
+    Moto1_W_Set_Val((uint32_t)(dc_c * 255.0f));
+}
+
+void setTorque(float Uq, float angle_el)
+{
+    Sensor_AS5600_Update(&S0);  /* ????? */
+    
+    Uq = _CONSTRAIN(Uq, -voltage_power_supply_speed / 2.0f, voltage_power_supply_speed / 2.0f);
+    
+    angle_el = _normalizeAngle_speed(angle_el);
+    
+    /* ????? (Id=0 ??) */
+    Ualpha_speed = -Uq * sinf(angle_el);
+    Ubeta_speed =  Uq * cosf(angle_el);
+    
+    /* ?????? (SVPWM ???) */
+    Ua_speed = Ualpha_speed + voltage_power_supply_speed / 2.0f;
+    Ub_speed = (sqrtf(3.0f) * Ubeta_speed - Ualpha_speed) / 2.0f + voltage_power_supply_speed / 2.0f;
+    Uc_speed = (-Ualpha_speed - sqrtf(3.0f) * Ubeta_speed) / 2.0f + voltage_power_supply_speed / 2.0f;
+    
+    setPwm_speed(Ua_speed, Ub_speed, Uc_speed);
+}
+
+/*==================== ????? ====================*/
+void DFOC_Vbus(float power_supply)
+{
+	  float dt = 0.01f;
+    float Tf = 0.1f;
+    float alpha = dt / (Tf + dt);  /* ?????? */
+	
+    voltage_power_supply_speed = power_supply;
+    
+    /* TODO: ??? PWM ??????? */
+    /* pinMode(pwmA, OUTPUT); ?,?? GD32 ?? */
+    
+    /* ??? PWM (30kHz, 8???) */
+//    ledcSetup(0, 30000, 8);
+//    ledcSetup(1, 30000, 8);
+//    ledcSetup(2, 30000, 8);
+//    ledcAttachPin(pwmA, 0);
+//    ledcAttachPin(pwmB, 1);
+//    ledcAttachPin(pwmC, 2);
+    
+//    /* ??? AS5600 ??? */
+//    Sensor_AS5600_Init(&S0, 0);
+//    Sensor_AS5600_SensorInit(&S0);
+    
+    /* ??? PID */
+    PIDController_Init(&vel_loop_M0, 2.0f, 0.0f, 0.0f, 100000.0f, voltage_power_supply_speed / 2.0f);
+    PIDController_Init(&angle_loop_M0, 2.0f, 0.0f, 0.0f, 100000.0f, 100.0f);
+    
+    /* ???????? */
+		LowPassFilter_Init(&M0_Vel_Flt, alpha);
+//    LowPassFilter_Init(&M0_Vel_Flt, 0.01f);
+}
+
+/* ??????? */
+void DFOC_alignSensor(int _PP, int _DIR)
+{
+    PP = _PP;
+    DIR = _DIR;
+    
+    setTorque(3.0f, _3PI_2);  /* ?????? */
+    delay_1ms(1000);
+    
+    Sensor_AS5600_Update(&S0);  /* ???? */
+    zero_electric_angle_speed = _electricalAngle_speed();
+    
+    setTorque(0.0f, _3PI_2);    /* ???? */
+}
+
+/*==================== ????? ====================*/
+float DFOC_M0_Angle(void)
+{
+    return (float)DIR * Sensor_AS5600_GetAngle(&S0);
+}
+
+float DFOC_M0_Velocity(void)
+{
+    float vel_ori, vel_flit;
+    vel_ori = Sensor_AS5600_GetVelocity(&S0);
+    vel_flit = LowPassFilter_Update(&M0_Vel_Flt, (float)DIR * vel_ori);
+    return vel_flit;
+}
+
+/*==================== ???? ====================*/
+void DFOC_M0_set_Velocity_Angle(float Target)
+{
+    float angle_error = (Target - DFOC_M0_Angle()) * 180.0f / PI;
+    float vel_target = DFOC_M0_ANGLE_PID(angle_error);
+    float vel_error = vel_target - DFOC_M0_Velocity();
+    float torque = DFOC_M0_VEL_PID(vel_error);
+    
+    setTorque(torque, _electricalAngle_speed());
+}
+
+void DFOC_M0_setVelocity(float Target)
+{
+    float vel_error = (Target - DFOC_M0_Velocity()) * 180.0f / PI;
+    float torque = DFOC_M0_VEL_PID(vel_error);
+    
+    setTorque(torque, _electricalAngle_speed());
+}
+
+void DFOC_M0_set_Force_Angle(float Target)
+{
+    float angle_error = (Target - DFOC_M0_Angle()) * 180.0f / PI;
+    float torque = DFOC_M0_ANGLE_PID(angle_error);
+    
+    setTorque(torque, _electricalAngle_speed());
+}
+
+void DFOC_M0_setTorque(float Target)
+{
+    setTorque(Target, _electricalAngle_speed());
+}
