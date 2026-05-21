@@ -22,6 +22,20 @@
 #define AS5600_MAGNITUDE_H  0x1B
 #define AS5600_MAGNITUDE_L  0x1C
 
+#define _2PI 6.28318530718f
+
+
+/* AS5600 ??? */
+typedef struct {
+    int Mot_Num;                    /* ???? */
+    float angle_prev;               /* ?????? */
+    uint32_t angle_prev_ts;         /* ?????????(??) */
+    float vel_angle_prev;           /* ????????? */
+    uint32_t vel_angle_prev_ts;     /* ????????? */
+    int32_t full_rotations;         /* ????? */
+    int32_t vel_full_rotations;     /* ??????? */
+} Sensor_AS5600;
+
 
 /* AS5600 ???? */
 void as5600_i2c_init(void);
@@ -29,6 +43,15 @@ uint16_t as5600_read_raw_angle(void);    /* ?????? 0-4095 */
 uint16_t as5600_read_angle_degree(void);    /* ???? 0-360? */
 uint8_t as5600_read_status(void);        /* ???? */
 uint8_t as5600_check_magnet(void);       /* ??????? */
+
+/* ???? */
+void Sensor_AS5600_Init(Sensor_AS5600 *sensor, int Mot_Num);
+void Sensor_AS5600_SensorInit(Sensor_AS5600 *sensor);
+double Sensor_AS5600_GetSensorAngle(Sensor_AS5600 *sensor);
+void Sensor_AS5600_Update(Sensor_AS5600 *sensor);
+float Sensor_AS5600_GetMechanicalAngle(Sensor_AS5600 *sensor);
+float Sensor_AS5600_GetAngle(Sensor_AS5600 *sensor);
+float Sensor_AS5600_GetVelocity(Sensor_AS5600 *sensor);
 
 #endif
 

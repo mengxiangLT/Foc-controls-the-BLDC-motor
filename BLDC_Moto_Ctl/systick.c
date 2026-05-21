@@ -32,12 +32,12 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 OF SUCH DAMAGE.
 */
 
-#include "gd32f30x.h"
-#include "systick.h"
+
+#include "includes.h"
 
 volatile static uint32_t delay;
 /* sysTickUptime 在 SysTick_Handler 中累加 */
-volatile uint32_t sysTickUptime;
+volatile uint32_t sysTickUptime = 0;
 
 /*!
     \brief      configure systick
@@ -86,15 +86,21 @@ void delay_decrement(void)
 
 uint32_t _micros(void)
 {
-	uint32_t  ms,cycle_cnt,us;
-	
+	uint32_t  ms = 0,cycle_cnt = 0,us = 0;
+	uint32_t reload = 0;
+//	printf("\r\n ms = %4d, sysTickUptime = %4d \r\n", ms, sysTickUptime);
+//	printf("LOAD = %4d\n", SysTick->LOAD);
+//  printf("SystemCoreClock = %4d\n", SystemCoreClock);
 	do{
 		ms = sysTickUptime;
 		cycle_cnt = SysTick->VAL;
 	} while (ms != sysTickUptime);
+	/* 获取重装载值（实际计数值 = LOAD + 1）*/
+  reload = SysTick->LOAD + 1;
+//	printf("\r\n cycle_cnt = %4d \r\n", cycle_cnt);
 	/* 计算微秒：毫秒部分 + 当前计数转换的微秒部分 */
   /* 72MHz 时：计数差值 / 72 = 微秒，但需要浮点或定点运算 */
 	us = ms * 1000;
-	us += (uint32_t)(((uint64_t)(72000 - cycle_cnt) * 1000) / 72000);  /* 先乘1000再除，避免精度丢失 */ 
+	us += (uint32_t)(((uint64_t)(reload  - cycle_cnt) * 1000000) / SystemCoreClock);  /* 先乘1000再除，避免精度丢失 */ 
 	return us;
 }

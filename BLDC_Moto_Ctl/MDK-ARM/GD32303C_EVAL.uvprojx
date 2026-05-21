@@ -410,34 +410,9 @@
               <FilePath>..\timer.c</FilePath>
             </File>
             <File>
-              <FileName>foc.c</FileName>
+              <FileName>uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\foc.c</FilePath>
-            </File>
-            <File>
-              <FileName>as5600_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\as5600_i2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>foc_deng.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\foc_deng.c</FilePath>
-            </File>
-            <File>
-              <FileName>lowpass_filter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\lowpass_filter.c</FilePath>
-            </File>
-            <File>
-              <FileName>pid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\pid.c</FilePath>
-            </File>
-            <File>
-              <FileName>as5600_deng.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\as5600_deng.c</FilePath>
+              <FilePath>..\uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -608,6 +583,28 @@
         </Group>
         <Group>
           <GroupName>FOR</GroupName>
+          <Files>
+            <File>
+              <FileName>as5600_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FOR\as5600_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>lowpass_filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FOR\lowpass_filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FOR\pid.c</FilePath>
+            </File>
+            <File>
+              <FileName>foc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FOR\foc.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>

@@ -1,8 +1,6 @@
-#include "lowpass_filter.h"
-#include <math.h>
 #include "includes.h"
 
-#if 0
+#ifdef LOWPASS_TIME
 extern uint32_t _micros(void);  /* ?????? */
 
 void LowPassFilter_Init(LowPassFilter *filter, float time_constant)
@@ -28,7 +26,7 @@ float LowPassFilter_Update(LowPassFilter *filter, float x)
         filter->timestamp_prev = timestamp;
         return x;
     }
-    
+//    printf("\r\n lowp-timestamp = %4d, lowp-timestamp_prev = %4d \r\n", timestamp, filter->timestamp_prev);
     /* ??????:y = alpha * y_prev + (1-alpha) * x */
     /* ?? alpha = Tf / (Tf + dt) */
     alpha = filter->Tf / (filter->Tf + dt);
@@ -39,9 +37,7 @@ float LowPassFilter_Update(LowPassFilter *filter, float x)
     
     return y;
 }
-#endif
-
-
+#else
 void LowPassFilter_Init(LowPassFilter *filter, float alpha)
 {
     filter->alpha = alpha;
@@ -54,4 +50,4 @@ float LowPassFilter_Update(LowPassFilter *filter, float input)
     filter->y_prev = output;
     return output;
 }
-
+#endif

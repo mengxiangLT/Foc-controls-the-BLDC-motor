@@ -1,9 +1,7 @@
-#ifndef __FOC_H
-#define __FOC_H
+#ifndef __FOC_H__
+#define __FOC_H__
 
-#include "as5600_deng.h"
-#include "lowpass_filter.h"
-#include "pid.h"
+#include "includes.h"
 
 /* ?????? */
 extern float voltage_power_supply_speed;

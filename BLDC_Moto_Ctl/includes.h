@@ -4,9 +4,15 @@
 #include "gpio.h"
 #include "timer.h"
 #include "foc.h"
-#include "i2c.h"
-#include "as5600.h"
-//#include "soft_i2c.h"
-#include "foc_utils.h"
+#include "as5600_i2c.h"
+#include "uart.h"
 #include <stdio.h>
 #include <math.h>
+#include "pid.h"
+#include <string.h>
+#include "lowpass_filter.h"
+#include <stdint.h>
+#include <stdlib.h>
+
+
+

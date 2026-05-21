@@ -1,5 +1,4 @@
-#include "pid.h"
-#include <math.h>
+#include "includes.h"
 
 extern uint32_t _micros(void);
 
@@ -55,13 +54,12 @@ float PIDController_Update(PIDController *pid, float error)
             output = pid->output_prev - pid->output_ramp * Ts;
         }
     }
-    
+//    printf("\r\n pid-timestamp_now = %4d, pic-timestamp_prev = %4d \r\n", timestamp_now, pid->timestamp_prev);
     /* 保存值，用于下一周期计算 */
     pid->integral_prev = integral;
     pid->output_prev = output;
     pid->error_prev = error;
     pid->timestamp_prev = timestamp_now;
-    
     return output;
 }
 

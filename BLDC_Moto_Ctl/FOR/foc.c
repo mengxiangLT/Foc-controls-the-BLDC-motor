@@ -1,11 +1,5 @@
-#include "foc_deng.h"
-#include "pid.h"
-#include "as5600_deng.h"
-#include <math.h>
-#include <stdio.h>
-#include <string.h>
 #include "includes.h"
-#include "lowpass_filter.h"
+
 
 /*==================== ?????? ====================*/
 float voltage_power_supply_speed = 0.0f;
@@ -96,6 +90,7 @@ void setPwm_speed(float Ua, float Ub, float Uc)
     Moto1_U_Set_Val((uint32_t)(dc_a * 255.0f));
     Moto1_V_Set_Val((uint32_t)(dc_b * 255.0f));
     Moto1_W_Set_Val((uint32_t)(dc_c * 255.0f));
+//	  printf("\r\n dc_a = %f, dc_b = %f, dc_c = %f \r\n", dc_a, dc_b, dc_c);
 }
 
 void setTorque(float Uq, float angle_el)
@@ -127,17 +122,6 @@ void DFOC_Vbus(float power_supply)
 	
     voltage_power_supply_speed = power_supply;
     
-    /* TODO: ??? PWM ??????? */
-    /* pinMode(pwmA, OUTPUT); ?,?? GD32 ?? */
-    
-    /* ??? PWM (30kHz, 8???) */
-//    ledcSetup(0, 30000, 8);
-//    ledcSetup(1, 30000, 8);
-//    ledcSetup(2, 30000, 8);
-//    ledcAttachPin(pwmA, 0);
-//    ledcAttachPin(pwmB, 1);
-//    ledcAttachPin(pwmC, 2);
-    
     /* ??? AS5600 ??? */
     Sensor_AS5600_Init(&S0, 0);
     Sensor_AS5600_SensorInit(&S0);
@@ -147,8 +131,11 @@ void DFOC_Vbus(float power_supply)
     PIDController_Init(&angle_loop_M0, 2.0f, 0.0f, 0.0f, 100000.0f, 100.0f);
     
     /* ???????? */
+#ifdef LOWPASS_TIME
+    LowPassFilter_Init(&M0_Vel_Flt, 0.01f);
+#else
 		LowPassFilter_Init(&M0_Vel_Flt, alpha);
-//    LowPassFilter_Init(&M0_Vel_Flt, 0.01f);
+#endif
 }
 
 /* ??????? */
@@ -177,6 +164,7 @@ float DFOC_M0_Velocity(void)
     float vel_ori, vel_flit;
     vel_ori = Sensor_AS5600_GetVelocity(&S0);
     vel_flit = LowPassFilter_Update(&M0_Vel_Flt, (float)Sensor_DIR * vel_ori);
+//	  printf("\r\n vel_ori = %f, vel_flit = %f \r\n", vel_ori, vel_flit);
     return vel_flit;
 }
 
@@ -193,9 +181,14 @@ void DFOC_M0_set_Velocity_Angle(float Target)
 //速度闭环
 void DFOC_M0_setVelocity(float Target)
 {
+	  static uint16_t count = 0;
     float vel_error = (Target - DFOC_M0_Velocity()) * 180.0f / PI;
     float torque = DFOC_M0_VEL_PID(vel_error);
-    
+	  count++;
+	  if(count>=100) {
+//		    printf("\r\n count = %d,vel_error = %f, torque = %f \r\n", count, vel_error, torque);
+			  count = 0;
+		}
     setTorque(torque, _electricalAngle_speed());
 }
 //角度闭环

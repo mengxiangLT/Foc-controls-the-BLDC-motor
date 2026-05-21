@@ -34,6 +34,7 @@ OF SUCH DAMAGE.
 
 #include "gd32f30x_it.h"
 #include "systick.h"
+#include "includes.h"
 
 /*!
     \brief      this function handles NMI exception
@@ -125,6 +126,28 @@ void DebugMon_Handler(void)
 */
 void PendSV_Handler(void)
 {
+}
+
+/*!
+    \brief      this function handles USART0 exception
+    \param[in]  none
+    \param[out] none
+    \retval     none
+*/
+void USART0_IRQHandler(void)
+{
+    if(RESET != usart_interrupt_flag_get(USART0, USART_INT_FLAG_RBNE)){
+        /* read one byte from the receive data register */
+        rx_buffer[rx_counter++] = (uint8_t)usart_data_receive(USART0);
+			  /* clear the flag of USART0 receive buffer not empty */
+			  usart_interrupt_flag_clear(USART0, USART_INT_FLAG_RBNE);
+    }       
+//    if(RESET != usart_interrupt_flag_get(USART0, USART_INT_FLAG_TBE)){
+//        /* write one byte to the transmit data register */
+//        usart_data_transmit(USART0, tx_buffer[tx_counter++]);
+//        /* clear the flag of USART0 transmission complete */
+//			  usart_interrupt_flag_clear(USART0, USART_INT_FLAG_TC);
+//    }
 }
 
 /*!

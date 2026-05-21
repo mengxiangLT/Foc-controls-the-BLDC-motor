@@ -1,10 +1,11 @@
-#ifndef __LOWPASS_FILTER_H
-#define __LOWPASS_FILTER_H
+#ifndef __LOWPASS_FILTER_H__
+#define __LOWPASS_FILTER_H__
 
-#include <stdint.h>
 #include "includes.h"
 
-#if 0
+#define LOWPASS_TIME
+
+#ifdef LOWPASS_TIME
 /* ???????? */
 typedef struct {
     float Tf;                   /* ????(?) */
@@ -15,8 +16,7 @@ typedef struct {
 /* ???? */
 void LowPassFilter_Init(LowPassFilter *filter, float time_constant);
 float LowPassFilter_Update(LowPassFilter *filter, float x);
-#endif
-
+#else
 typedef struct {
     float alpha;    /* ???? 0-1,???????? */
     float y_prev;   /* ????? */
@@ -27,7 +27,7 @@ void LowPassFilter_Init(LowPassFilter *filter, float alpha);
 
 /* ???? */
 float LowPassFilter_Update(LowPassFilter *filter, float input);
-
+#endif
 #endif /* __LOWPASS_FILTER_H */
 
 

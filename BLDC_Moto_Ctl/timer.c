@@ -1,35 +1,38 @@
 #include "includes.h"
 
+
 void Moto0_U_Set_Val(uint16_t val)
 {
-	   timer_channel_output_pulse_value_config(TIMER0,TIMER_CH_0,val);
+	   timer_channel_output_pulse_value_config(MOTOR0_PWM_TIM, MOTOR0_U_TIM_CH,val);
 }
 
 void Moto0_V_Set_Val(uint16_t val)
 {
-	   timer_channel_output_pulse_value_config(TIMER0,TIMER_CH_1,val);
+	   timer_channel_output_pulse_value_config(MOTOR0_PWM_TIM, MOTOR0_V_TIM_CH,val);
 }
 
 void Moto0_W_Set_Val(uint16_t val)
 {
-	   timer_channel_output_pulse_value_config(TIMER0,TIMER_CH_2,val);
+	   timer_channel_output_pulse_value_config(MOTOR0_PWM_TIM, MOTOR0_W_TIM_CH,val);
 }
 
 
 void Moto1_U_Set_Val(uint16_t val)
 {
-	   timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_1,val);
+	   timer_channel_output_pulse_value_config(MOTOR1_PWM_TIM, MOTOR1_U_TIM_CH,val);
 }
 
 void Moto1_V_Set_Val(uint16_t val)
 {
-	   timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_2,val);
+	   timer_channel_output_pulse_value_config(MOTOR1_PWM_TIM, MOTOR1_V_TIM_CH,val);
 }
 
 void Moto1_W_Set_Val(uint16_t val)
 {
-	   timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_3,val);
+	   timer_channel_output_pulse_value_config(MOTOR1_PWM_TIM, MOTOR1_W_TIM_CH,val);
 }
+
+
 
 //void Moto0_U_Channel_Close(void)
 //{
@@ -43,12 +46,12 @@ void Moto1_W_Set_Val(uint16_t val)
 
 void Moto0_U_Disable(void)
 {
-    GPIO_BC(GPIOE) = GPIO_PIN_6;
+    GPIO_BC(MOTOR0_EN_GPIO_GROUP) = MOTOR1_EN_CTL_PIN;
 }
 
 void Moto0_U_Enable(void)
 {
-    GPIO_BOP(GPIOE) = GPIO_PIN_6;
+    GPIO_BOP(MOTOR0_EN_GPIO_GROUP) = MOTOR1_EN_CTL_PIN;
 }
 
 void Moto0_V_Disable(void)
@@ -83,12 +86,12 @@ void Moto1_U_Enable(void)
 
 void Moto1_V_Disable(void)
 {
-    GPIO_BC(GPIOE) = GPIO_PIN_6;
+    GPIO_BC(MOTOR1_EN_GPIO_GROUP) = MOTOR1_EN_CTL_PIN;
 }
 
 void Moto1_V_Enable(void)
 {
-    GPIO_BOP(GPIOE) = GPIO_PIN_6;
+    GPIO_BOP(MOTOR1_EN_GPIO_GROUP) = MOTOR1_EN_CTL_PIN;
 }
 
 void Moto1_W_Disable(void)
@@ -252,6 +255,7 @@ void Moto1_WV_Run(uint16_t val)
     \param[out] none
     \retval     none
   */
+
 void timer0_config(void)
 {
     /* TIMER0 configuration: generate PWM signals with different duty cycles:
@@ -259,8 +263,8 @@ void timer0_config(void)
     timer_oc_parameter_struct timer_ocintpara;
     timer_parameter_struct timer_initpara;
 
-	  rcu_periph_clock_enable(RCU_TIMER0);
-	  timer_deinit(TIMER0);
+	  rcu_periph_clock_enable(MOTOR0_PWM_TIM_CLK);
+	  timer_deinit(MOTOR0_PWM_TIM);
 
     /* TIMER0 configuration */
     timer_initpara.prescaler         = 119;
@@ -269,7 +273,7 @@ void timer0_config(void)
     timer_initpara.period            = 256;
     timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
     timer_initpara.repetitioncounter = 0;
-    timer_init(TIMER0,&timer_initpara);
+    timer_init(MOTOR0_PWM_TIM,&timer_initpara);
 
      /* CH0 configuration in PWM mode */
     timer_ocintpara.outputstate  = TIMER_CCX_ENABLE;
@@ -278,26 +282,26 @@ void timer0_config(void)
     timer_ocintpara.ocnpolarity  = TIMER_OCN_POLARITY_HIGH;
     timer_ocintpara.ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
     timer_ocintpara.ocnidlestate = TIMER_OCN_IDLE_STATE_LOW;
-    timer_channel_output_config(TIMER0,TIMER_CH_0,&timer_ocintpara);
-    timer_channel_output_config(TIMER0,TIMER_CH_1,&timer_ocintpara);
-    timer_channel_output_config(TIMER0,TIMER_CH_2,&timer_ocintpara);
+    timer_channel_output_config(MOTOR0_PWM_TIM,MOTOR0_U_TIM_CH,&timer_ocintpara);
+    timer_channel_output_config(MOTOR0_PWM_TIM,MOTOR0_V_TIM_CH,&timer_ocintpara);
+    timer_channel_output_config(MOTOR0_PWM_TIM,MOTOR0_W_TIM_CH,&timer_ocintpara);
 		
-    timer_channel_output_pulse_value_config(TIMER0,TIMER_CH_0,250);
-		timer_channel_output_pulse_value_config(TIMER0,TIMER_CH_1,250);
-    timer_channel_output_pulse_value_config(TIMER0,TIMER_CH_2,250);
+    timer_channel_output_pulse_value_config(MOTOR0_PWM_TIM,MOTOR0_U_TIM_CH,250);
+		timer_channel_output_pulse_value_config(MOTOR0_PWM_TIM,MOTOR0_V_TIM_CH,250);
+    timer_channel_output_pulse_value_config(MOTOR0_PWM_TIM,MOTOR0_W_TIM_CH,250);
 
-    timer_channel_output_mode_config(TIMER0,TIMER_CH_0,TIMER_OC_MODE_PWM0);
-		timer_channel_output_mode_config(TIMER0,TIMER_CH_1,TIMER_OC_MODE_PWM0);
-		timer_channel_output_mode_config(TIMER0,TIMER_CH_2,TIMER_OC_MODE_PWM0);
+    timer_channel_output_mode_config(MOTOR0_PWM_TIM,MOTOR0_U_TIM_CH,TIMER_OC_MODE_PWM0);
+		timer_channel_output_mode_config(MOTOR0_PWM_TIM,MOTOR0_V_TIM_CH,TIMER_OC_MODE_PWM0);
+		timer_channel_output_mode_config(MOTOR0_PWM_TIM,MOTOR0_W_TIM_CH,TIMER_OC_MODE_PWM0);
 		
-    timer_channel_output_shadow_config(TIMER0,TIMER_CH_0,TIMER_OC_SHADOW_DISABLE);
-    timer_channel_output_shadow_config(TIMER0,TIMER_CH_1,TIMER_OC_SHADOW_DISABLE);
-    timer_channel_output_shadow_config(TIMER0,TIMER_CH_2,TIMER_OC_SHADOW_DISABLE);
+    timer_channel_output_shadow_config(MOTOR0_PWM_TIM,MOTOR0_U_TIM_CH,TIMER_OC_SHADOW_DISABLE);
+    timer_channel_output_shadow_config(MOTOR0_PWM_TIM,MOTOR0_V_TIM_CH,TIMER_OC_SHADOW_DISABLE);
+    timer_channel_output_shadow_config(MOTOR0_PWM_TIM,MOTOR0_W_TIM_CH,TIMER_OC_SHADOW_DISABLE);
 
-    timer_primary_output_config(TIMER0,ENABLE);
+    timer_primary_output_config(MOTOR0_PWM_TIM,ENABLE);
     /* auto-reload preload enable */
-    timer_auto_reload_shadow_enable(TIMER0);
-    timer_enable(TIMER0);
+    timer_auto_reload_shadow_enable(MOTOR0_PWM_TIM);
+    timer_enable(MOTOR0_PWM_TIM);
 }
 
 void timer1_config(void)
@@ -307,17 +311,17 @@ void timer1_config(void)
     timer_oc_parameter_struct timer_ocintpara;
     timer_parameter_struct timer_initpara;
 
-	  rcu_periph_clock_enable(RCU_TIMER1);
-	  timer_deinit(TIMER1);
+	  rcu_periph_clock_enable(MOTOR1_PWM_TIM_CLK);
+	  timer_deinit(MOTOR1_PWM_TIM);
 
     /* TIMER0 configuration */
     timer_initpara.prescaler         = 119;
     timer_initpara.alignedmode       = TIMER_COUNTER_EDGE;
     timer_initpara.counterdirection  = TIMER_COUNTER_UP;
-    timer_initpara.period            = 500;
+    timer_initpara.period            = 256;
     timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
     timer_initpara.repetitioncounter = 0;
-    timer_init(TIMER1,&timer_initpara);
+    timer_init(MOTOR1_PWM_TIM,&timer_initpara);
 
      /* CH0 configuration in PWM mode */
     timer_ocintpara.outputstate  = TIMER_CCX_ENABLE;
@@ -326,26 +330,26 @@ void timer1_config(void)
     timer_ocintpara.ocnpolarity  = TIMER_OCN_POLARITY_HIGH;
     timer_ocintpara.ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
     timer_ocintpara.ocnidlestate = TIMER_OCN_IDLE_STATE_LOW;
-    timer_channel_output_config(TIMER1,TIMER_CH_3,&timer_ocintpara);
-    timer_channel_output_config(TIMER1,TIMER_CH_1,&timer_ocintpara);
-    timer_channel_output_config(TIMER1,TIMER_CH_2,&timer_ocintpara);
+    timer_channel_output_config(MOTOR1_PWM_TIM,MOTOR1_U_TIM_CH,&timer_ocintpara);
+    timer_channel_output_config(MOTOR1_PWM_TIM,MOTOR1_V_TIM_CH,&timer_ocintpara);
+    timer_channel_output_config(MOTOR1_PWM_TIM,MOTOR1_W_TIM_CH,&timer_ocintpara);
 		
-    timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_3,250);
-		timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_1,250);
-    timer_channel_output_pulse_value_config(TIMER1,TIMER_CH_2,250);
+    timer_channel_output_pulse_value_config(MOTOR1_PWM_TIM,MOTOR1_U_TIM_CH,250);
+		timer_channel_output_pulse_value_config(MOTOR1_PWM_TIM,MOTOR1_V_TIM_CH,250);
+    timer_channel_output_pulse_value_config(MOTOR1_PWM_TIM,MOTOR1_W_TIM_CH,250);
 
-    timer_channel_output_mode_config(TIMER1,TIMER_CH_3,TIMER_OC_MODE_PWM0);
-		timer_channel_output_mode_config(TIMER1,TIMER_CH_1,TIMER_OC_MODE_PWM0);
-		timer_channel_output_mode_config(TIMER1,TIMER_CH_2,TIMER_OC_MODE_PWM0);
+    timer_channel_output_mode_config(MOTOR1_PWM_TIM,MOTOR1_U_TIM_CH,TIMER_OC_MODE_PWM0);
+		timer_channel_output_mode_config(MOTOR1_PWM_TIM,MOTOR1_V_TIM_CH,TIMER_OC_MODE_PWM0);
+		timer_channel_output_mode_config(MOTOR1_PWM_TIM,MOTOR1_W_TIM_CH,TIMER_OC_MODE_PWM0);
 		
-    timer_channel_output_shadow_config(TIMER1,TIMER_CH_3,TIMER_OC_SHADOW_DISABLE);
-    timer_channel_output_shadow_config(TIMER1,TIMER_CH_1,TIMER_OC_SHADOW_DISABLE);
-    timer_channel_output_shadow_config(TIMER1,TIMER_CH_2,TIMER_OC_SHADOW_DISABLE);
+    timer_channel_output_shadow_config(MOTOR1_PWM_TIM,MOTOR1_U_TIM_CH,TIMER_OC_SHADOW_DISABLE);
+    timer_channel_output_shadow_config(MOTOR1_PWM_TIM,MOTOR1_V_TIM_CH,TIMER_OC_SHADOW_DISABLE);
+    timer_channel_output_shadow_config(MOTOR1_PWM_TIM,MOTOR1_W_TIM_CH,TIMER_OC_SHADOW_DISABLE);
 
-    timer_primary_output_config(TIMER1,ENABLE);
+    timer_primary_output_config(MOTOR1_PWM_TIM,ENABLE);
     /* auto-reload preload enable */
-    timer_auto_reload_shadow_enable(TIMER1);
-    timer_enable(TIMER1);
+    timer_auto_reload_shadow_enable(MOTOR1_PWM_TIM);
+    timer_enable(MOTOR1_PWM_TIM);
 }
 
 void timer_config(void)

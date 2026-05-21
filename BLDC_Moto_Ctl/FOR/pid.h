@@ -1,8 +1,8 @@
-#ifndef __PID_H
-#define __PID_H
+#ifndef __PID_H__
+#define __PID_H__
 
 #include "includes.h"
-#include <stdint.h>
+
 
 /* PID ?????? */
 typedef struct {

@@ -33,11 +33,10 @@ OF SUCH DAMAGE.
 */
 
 #include "includes.h"
-#include "timer.h"
-#include "foc_deng.h"
-#include "as5600_i2c.h"
-#include "gd32f303c_eval.h"
+
+
 //#include "bldc_motor.h"
+
 
 
 /*!
@@ -46,19 +45,19 @@ OF SUCH DAMAGE.
     \param[out] none
     \retval     none
 */
-#if 1
 int main(void)
 {
+	  uint16_t set_speed = 0;
 //    int16_t i = 0;
+	
 //    FlagStatus breathe_flag = SET;
     /* configure systick */
     systick_config();
     /* configure the GPIO ports */
     gpio_config();
-	  gd_eval_com_init(EVAL_COM1);
+	  /* USART interrupt configuration */
+	  Uart_Init(EVAL_COM1);
     Moto0_U_Enable();
-//	  i2c_gpio_config();
-//    i2c_config();
 	  as5600_i2c_init();
 	  delay_1ms(200);
     if(as5600_check_magnet()) {
@@ -66,28 +65,21 @@ int main(void)
     }
     /* configure the TIMER peripheral */
     timer_config();
-    while(RESET == usart_flag_get(EVAL_COM1, USART_FLAG_TC)){
-    }
 		DFOC_M0_SET_VEL_PID(0.01,0.1,0,0);
 //		DFOC_M0_SET_ANGLE_PID(0.5,0,0,0);
 		DFOC_Vbus(12);
     while (1){
+			if(rx_counter > 0)
+			{
+			    set_speed = rx_buffer[0];
+//				  for(i = 0;i<10;i++)
+//						printf("\r\n rx_buffer[%x] = %x \r\n", i, rx_buffer[i]);
+				  printf("\r\n set_speed = %x \r\n", set_speed);
+				  rx_counter = 0;
+			}
 //			DFOC_M0_set_Force_Angle(2);
-	    DFOC_M0_setVelocity(1000);
-//			printf("\r\n as5600 test! \r\n");
-//        /* delay a time in milliseconds */
-//        delay_1ms(40);
-//        if (SET == breathe_flag){
-//             i = i + 10;
-//        }else{
-//            i = i - 10;
-//        }
-//        if(500 < i){
-//            breathe_flag = RESET;
-//        }
-//        if(0 >= i){
-//            breathe_flag = SET;
-//        }
+	    DFOC_M0_setVelocity(set_speed);
+//			printf("\r\n S0_full_rotations = %d \r\n", S0.full_rotations);
         /* configure TIMER channel output pulse value */
 //        timer_channel_output_pulse_value_config(TIMER0,TIMER_CH_0,i);
 //				timer_channel_output_pulse_value_config(TIMER0,TIMER_CH_1,i);
@@ -99,5 +91,4 @@ int main(void)
 //        velocityOpenloop(5);
     }
 }
-#endif
 
