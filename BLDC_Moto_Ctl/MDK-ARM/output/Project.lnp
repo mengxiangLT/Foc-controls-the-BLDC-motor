@@ -5,6 +5,7 @@
 ".\output\gpio.o"
 ".\output\timer.o"
 ".\output\uart.o"
+".\output\debug_print_log.o"
 ".\output\system_gd32f30x.o"
 ".\output\gd32f30x_adc.o"
 ".\output\gd32f30x_bkp.o"

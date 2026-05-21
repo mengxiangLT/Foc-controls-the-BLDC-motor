@@ -254,7 +254,9 @@ void Sensor_AS5600_Update(Sensor_AS5600 *sensor)
     float d_angle;
     
     sensor->angle_prev_ts = _micros();
-//	  printf("\r\n sensor-angle_prev_ts = %4d, sensor-vel_angle_prev_ts = %4d \r\n", sensor->angle_prev_ts, sensor->vel_angle_prev_ts);
+#ifdef DEBUG_PRINT
+		DebugPrint_log(500, val, sensor->angle_prev);
+#endif
     d_angle = val - sensor->angle_prev;
     
     /* 当角度转过一圈（2PI/360°）的80%时，就认为完成了一圈 */
@@ -296,9 +298,12 @@ float Sensor_AS5600_GetVelocity(Sensor_AS5600 *sensor)
     
 	/* ((本时刻的圈数(full_rotations)-前一时刻的圈数(vel_full_rotations))*一圈对应的弧度(_2PI)+(当前角度-上次循环的角度))/过去的时间(Ts) */
     vel = ((float)(sensor->full_rotations - sensor->vel_full_rotations) * _2PI 
-           + (-(sensor->angle_prev - sensor->vel_angle_prev))) / Ts;
-//    printf("\r\n full_rotations = %d, vel_full_rotations=%d, angle_prev = %f, vel_angle_prev = %f, Ts = %f\r\n", sensor->full_rotations, sensor->vel_full_rotations, sensor->angle_prev, sensor->vel_angle_prev, Ts);
-//    printf("\r\n angle_prev_ts = %4d, vel_angle_prev_ts = %4d \r\n", sensor->angle_prev_ts, sensor->vel_angle_prev_ts);
+           + (-(sensor->angle_prev - sensor->vel_angle_prev))) / Ts;  //这里磁编码器顺时针转动数值是递减的，所以需要加个“-”转换一下
+#ifdef DEBUG_PRINT
+		DebugPrint_log(500, sensor->full_rotations, sensor->vel_full_rotations);
+		DebugPrint_log(500, sensor->angle_prev, sensor->vel_angle_prev);
+		DebugPrint_log(500, sensor->angle_prev_ts, sensor->vel_angle_prev_ts);
+#endif
 		/* 将当前参数赋值给前一时刻的参数，用于下次周期的计算 */
     sensor->vel_angle_prev = sensor->angle_prev;
     sensor->vel_full_rotations = sensor->full_rotations;

@@ -15,4 +15,10 @@
 #include <stdlib.h>
 
 
+//#define DEBUG_PRINT
+
+//void DebugPrint_log(uint16_t print_delay, uint32_t a, uint32_t b);
+void DebugPrint_log(uint16_t print_delay, float a, float b);
+
+
 

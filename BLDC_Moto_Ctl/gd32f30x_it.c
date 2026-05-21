@@ -139,6 +139,7 @@ void USART0_IRQHandler(void)
     if(RESET != usart_interrupt_flag_get(USART0, USART_INT_FLAG_RBNE)){
         /* read one byte from the receive data register */
         rx_buffer[rx_counter++] = (uint8_t)usart_data_receive(USART0);
+			  if(rx_counter >= 2)
 			  /* clear the flag of USART0 receive buffer not empty */
 			  usart_interrupt_flag_clear(USART0, USART_INT_FLAG_RBNE);
     }       

@@ -54,7 +54,9 @@ float PIDController_Update(PIDController *pid, float error)
             output = pid->output_prev - pid->output_ramp * Ts;
         }
     }
-//    printf("\r\n pid-timestamp_now = %4d, pic-timestamp_prev = %4d \r\n", timestamp_now, pid->timestamp_prev);
+#ifdef DEBUG_PRINT
+		DebugPrint_log(500, timestamp_now, pid->timestamp_prev);
+#endif
     /* 保存值，用于下一周期计算 */
     pid->integral_prev = integral;
     pid->output_prev = output;

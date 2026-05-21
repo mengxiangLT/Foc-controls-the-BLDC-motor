@@ -35,8 +35,8 @@ OF SUCH DAMAGE.
 #include "includes.h"
 
 
-//#include "bldc_motor.h"
 
+float set_lowpass_para = 0;
 
 
 /*!
@@ -48,7 +48,7 @@ OF SUCH DAMAGE.
 int main(void)
 {
 	  uint16_t set_speed = 0;
-//    int16_t i = 0;
+    int16_t i = 0;
 	
 //    FlagStatus breathe_flag = SET;
     /* configure systick */
@@ -69,12 +69,15 @@ int main(void)
 //		DFOC_M0_SET_ANGLE_PID(0.5,0,0,0);
 		DFOC_Vbus(12);
     while (1){
-			if(rx_counter > 0)
+			if(rx_counter > 1)
 			{
 			    set_speed = rx_buffer[0];
-//				  for(i = 0;i<10;i++)
-//						printf("\r\n rx_buffer[%x] = %x \r\n", i, rx_buffer[i]);
-				  printf("\r\n set_speed = %x \r\n", set_speed);
+				  set_lowpass_para = rx_buffer[1];
+				  set_lowpass_para = (float)set_lowpass_para / 100000;
+				  LowPassFilter_Init(&M0_Vel_Flt, set_lowpass_para);
+				  for(i = 0;i<10;i++)
+						printf("\r\n rx_buffer[%x] = %x \r\n", i, rx_buffer[i]);
+				  printf("\r\n set_speed = %x set_lowpass_para = %f, time_constant = %f \r\n", set_speed, set_lowpass_para, M0_Vel_Flt.Tf);
 				  rx_counter = 0;
 			}
 //			DFOC_M0_set_Force_Angle(2);

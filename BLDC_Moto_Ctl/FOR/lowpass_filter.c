@@ -16,22 +16,24 @@ float LowPassFilter_Update(LowPassFilter *filter, float x)
     float dt = (timestamp - filter->timestamp_prev) * 1e-6f;
     float alpha;
     float y;
+
     
-    /* ??????? */
+	/* 如果时间间隔小于0，直接赋值为0.001 */
     if(dt < 0.0f) {
         dt = 1e-3f;
     } else if(dt > 0.3f) {
-        /* ?????,??????? */
+        /* 如果时间间隔很大，就没有必要做滤波处理 */
         filter->y_prev = x;
         filter->timestamp_prev = timestamp;
         return x;
     }
-//    printf("\r\n lowp-timestamp = %4d, lowp-timestamp_prev = %4d \r\n", timestamp, filter->timestamp_prev);
     /* ??????:y = alpha * y_prev + (1-alpha) * x */
     /* ?? alpha = Tf / (Tf + dt) */
     alpha = filter->Tf / (filter->Tf + dt);
     y = alpha * filter->y_prev + (1.0f - alpha) * x;
-    
+#ifdef DEBUG_PRINT
+		DebugPrint_log(500, dt, alpha);
+#endif
     filter->y_prev = y;
     filter->timestamp_prev = timestamp;
     

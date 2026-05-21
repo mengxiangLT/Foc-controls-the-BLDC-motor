@@ -132,7 +132,7 @@ void DFOC_Vbus(float power_supply)
     
     /* ???????? */
 #ifdef LOWPASS_TIME
-    LowPassFilter_Init(&M0_Vel_Flt, 0.01f);
+    LowPassFilter_Init(&M0_Vel_Flt, 0.00001f);
 #else
 		LowPassFilter_Init(&M0_Vel_Flt, alpha);
 #endif
@@ -162,9 +162,12 @@ float DFOC_M0_Angle(void)
 float DFOC_M0_Velocity(void)
 {
     float vel_ori, vel_flit;
+	
     vel_ori = Sensor_AS5600_GetVelocity(&S0);
     vel_flit = LowPassFilter_Update(&M0_Vel_Flt, (float)Sensor_DIR * vel_ori);
-//	  printf("\r\n vel_ori = %f, vel_flit = %f \r\n", vel_ori, vel_flit);
+#ifdef DEBUG_PRINT
+		DebugPrint_log(500, vel_ori, vel_flit);
+#endif
     return vel_flit;
 }
 
@@ -181,14 +184,11 @@ void DFOC_M0_set_Velocity_Angle(float Target)
 //速度闭环
 void DFOC_M0_setVelocity(float Target)
 {
-	  static uint16_t count = 0;
     float vel_error = (Target - DFOC_M0_Velocity()) * 180.0f / PI;
     float torque = DFOC_M0_VEL_PID(vel_error);
-	  count++;
-	  if(count>=100) {
-//		    printf("\r\n count = %d,vel_error = %f, torque = %f \r\n", count, vel_error, torque);
-			  count = 0;
-		}
+#ifdef DEBUG_PRINT
+		DebugPrint_log(500, vel_error, torque);
+#endif
     setTorque(torque, _electricalAngle_speed());
 }
 //角度闭环
