@@ -15,10 +15,12 @@
 #include <stdlib.h>
 
 
-//#define DEBUG_PRINT
+#define DEBUG_PRINT
+#define MAX_RECORD_BUFF    5000
 
-//void DebugPrint_log(uint16_t print_delay, uint32_t a, uint32_t b);
-void DebugPrint_log(uint16_t print_delay, float a, float b);
+
+void RecordPrintLog(uint8_t en, uint16_t num, uint8_t ctl_flag, float a, float b);
+void DebugPrint_log(uint8_t en, uint16_t print_delay, float a, float b);
 
 
 

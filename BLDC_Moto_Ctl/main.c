@@ -38,6 +38,8 @@ OF SUCH DAMAGE.
 
 float set_lowpass_para = 0;
 
+//extern uint16_t g_print_buffer[2][5000];
+extern uint8_t g_start_flag;
 
 /*!
     \brief      main function
@@ -48,7 +50,6 @@ float set_lowpass_para = 0;
 int main(void)
 {
 	  uint16_t set_speed = 0;
-    int16_t i = 0;
 	
 //    FlagStatus breathe_flag = SET;
     /* configure systick */
@@ -66,23 +67,24 @@ int main(void)
     /* configure the TIMER peripheral */
     timer_config();
 		DFOC_M0_SET_VEL_PID(0.01,0.1,0,0);
-//		DFOC_M0_SET_ANGLE_PID(0.5,0,0,0);
 		DFOC_Vbus(12);
+//		DFOC_M0_SET_ANGLE_PID(0.1,0.01,0,0);
+//		DFOC_alignSensor(Motor_PP, Sensor_DIR);
     while (1){
 			if(rx_counter > 1)
 			{
 			    set_speed = rx_buffer[0];
+				  g_start_flag = rx_buffer[1];
 				  set_lowpass_para = rx_buffer[1];
 				  set_lowpass_para = (float)set_lowpass_para / 100000;
 				  LowPassFilter_Init(&M0_Vel_Flt, set_lowpass_para);
-				  for(i = 0;i<10;i++)
-						printf("\r\n rx_buffer[%x] = %x \r\n", i, rx_buffer[i]);
 				  printf("\r\n set_speed = %x set_lowpass_para = %f, time_constant = %f \r\n", set_speed, set_lowpass_para, M0_Vel_Flt.Tf);
 				  rx_counter = 0;
 			}
-//			DFOC_M0_set_Force_Angle(2);
-	    DFOC_M0_setVelocity(set_speed);
-//			printf("\r\n S0_full_rotations = %d \r\n", S0.full_rotations);
+//			DFOC_M0_set_Velocity_Angle(1, 6.28);
+//			DFOC_M0_set_Force_Angle(1, set_speed);
+//			DFOC_M0_setVelocity(1, 150);
+	    DFOC_M0_setVelocity(1, set_speed);
         /* configure TIMER channel output pulse value */
 //        timer_channel_output_pulse_value_config(TIMER0,TIMER_CH_0,i);
 //				timer_channel_output_pulse_value_config(TIMER0,TIMER_CH_1,i);

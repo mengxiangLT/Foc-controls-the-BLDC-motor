@@ -3,6 +3,12 @@
 
 #include "includes.h"
 
+
+/*==================== ???? ====================*/
+#define _CONSTRAIN(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
+#define _3PI_2 4.71238898038f
+#define PI 3.14159265359f
+
 /* ?????? */
 extern float voltage_power_supply_speed;
 extern float Ualpha_speed, Ubeta_speed, Ua_speed, Ub_speed, Uc_speed;
@@ -35,13 +41,13 @@ float DFOC_M0_VEL_PID(float error);
 float DFOC_M0_ANGLE_PID(float error);
 
 /* ????? */
-float DFOC_M0_Angle(void);
-float DFOC_M0_Velocity(void);
+float DFOC_M0_Angle(int8_t dir);
+float DFOC_M0_Velocity(int8_t dir);
 
 /* ???? */
-void DFOC_M0_set_Velocity_Angle(float Target);
-void DFOC_M0_setVelocity(float Target);
-void DFOC_M0_set_Force_Angle(float Target);
+void DFOC_M0_set_Velocity_Angle(int8_t dir, float Target);
+void DFOC_M0_setVelocity(int8_t dir, float Target);
+void DFOC_M0_set_Force_Angle(int8_t dir, float Target);
 void DFOC_M0_setTorque(float Target);
 
 /* ???? */

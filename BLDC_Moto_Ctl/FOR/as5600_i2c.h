@@ -3,6 +3,12 @@
 
 #include "gd32f30x.h"
 
+#define SET_ANGLE_360
+
+//i2c命令的等待超时参数
+#define MAX_TIMEOUT		1000
+#define MAX_RETRY_CNT	5
+
 /* AS5600 I2C ?? - ?????????? */
 #define AS5600_SCL_PORT     GPIOB
 #define AS5600_SCL_PIN      GPIO_PIN_6
@@ -40,7 +46,7 @@ typedef struct {
 /* AS5600 ???? */
 void as5600_i2c_init(void);
 uint16_t as5600_read_raw_angle(void);    /* ?????? 0-4095 */
-uint16_t as5600_read_angle_degree(void);    /* ???? 0-360? */
+float as5600_read_angle_degree(void);    /* ???? 0-360? */
 uint8_t as5600_read_status(void);        /* ???? */
 uint8_t as5600_check_magnet(void);       /* ??????? */
 

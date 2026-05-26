@@ -2,7 +2,7 @@
 
 extern uint32_t _micros(void);
 
-#define _CONSTRAIN(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
+//#define _CONSTRAIN(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
 void PIDController_Init(PIDController *pid, float P, float I, float D, float ramp, float limit)
 {
@@ -55,7 +55,7 @@ float PIDController_Update(PIDController *pid, float error)
         }
     }
 #ifdef DEBUG_PRINT
-		DebugPrint_log(500, timestamp_now, pid->timestamp_prev);
+		DebugPrint_log(0, 500, timestamp_now, pid->timestamp_prev);
 #endif
     /* 保存值，用于下一周期计算 */
     pid->integral_prev = integral;

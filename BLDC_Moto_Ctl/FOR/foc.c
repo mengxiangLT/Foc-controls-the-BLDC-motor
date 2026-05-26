@@ -9,6 +9,10 @@ float zero_electric_angle_speed = 0.0f;
 int Motor_PP = 7;
 int Sensor_DIR = 1;
 
+
+uint16_t g_print_buffer[2][MAX_RECORD_BUFF] = {0, 0};
+uint8_t g_start_flag = 0;
+
 /* ??????? */
 LowPassFilter M0_Vel_Flt;
 
@@ -24,17 +28,18 @@ static float motor_target = 0.0f;
 static char received_chars[256];
 static int received_index = 0;
 
-/*==================== ???? ====================*/
-#define _CONSTRAIN(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
-#define _3PI_2 4.71238898038f
-#define PI 3.14159265359f
-
 
 /* ?????? [0, 2PI] */
 float _normalizeAngle_speed(float angle)
 {
-    float a = fmodf(angle, 2.0f * PI);
+	  float a = 0;
+#ifdef SET_ANGLE_360
+	  a = fmodf(angle, 360);
+    return (a >= 0) ? a : (a + 360);
+#else
+     a = fmodf(angle, 2.0f * PI);
     return (a >= 0) ? a : (a + 2.0f * PI);
+#endif
 }
 
 /* ????? */
@@ -90,7 +95,11 @@ void setPwm_speed(float Ua, float Ub, float Uc)
     Moto1_U_Set_Val((uint32_t)(dc_a * 255.0f));
     Moto1_V_Set_Val((uint32_t)(dc_b * 255.0f));
     Moto1_W_Set_Val((uint32_t)(dc_c * 255.0f));
-//	  printf("\r\n dc_a = %f, dc_b = %f, dc_c = %f \r\n", dc_a, dc_b, dc_c);
+#ifdef DEBUG_PRINT
+		RecordPrintLog(0, MAX_RECORD_BUFF, g_start_flag, dc_a, dc_b);
+	  DebugPrint_log(0, 500, dc_a, dc_b);
+	  DebugPrint_log(0, 500, dc_c, 0);
+#endif
 }
 
 void setTorque(float Uq, float angle_el)
@@ -101,11 +110,11 @@ void setTorque(float Uq, float angle_el)
     
     angle_el = _normalizeAngle_speed(angle_el);
     
-    /* ????? (Id=0 ??) */
+    /* 帕克逆变换(Id=0) */
     Ualpha_speed = -Uq * sinf(angle_el);
     Ubeta_speed =  Uq * cosf(angle_el);
     
-    /* ?????? (SVPWM ???) */
+    /* 克拉克逆变换 (SVPWM) */
     Ua_speed = Ualpha_speed + voltage_power_supply_speed / 2.0f;
     Ub_speed = (sqrtf(3.0f) * Ubeta_speed - Ualpha_speed) / 2.0f + voltage_power_supply_speed / 2.0f;
     Uc_speed = (-Ualpha_speed - sqrtf(3.0f) * Ubeta_speed) / 2.0f + voltage_power_supply_speed / 2.0f;
@@ -138,65 +147,115 @@ void DFOC_Vbus(float power_supply)
 #endif
 }
 
-/* ??????? */
+/* 校准电角度 */
 void DFOC_alignSensor(int _PP, int _DIR)
 {
     Motor_PP = _PP;
     Sensor_DIR = _DIR;
-    
+#ifdef SET_ANGLE_360
+	  setTorque(3.0f, 540);  /* ?????? */
+#else
     setTorque(3.0f, _3PI_2);  /* ?????? */
-    delay_1ms(1000);
+#endif
+    delay_1ms(3000);
     
     Sensor_AS5600_Update(&S0);  /* ???? */
     zero_electric_angle_speed = _electricalAngle_speed();
-    
+#ifdef SET_ANGLE_360
+	  setTorque(0.0f, 540);  /* ?????? */
+#else
     setTorque(0.0f, _3PI_2);    /* ???? */
+#endif
 }
 
 /*==================== ????? ====================*/
-float DFOC_M0_Angle(void)
+float DFOC_M0_Angle(int8_t dir)
 {
-    return (float)Sensor_DIR * Sensor_AS5600_GetAngle(&S0);
+	  float vel_ori, vel_flit;
+	
+    vel_ori = Sensor_AS5600_GetAngle(&S0);
+//    vel_flit = LowPassFilter_Update(&M0_Vel_Flt, (float)Sensor_DIR * vel_ori, dir);
+#ifdef DEBUG_PRINT
+	  if(vel_ori != 0.0) {
+			DebugPrint_log(0, 0, vel_ori, vel_flit);
+		}
+#endif
+	  return vel_ori;
 }
 
-float DFOC_M0_Velocity(void)
+float DFOC_M0_Velocity(int8_t dir)
 {
     float vel_ori, vel_flit;
 	
     vel_ori = Sensor_AS5600_GetVelocity(&S0);
-    vel_flit = LowPassFilter_Update(&M0_Vel_Flt, (float)Sensor_DIR * vel_ori);
+    vel_flit = LowPassFilter_Update(&M0_Vel_Flt, (float)Sensor_DIR * vel_ori, dir);
 #ifdef DEBUG_PRINT
-		DebugPrint_log(500, vel_ori, vel_flit);
+	    RecordPrintLog(1, MAX_RECORD_BUFF, g_start_flag, vel_ori, vel_flit);
+//	  if(vel_ori != 0.0) {
+			DebugPrint_log(0, 0, vel_ori, vel_flit);
+//		}
 #endif
     return vel_flit;
 }
 
 /*==================== ???? ====================*/
-void DFOC_M0_set_Velocity_Angle(float Target)
+void DFOC_M0_set_Velocity_Angle(int8_t dir, float Target)
 {
-    float angle_error = (Target - DFOC_M0_Angle()) * 180.0f / PI;
+#ifdef SET_ANGLE_360
+	  float angle_error = Target * 360 - DFOC_M0_Angle(dir);
+#else
+    float angle_error = (Target - DFOC_M0_Angle(dir)) * 180.0f / PI;
+#endif
     float vel_target = DFOC_M0_ANGLE_PID(angle_error);
-    float vel_error = vel_target - DFOC_M0_Velocity();
+    float vel_error = vel_target - DFOC_M0_Velocity(dir);
     float torque = DFOC_M0_VEL_PID(vel_error);
     
     setTorque(torque, _electricalAngle_speed());
 }
 //速度闭环
-void DFOC_M0_setVelocity(float Target)
+void DFOC_M0_setVelocity(int8_t dir, float Target)
 {
-    float vel_error = (Target - DFOC_M0_Velocity()) * 180.0f / PI;
-    float torque = DFOC_M0_VEL_PID(vel_error);
+	  float vel_error = 0, torque = 0;
+	  if(dir == 1) {
+#ifdef SET_ANGLE_360
+				vel_error = Target * 360 - DFOC_M0_Velocity(dir);
+#else
+				vel_error = (Target - DFOC_M0_Velocity(dir)) * 180.0f / PI;
+#endif
+		} else {
+#ifdef SET_ANGLE_360
+				vel_error = DFOC_M0_Velocity(dir) - Target * 360;
+#else
+				vel_error = (DFOC_M0_Velocity(dir) + Target) * 180.0f / PI;
+#endif
+		}
+    torque = DFOC_M0_VEL_PID(vel_error);
 #ifdef DEBUG_PRINT
-		DebugPrint_log(500, vel_error, torque);
+		DebugPrint_log(0, 0, vel_error, torque);
 #endif
     setTorque(torque, _electricalAngle_speed());
 }
 //角度闭环
-void DFOC_M0_set_Force_Angle(float Target)
+void DFOC_M0_set_Force_Angle(int8_t dir, float Target)
 {
-    float angle_error = (Target - DFOC_M0_Angle()) * 180.0f / PI;
-    float torque = DFOC_M0_ANGLE_PID(angle_error);
-    
+	  float angle_error, torque;
+	  if(dir == 1) {
+#ifdef SET_ANGLE_360
+	    angle_error = Target * 360 - DFOC_M0_Angle(dir);
+#else
+			angle_error = (Target - DFOC_M0_Angle(dir)) * 180.0f / PI;
+#endif
+		} else {
+#ifdef SET_ANGLE_360
+			angle_error = DFOC_M0_Angle(dir) - Target * 360;
+#else
+			angle_error = (DFOC_M0_Angle(dir) - Target) * 180.0f / PI;
+#endif
+		}
+    torque = DFOC_M0_ANGLE_PID(angle_error);
+#ifdef DEBUG_PRINT
+		DebugPrint_log(0, 500, angle_error, torque);
+#endif
     setTorque(torque, _electricalAngle_speed());
 }
 

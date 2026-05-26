@@ -15,7 +15,7 @@ typedef struct {
 
 /* ???? */
 void LowPassFilter_Init(LowPassFilter *filter, float time_constant);
-float LowPassFilter_Update(LowPassFilter *filter, float x);
+float LowPassFilter_Update(LowPassFilter *filter, float x, int8_t dir);
 #else
 typedef struct {
     float alpha;    /* ???? 0-1,???????? */

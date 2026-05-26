@@ -10,7 +10,7 @@ void LowPassFilter_Init(LowPassFilter *filter, float time_constant)
     filter->timestamp_prev = _micros();
 }
 
-float LowPassFilter_Update(LowPassFilter *filter, float x)
+float LowPassFilter_Update(LowPassFilter *filter, float x, int8_t dir)
 {
     uint32_t timestamp = _micros();
     float dt = (timestamp - filter->timestamp_prev) * 1e-6f;
@@ -27,12 +27,20 @@ float LowPassFilter_Update(LowPassFilter *filter, float x)
         filter->timestamp_prev = timestamp;
         return x;
     }
+#if 1
+//		if((dir == 1 && x <= 11) || (dir == -1 && x >= -11)){
+		if(dir == 1 && x <= 13){
+			  filter->y_prev = 0;
+        filter->timestamp_prev = timestamp;
+        return 0;
+		}
+#endif
     /* ??????:y = alpha * y_prev + (1-alpha) * x */
     /* ?? alpha = Tf / (Tf + dt) */
     alpha = filter->Tf / (filter->Tf + dt);
     y = alpha * filter->y_prev + (1.0f - alpha) * x;
 #ifdef DEBUG_PRINT
-		DebugPrint_log(500, dt, alpha);
+		DebugPrint_log(0, 500, dt, alpha);
 #endif
     filter->y_prev = y;
     filter->timestamp_prev = timestamp;
